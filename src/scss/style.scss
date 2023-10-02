@@ -48,6 +48,51 @@ aside {
     bottom: 2rem;
     height: calc(100vh - 4rem);
 
+    .btn-menu {
+      background-color: transparent;
+      border: none;
+      margin-bottom: 15px;
+      padding: 0;
+      height: 50px;
+      transition: all 1s ease;
+      width: 50px;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      span {
+        display: block;
+        background-color: $clr-text-light;
+        border-radius: 10px;
+        height: 6px;
+        margin: 10px 0;
+        transition: all 0.5s ease;
+        width: 100%;
+      }
+    }
+
+    .btn-menu.active {
+      position: relative;
+
+      span:nth-child(1) {
+        transform: rotate(45deg);
+        position: absolute;
+        bottom: 25%;
+      }
+
+      span:nth-child(2) {
+        opacity: 0;
+        transition: 0ms;
+      }
+
+      span:nth-child(3) {
+        transform: rotate(-45deg);
+        position: absolute;
+        top: 25%;
+      }
+    }
+
     ul {
       list-style: none;
       padding: 0;
@@ -104,4 +149,35 @@ footer {
 main {
   background-color: lightgreen;
   flex: 1;
+
+  // div {
+  //   background-color: goldenrod;
+  //   width: 200px;
+  //   height: 1888px;
+
+  //   .test {
+  //     height: 200px;
+  //     width: 100%;
+  //     background-color: red;
+  //   }
+  // }
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  aside {
+    // height: 2rem;
+    // overflow: scroll;
+    // position: fixed;
+    width: 100%;
+    height: min-content;
+  }
+
+  nav,
+  footer {
+    display: hidden;
+  }
 }
