@@ -1,10 +1,12 @@
 import './scss/style.scss';
 import './scss/reset.scss';
 
-console.log('test');
+const menuBtn = document.querySelector('.btn-menu');
+const asideEL = document.querySelector('aside');
+const mainEL = document.querySelector('main');
 
-const sayHello = (name) => {
-  console.log(`Hello, ${name}!`);
-};
-
-sayHello('John');
+menuBtn.addEventListener('click', () => {
+  menuBtn.classList.toggle('active');
+  asideEL.classList.toggle('active');
+  mainEL.classList.toggle('active');
+});
