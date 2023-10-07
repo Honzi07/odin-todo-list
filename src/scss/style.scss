@@ -15,11 +15,14 @@ aside {
   display: flex;
   flex-direction: column;
   background-color: $clr-aside-background;
+  box-shadow: rgba(0, 0, 0, 0.2) 8px 8px 12px 6px;
   color: $clr-text-light;
   padding: 2rem;
   // position: sticky;
   // top: 0;
   // height: 100%;
+  z-index: 999;
+
   font: {
     family: $heading-font;
     weight: 600;
@@ -51,7 +54,8 @@ aside {
     .btn-menu {
       background-color: transparent;
       border: none;
-      margin-bottom: 15px;
+      display: none;
+      // margin-bottom: 15px;
       padding: 0;
       height: 50px;
       transition: all 1s ease;
@@ -73,8 +77,6 @@ aside {
     }
 
     .btn-menu.active {
-      position: relative;
-
       span:nth-child(1) {
         transform: rotate(45deg);
         position: absolute;
@@ -150,17 +152,17 @@ main {
   background-color: lightgreen;
   flex: 1;
 
-  // div {
-  //   background-color: goldenrod;
-  //   width: 200px;
-  //   height: 1888px;
+  div {
+    background-color: goldenrod;
+    width: 200px;
+    height: 1888px;
 
-  //   .test {
-  //     height: 200px;
-  //     width: 100%;
-  //     background-color: red;
-  //   }
-  // }
+    .test {
+      height: 200px;
+      width: 100%;
+      background-color: red;
+    }
+  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -170,14 +172,46 @@ main {
 
   aside {
     // height: 2rem;
-    // overflow: scroll;
-    // position: fixed;
+    overflow: hidden;
+    padding-top: 0;
+    position: fixed;
+    height: 120px;
     width: 100%;
-    height: min-content;
+    transition: all 0.5s ease;
+
+    .container-sticky {
+      position: relative;
+
+      .btn-menu,
+      .btn-menu.active {
+        display: initial;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+
+      footer {
+        margin-bottom: 1rem;
+      }
+    }
   }
 
-  nav,
-  footer {
-    display: hidden;
+  aside.active {
+    height: 410px;
   }
+
+  main {
+    margin-top: 120px;
+    transition: all 0.5s ease;
+  }
+
+  main.active {
+    margin-top: 410px;
+    transition: all 0.5s ease;
+  }
+
+  // nav,
+  // footer {
+  //   display: hidden;
+  // }
 }
