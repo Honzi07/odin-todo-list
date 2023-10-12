@@ -1,6 +1,7 @@
 // CUSTOM COLORS
 $clr-text-light: #eeeeee;
 $clr-aside-background: #068fff;
+$shadow: rgba(0, 0, 0, 0.2);
 
 // CUSTOM FONTS
 $heading-font: 'Roboto', sans-serif;
@@ -15,7 +16,7 @@ aside {
   display: flex;
   flex-direction: column;
   background-color: $clr-aside-background;
-  box-shadow: rgba(0, 0, 0, 0.2) 8px 8px 12px 6px;
+  box-shadow: $shadow 8px 8px 12px 6px;
   color: $clr-text-light;
   padding: 2rem;
   // position: sticky;
@@ -47,7 +48,7 @@ aside {
     display: flex;
     flex-direction: column;
     position: sticky;
-    top: 2rem;
+    top: 1rem;
     bottom: 2rem;
     height: calc(100vh - 4rem);
 
@@ -151,6 +152,44 @@ footer {
 main {
   background-color: lightgreen;
   flex: 1;
+  padding: 2rem;
+  position: relative;
+
+  .btn-create-project {
+    background-color: $clr-aside-background;
+    border: none;
+    border-radius: 50%;
+    box-shadow: $shadow 0 0 10px 4px;
+    cursor: pointer;
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    height: 60px;
+    width: 60px;
+    transition: all 0.2s ease;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      background-color: $clr-text-light;
+      border-radius: 10px;
+      display: block;
+      height: 60%;
+      width: 6px;
+      right: calc(50% - 3px);
+      bottom: 20%;
+    }
+
+    &::after {
+      rotate: 90deg;
+    }
+
+    &:hover {
+      scale: 1.1;
+      // transition: all 0.5s ease-in-out;
+    }
+  }
 
   div {
     background-color: goldenrod;
@@ -175,7 +214,7 @@ main {
     overflow: hidden;
     padding-top: 0;
     position: fixed;
-    height: 120px;
+    height: 90px;
     width: 100%;
     transition: all 0.5s ease;
 
@@ -201,7 +240,7 @@ main {
   }
 
   main {
-    margin-top: 120px;
+    margin-top: 90px;
     transition: all 0.5s ease;
   }
 
