@@ -150,7 +150,7 @@ footer {
 }
 
 main {
-  background-color: lightgreen;
+  // background-color: lightgreen;
   flex: 1;
   padding: 2rem;
   position: relative;
@@ -191,15 +191,54 @@ main {
     }
   }
 
-  div {
-    background-color: goldenrod;
-    width: 200px;
-    height: 1888px;
+  .project {
+    background-color: rgb(255, 255, 255);
+    border: rgba(0, 0, 0, 0.2) 2px solid;
+    border-radius: 10px;
+    // cursor: pointer;
+    // color: $clr-text-light;
+    width: 300px;
+    padding: 1rem;
+    transition: all 0.3s ease;
 
-    .test {
-      height: 200px;
-      width: 100%;
+    &:hover {
+      box-shadow: $shadow 4px 4px 9px 3px;
+    }
+
+    &:target {
       background-color: red;
+    }
+
+    // &:active {
+    //   background-color: red;
+    // }
+
+    h2 {
+      font-family: $heading-font;
+      margin-bottom: 2rem;
+    }
+
+    .project-todo {
+      display: flex;
+      flex-direction: column;
+      border: rgba(0, 0, 0, 0.2) 1px solid;
+      border-radius: 10px;
+      font-family: $normal-font;
+      padding: 1rem;
+
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+
+      &:nth-of-type(2) {
+        p {
+          text-decoration: line-through;
+        }
+      }
+
+      // &:hover {
+      //   cursor: pointer;
+      // }
     }
   }
 }
