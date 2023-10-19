@@ -205,14 +205,6 @@ main {
       box-shadow: $shadow 4px 4px 9px 3px;
     }
 
-    &:target {
-      background-color: red;
-    }
-
-    // &:active {
-    //   background-color: red;
-    // }
-
     h2 {
       font-family: $heading-font;
       margin-bottom: 2rem;
@@ -229,18 +221,80 @@ main {
       &:not(:last-child) {
         margin-bottom: 1rem;
       }
+    }
 
-      &:nth-of-type(2) {
-        p {
-          text-decoration: line-through;
+    .project-input-container {
+      display: none;
+    }
+
+    .project-input-container.active {
+      position: relative;
+      display: block;
+
+      button {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        // border: 2px solid $shadow;
+        border: none;
+        outline: none;
+        border-radius: 10px 0 0 10px;
+        padding: 0;
+        cursor: pointer;
+        left: 2px;
+        top: 2px;
+
+        &::before,
+        &::after {
+          content: '';
+          border-radius: 10px;
+          position: absolute;
+          display: block;
+          width: 4px;
+          height: 80%;
+          background-color: rgb(169, 169, 169);
+          right: calc(50% - 2px);
+          top: 10%;
+        }
+
+        &::after {
+          rotate: 90deg;
+        }
+
+        &:hover {
+          border-color: black;
         }
       }
 
-      // &:hover {
-      //   cursor: pointer;
-      // }
+      input {
+        border-radius: 10px;
+        width: 100%;
+        padding: 8px;
+        padding-left: 50px;
+        outline: none;
+        border-color: $shadow;
+        font-family: $normal-font;
+
+        &:focus {
+          border-color: black;
+        }
+      }
     }
   }
+}
+
+.visually-hidden {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 @media only screen and (max-width: 768px) {
