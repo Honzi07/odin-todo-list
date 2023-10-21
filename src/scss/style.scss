@@ -1,6 +1,8 @@
-// CUSTOM COLORS
+// CUSTOM COLOclr-aside-backgroundRS
 $clr-text-light: #eeeeee;
-$clr-aside-background: #068fff;
+$clr-text-dark: #000000;
+$clr-primary: #068fff;
+$clr-secondary: #bbbbbb;
 $shadow: rgba(0, 0, 0, 0.2);
 
 // CUSTOM FONTS
@@ -15,7 +17,7 @@ body {
 aside {
   display: flex;
   flex-direction: column;
-  background-color: $clr-aside-background;
+  background-color: $clr-primary;
   box-shadow: $shadow 8px 8px 12px 6px;
   color: $clr-text-light;
   padding: 2rem;
@@ -156,7 +158,7 @@ main {
   position: relative;
 
   .btn-create-project {
-    background-color: $clr-aside-background;
+    background-color: $clr-primary;
     border: none;
     border-radius: 50%;
     box-shadow: $shadow 0 0 10px 4px;
@@ -193,7 +195,7 @@ main {
 
   .project {
     background-color: rgb(255, 255, 255);
-    border: rgba(0, 0, 0, 0.2) 2px solid;
+    border: $clr-secondary 2px solid;
     border-radius: 10px;
     // cursor: pointer;
     // color: $clr-text-light;
@@ -213,7 +215,7 @@ main {
     .project-todo {
       display: flex;
       flex-direction: column;
-      border: rgba(0, 0, 0, 0.2) 1px solid;
+      border: $clr-secondary 1px solid;
       border-radius: 10px;
       font-family: $normal-font;
       padding: 1rem;
@@ -228,8 +230,8 @@ main {
     }
 
     .project-input-container.active {
-      position: relative;
       display: block;
+      position: relative;
 
       button {
         position: absolute;
@@ -252,7 +254,7 @@ main {
           display: block;
           width: 4px;
           height: 80%;
-          background-color: rgb(169, 169, 169);
+          background-color: $clr-secondary;
           right: calc(50% - 2px);
           top: 10%;
         }
@@ -261,8 +263,9 @@ main {
           rotate: 90deg;
         }
 
-        &:hover {
-          border-color: black;
+        &:hover::after,
+        &:hover::before {
+          background-color: darkgray;
         }
       }
 
@@ -276,7 +279,7 @@ main {
         font-family: $normal-font;
 
         &:focus {
-          border-color: black;
+          border-color: $clr-secondary;
         }
       }
     }
