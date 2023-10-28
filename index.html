@@ -19,7 +19,7 @@
           <h1>ToDo</h1>
         </header>
         <nav>
-          <button class="btn-menu">
+          <button class="btn-menu" aria-label="menu">
             <span></span>
             <span></span>
             <span></span>
@@ -32,7 +32,11 @@
         </nav>
         <footer>
           <p>2023 Nyisztor Zsolt</p>
-          <a href="https://github.com/Honzi07/odin-todo-list" target="_blank">
+          <a
+            href="https://github.com/Honzi07/odin-todo-list"
+            target="_blank"
+            aria-label="github link"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -55,10 +59,15 @@
           <h2>Test Heading</h2>
         </div>
         <div class="project-todo">
-          <div class="todo-checkbox-container">
-            <input type="checkbox" name=todo-done" class="todo-done"
-            aria-label="todo checkbox">
-          </div>
+          <label class="todo-checkbox-container">
+            <input
+              type="checkbox"
+              name="todo-checkbox"
+              class="todo-checkbox"
+              aria-label="todo checkbox"
+            />
+            <span class="checkmark"></span>
+          </label>
           <div class="todo-text">
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit.Lorem
@@ -75,10 +84,15 @@
           </div>
         </div>
         <div class="project-todo">
-          <div class="todo-checkbox-container">
-            <input type="checkbox" name=todo-done" class="todo-done"
-            aria-label="todo checkbox">
-          </div>
+          <label class="todo-checkbox-container">
+            <input
+              type="checkbox"
+              name="todo-checkbox"
+              class="todo-checkbox"
+              aria-label="todo checkbox"
+            />
+            <span class="checkmark"></span>
+          </label>
           <div class="todo-text">
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
           </div>
@@ -87,10 +101,15 @@
           </div>
         </div>
         <div class="project-todo">
-          <div class="todo-checkbox-container">
-            <input type="checkbox" name=todo-done" class="todo-done"
-            aria-label="todo checkbox">
-          </div>
+          <label class="todo-checkbox-container">
+            <input
+              type="checkbox"
+              name="todo-checkbox"
+              class="todo-checkbox"
+              aria-label="todo checkbox"
+            />
+            <span class="checkmark"></span>
+          </label>
           <div class="todo-text">
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Lorem
