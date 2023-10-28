@@ -3,6 +3,7 @@ $clr-text-light: #eeeeee;
 $clr-text-dark: #000000;
 $clr-primary: #068fff;
 $clr-secondary: #bbbbbb;
+$clr-hover-dark: #8e8e8e;
 $shadow: rgba(0, 0, 0, 0.2);
 
 // CUSTOM FONTS
@@ -235,7 +236,54 @@ main {
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
       grid-area: checkbox;
+
+      &:hover .checkmark {
+        // background-color: $clr-primary;
+        outline: 2px solid $clr-hover-dark;
+      }
+
+      & input:checked ~ .checkmark {
+        background-color: $clr-primary;
+      }
+
+      & input:checked ~ .checkmark:after {
+        display: block;
+      }
+
+      input {
+        position: absolute;
+        opacity: 0;
+        height: 0;
+        width: 0;
+
+        &:checked .checkmark:after {
+          display: block;
+        }
+      }
+
+      .checkmark {
+        position: absolute;
+        outline: 1px solid $clr-secondary;
+        height: 35px;
+        width: 35px;
+        // background-color: $clr-secondary;
+
+        &:after {
+          content: '';
+          position: absolute;
+          display: none;
+          left: 12px;
+          top: 0px;
+          width: 13px;
+          height: 30px;
+          border: solid $clr-text-light;
+          border-width: 0 5px 5px 0;
+          border-radius: 0 0 5px 0;
+          transform: rotate(40deg);
+        }
+      }
     }
 
     .todo-text {
@@ -299,7 +347,7 @@ main {
 
         &:hover::after,
         &:hover::before {
-          background-color: #8e8e8e;
+          background-color: $clr-hover-dark;
         }
       }
 
