@@ -25,6 +25,7 @@ aside {
   // position: sticky;
   // top: 0;
   // height: 100%;
+  min-width: fit-content;
   z-index: 999;
 
   font: {
@@ -154,9 +155,23 @@ footer {
 
 main {
   // background-color: lightgreen;
-  flex: 1;
+  // flex: 1;
   padding: 2rem;
-  position: relative;
+  // position: relative;
+
+  // display: grid;
+  // gap: 2rem;
+  // grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  // break-inside: avoid;
+  // grid-template-rows: 1fr auto;
+
+  // display: flex;
+  // flex-direction: column;
+  // flex-wrap: wrap;
+  // gap: 2rem;
+
+  columns: auto 300px;
+  column-gap: 2rem;
 
   .btn-create-project {
     background-color: $clr-primary;
@@ -194,15 +209,20 @@ main {
     }
   }
 
-  .project {
+  .project,
+  .todo {
     background-color: rgb(255, 255, 255);
     border: $clr-secondary 2px solid;
     border-radius: 10px;
+    display: inline-block;
     // cursor: pointer;
     // color: $clr-text-light;
-    width: 300px;
+    // width: 300px;
     padding: 1rem;
     transition: all 0.3s ease;
+    height: min-content;
+    margin: 1rem 0;
+    width: 100%;
 
     &:hover {
       box-shadow: $shadow 4px 4px 9px 3px;
@@ -213,7 +233,8 @@ main {
       margin-bottom: 2rem;
     }
 
-    .project-todo {
+    .project-todo,
+    .todo-content-container {
       // display: flex;
       // flex-direction: column;
       display: grid;
@@ -240,7 +261,6 @@ main {
       grid-area: checkbox;
 
       &:hover .checkmark {
-        // background-color: $clr-primary;
         outline: 2px solid $clr-hover-dark;
       }
 
@@ -268,7 +288,6 @@ main {
         outline: 1px solid $clr-secondary;
         height: 35px;
         width: 35px;
-        // background-color: $clr-secondary;
 
         &:after {
           content: '';
