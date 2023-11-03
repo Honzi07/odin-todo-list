@@ -1,4 +1,4 @@
-// CUSTOM COLOclr-aside-backgroundRS
+// CUSTOM COLORS
 $clr-text-light: #eeeeee;
 $clr-text-dark: #000000;
 $clr-primary: #068fff;
@@ -104,19 +104,28 @@ aside {
       list-style: none;
       padding: 0;
 
-      li:first-child {
-        margin-bottom: 50px;
-        // font-size: 2rem;
+      & li span:hover {
+        cursor: pointer;
+        text-decoration: underline;
       }
 
-      li {
-        margin-bottom: 15px;
-        font-size: 1.5rem;
-        letter-spacing: 1px;
+      .nav-home {
+        margin-bottom: 50px;
+        font-size: 2rem;
+      }
 
-        &:hover {
-          cursor: pointer;
-          text-decoration: underline;
+      .nav-today,
+      .nav-week {
+        & > span {
+          margin-bottom: 15px;
+          font-size: 1.5rem;
+          letter-spacing: 1px;
+        }
+
+        & ul {
+          margin-bottom: 15px;
+          font-size: 1.25rem;
+          letter-spacing: 1px;
         }
       }
     }
@@ -433,7 +442,7 @@ main {
   }
 
   aside.active {
-    height: 410px;
+    height: 530px;
   }
 
   main {
