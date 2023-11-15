@@ -15,9 +15,10 @@ body {
   // height: 100vh;
 }
 
-.btn-close {
+button {
   background-color: transparent;
   border: none;
+  color: $clr-secondary;
 
   &:hover {
     cursor: pointer;
@@ -41,7 +42,7 @@ body {
 
 .modal {
   position: fixed;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.3);
@@ -435,9 +436,28 @@ main {
       box-shadow: $shadow 4px 4px 9px 3px;
     }
 
-    h2 {
-      font-family: $heading-font;
+    .project-heading {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
       margin-bottom: 2rem;
+
+      h2 {
+        font-family: $heading-font;
+        // margin-bottom: 2rem;
+      }
+
+      button.project-close {
+        border-radius: 50%;
+        color: $clr-secondary;
+        padding: 6px;
+
+        &:hover {
+          background-color: #e5e5e5;
+          color: $clr-hover-dark;
+        }
+      }
     }
 
     .project-todo,
@@ -491,6 +511,7 @@ main {
       }
 
       .checkmark {
+        border-radius: 5px;
         position: absolute;
         outline: 1px solid $clr-secondary;
         height: 35px;
@@ -524,12 +545,64 @@ main {
     .todo-info-container {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       border-left: solid 1px $clr-secondary;
       padding: 0 1rem;
       grid-area: todo-info;
 
       .todo-date {
+        // color: $clr-secondary;
         opacity: 60%;
+      }
+
+      .todo-dropdown-container {
+        position: relative;
+
+        .todo-btn-dropdown {
+          background-color: transparent;
+          border: none;
+          // position: relative;
+          svg {
+            color: $clr-secondary;
+
+            &:hover {
+              color: $clr-hover-dark;
+              cursor: pointer;
+            }
+          }
+        }
+
+        .todo-dropdown-content {
+          display: none;
+          background-color: white;
+          border: $clr-secondary 2px solid;
+          border-radius: 10px;
+          color: $clr-text-dark;
+          position: absolute;
+          right: 36px;
+          top: 10px;
+
+          ul {
+            list-style: none;
+            padding: 0.5rem;
+
+            button:hover {
+              text-decoration: underline;
+            }
+
+            .todo-btn-edit {
+              color: $clr-text-dark;
+            }
+
+            .todo-btn-delete {
+              color: #d30000;
+            }
+          }
+        }
+
+        &:hover .todo-dropdown-content {
+          display: block;
+        }
       }
     }
 
@@ -591,6 +664,11 @@ main {
         }
       }
     }
+  }
+  .todo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
   }
 }
 
