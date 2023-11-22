@@ -3,7 +3,7 @@ $clr-text-light: #eeeeee;
 $clr-text-dark: #000000;
 $clr-primary: #068fff;
 $clr-secondary: #bbbbbb;
-$clr-danger: #d30000;
+$clr-warning: #d30000;
 $clr-hover-dark: #8e8e8e;
 $shadow: rgba(0, 0, 0, 0.2);
 
@@ -197,11 +197,11 @@ button {
 
         div input:invalid,
         div input:focus:invalid {
-          border-color: $clr-danger;
+          border-color: $clr-warning;
         }
 
         div input:invalid + label {
-          color: $clr-danger;
+          color: $clr-warning;
         }
 
         div input:invalid + label::after {
@@ -614,7 +614,7 @@ main {
             }
 
             .todo-btn-delete {
-              color: $clr-danger;
+              color: $clr-warning;
             }
           }
         }
