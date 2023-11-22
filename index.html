@@ -32,11 +32,23 @@
           <fieldset class="input-radio">
             <legend class="visually-hidden">Select project or todo</legend>
             <div>
-              <input type="radio" name="create" id="project" />
+              <input
+                type="radio"
+                name="create"
+                id="project"
+                data-type="project"
+                required
+              />
               <label for="project">Project</label>
             </div>
             <div>
-              <input type="radio" name="create" id="todo" />
+              <input
+                type="radio"
+                name="create"
+                id="todo"
+                data-type="todo"
+                required
+              />
               <label for="todo">Todo</label>
             </div>
           </fieldset>
@@ -109,7 +121,7 @@
       </div>
     </aside>
     <main>
-      <button class="btn-create-project"></button>
+      <button class="btn-open-modal"></button>
       <div class="project">
         <div class="project-heading">
           <h2>Test Heading</h2>
