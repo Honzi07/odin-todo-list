@@ -3,6 +3,7 @@ $clr-text-light: #eeeeee;
 $clr-text-dark: #000000;
 $clr-primary: #068fff;
 $clr-secondary: #bbbbbb;
+$clr-danger: #d30000;
 $clr-hover-dark: #8e8e8e;
 $shadow: rgba(0, 0, 0, 0.2);
 
@@ -40,9 +41,14 @@ button {
   white-space: nowrap;
 }
 
+.disabled {
+  opacity: 50%;
+}
+
 .modal {
   position: fixed;
-  display: none;
+  // change this back to none
+  display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.3);
@@ -186,8 +192,21 @@ button {
         // }
 
         // div input:focus:invalid {
-        //   border-color: red;
+        //   border-color: #d30000;
         // }
+
+        div input:invalid,
+        div input:focus:invalid {
+          border-color: $clr-danger;
+        }
+
+        div input:invalid + label {
+          color: $clr-danger;
+        }
+
+        div input:invalid + label::after {
+          content: ' required!';
+        }
 
         div input:focus {
           border-color: $clr-primary;
@@ -381,7 +400,7 @@ main {
   columns: auto 300px;
   column-gap: 2rem;
 
-  .btn-create-project {
+  .btn-open-modal {
     background-color: $clr-primary;
     border: none;
     border-radius: 50%;
@@ -595,7 +614,7 @@ main {
             }
 
             .todo-btn-delete {
-              color: #d30000;
+              color: $clr-danger;
             }
           }
         }
