@@ -9,18 +9,16 @@ const inputDate = document.querySelector('#date');
 const submitBtn = document.querySelector('button[type=submit]');
 const form = document.querySelector('.modal-content > form');
 
+const todoEl = document.querySelectorAll('.todo');
+const todoDeleteBtn = document.querySelectorAll('.todo-btn-delete');
+
 const dataArray = [
   {
     type: 'project',
     title: 'dataArrayTest',
-    todoes: [{ todo: '2', date: '2023-11-21' }],
+    todoes: [{ todo: 'dataArray', date: '2023-11-21' }],
   },
 ];
-
-// function test() {
-//   const projects = todoesArray.filter((todo) => todo.type === 'project');
-//   console.log(projects);
-// }
 
 class Create {
   static createDate() {
@@ -31,17 +29,28 @@ class Create {
     }
   }
 
+  static filterStoredObjects(type) {
+    const storedProjects = JSON.parse(localStorage.getItem('dataArray'));
+    const objects = storedProjects.filter((el) => el.type === type);
+    return objects;
+  }
+
   static getData() {
     if (localStorage.getItem('dataArray')) {
-      const storedProjects = JSON.parse(localStorage.getItem('dataArray'));
+      const projects = Create.filterStoredObjects('project');
 
-      for (const project of storedProjects) {
+      for (const project of projects) {
         const todoes = project.todoes;
         for (const todo of todoes) {
           Create.insertHtml(
             Project.projectHtml(project.title, todo.todo, todo.date)
           );
         }
+      }
+
+      const todoes = Create.filterStoredObjects('todo');
+      for (const todo of todoes) {
+        Create.insertHtml(Todo.todoHtml(todo.todo, todo.date));
       }
     }
   }
@@ -58,22 +67,6 @@ class Project extends Create {
     this.title = title;
     this.todoes = [{ todo, date }];
   }
-
-  // pushData(todo, date) {
-  //   this.todoes.push(todo, date);
-  // }
-
-  // static createDate() {
-  //   if (!inputDate.value) {
-  //     return new Date().toISOString().split('T')[0];
-  //   } else {
-  //     return inputDate.value;
-  //   }
-  // }
-
-  // static insertHtml(html) {
-  //   mainEl.insertAdjacentHTML('afterbegin', html);
-  // }
 
   static projectHtml(title, todo, date) {
     return `<div class="project">
@@ -158,21 +151,8 @@ class Todo extends Create {
     this.date = date;
   }
 
-  static todoHtml = `
-  <div class="todo">
-  <button class="btn-close project-close">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
-      />
-    </svg>
-  </button>
+  static todoHtml(todo, date) {
+    return `<div class="todo">
   <div class="todo-content-container">
     <label class="todo-checkbox-container">
       <input
@@ -185,11 +165,11 @@ class Todo extends Create {
     </label>
     <div class="todo-text">
       <p>
-        TEST TODO TEXT
+        ${todo}
       </p>
     </div>
     <div class="todo-info-container">
-      <span class="todo-date">Aug 20</span>
+      <span class="todo-date">${date}</span>
       <div class="todo-dropdown-container">
         <button class="todo-btn-dropdown">
           <svg
@@ -215,18 +195,24 @@ class Todo extends Create {
   </div>
 </div>
   `;
+  }
 }
 
 window.addEventListener('load', (e) => {
   console.log('page is fully loaded');
+
   const storedProjects = JSON.parse(localStorage.getItem('dataArray'));
   console.log('The stored object', storedProjects);
-
-  // for (const project of storedProjects) {
-  //   console.log(project);
-  // }
-
   Create.getData();
+
+  // todoDeleteBtn.forEach((btn) =>
+  //   btn.addEventListener('click', () => {
+  //     console.log(todoEl);
+  //     console.log(dataArray);
+  //     const todo = dataArray.filter((todo) => todo.date === '2023-12-01');
+  //     console.log(todo);
+  //   })
+  // );
 });
 
 form.addEventListener('submit', (e) => {
@@ -261,26 +247,19 @@ form.addEventListener('submit', (e) => {
     dataArray.push(todo);
     localStorage.setItem('dataArray', JSON.stringify(dataArray));
 
-    Create.insertHtml(Todo.todoHtml);
+    Create.insertHtml(Todo.todoHtml(inputContent.value, Create.createDate()));
   }
 
-  // const project = new Project(inputTitle.value, Project.createDate());
-  // project.pushData(inputContent.value);
-
-  // console.log(project);
+  console.log(inputDate.value);
 });
 
 const modalCloseBtn = document.querySelector('.modal-close');
 function log() {
-  console.log(dataArray);
-  // const storedProjects = JSON.parse(localStorage.getItem('dataArray'));
-  // console.log('The stored object', storedProjects);
-
-  // console.log(Project.insertHtml);
-  // console.log(Project.projectHtml);
+  console.log('dataArray', dataArray);
+  const storedProjects = JSON.parse(localStorage.getItem('dataArray'));
+  console.log('The stored object', storedProjects);
 }
 
 modalCloseBtn.addEventListener('mouseenter', () => {
   log();
-  // test();
 });
