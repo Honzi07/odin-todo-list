@@ -1,4 +1,4 @@
-// document.addEventListener('click', (e) => console.dir(e.target));
+import { format, parseISO, getTime, differenceInCalendarDays } from 'date-fns';
 
 const mainEl = document.querySelector('main');
 const inputProject = document.querySelector('#project');
@@ -13,19 +13,18 @@ const todoEl = document.querySelectorAll('.todo');
 const todoDeleteBtn = document.querySelectorAll('.todo-btn-delete');
 
 const dataArray = [
-  {
-    type: 'project',
-    title: 'dataArrayTest',
-    todoes: [{ todo: 'dataArray', date: '2023-11-21' }],
-  },
+  // {
+  //   type: 'project',
+  //   title: 'dataArrayTest',
+  //   todoes: [{ todo: 'dataArray', date: '2023-11-21' }],
+  // },
 ];
-
 class Create {
   static createDate() {
     if (!inputDate.value) {
-      return new Date().toISOString().split('T')[0];
+      return Date.now();
     } else {
-      return inputDate.value;
+      return getTime(parseISO(inputDate.value));
     }
   }
 
@@ -35,7 +34,7 @@ class Create {
     return objects;
   }
 
-  static getData() {
+  static getLocalData() {
     if (localStorage.getItem('dataArray')) {
       const projects = Create.filterStoredObjects('project');
 
@@ -43,15 +42,35 @@ class Create {
         const todoes = project.todoes;
         for (const todo of todoes) {
           Create.insertHtml(
-            Project.projectHtml(project.title, todo.todo, todo.date)
+            Project.projectHtml(
+              project.projectCreatedDate,
+              project.title,
+              todo.createdDate,
+              todo.todo,
+              Create.showDate(todo.dueDate)
+            )
           );
         }
       }
 
       const todoes = Create.filterStoredObjects('todo');
       for (const todo of todoes) {
-        Create.insertHtml(Todo.todoHtml(todo.todo, todo.date));
+        Create.insertHtml(
+          Todo.todoHtml(
+            todo.createdDate,
+            todo.todo,
+            Create.showDate(todo.dueDate)
+          )
+        );
       }
+    }
+  }
+
+  static showDate(date) {
+    if (differenceInCalendarDays(date, new Date()) >= 365) {
+      return format(date, 'RR MMM dd');
+    } else {
+      return format(date, 'MMM dd');
     }
   }
 
@@ -61,15 +80,16 @@ class Create {
 }
 
 class Project extends Create {
-  constructor(type, title, todo, date) {
+  constructor(type, title, projectCreatedDate, todo, createdDate, dueDate) {
     super();
     this.type = type;
     this.title = title;
-    this.todoes = [{ todo, date }];
+    this.projectCreatedDate = projectCreatedDate;
+    this.todoes = [{ createdDate, todo, dueDate }];
   }
 
-  static projectHtml(title, todo, date) {
-    return `<div class="project">
+  static projectHtml(projectCreatedDate, title, createdDate, todo, dueDate) {
+    return `<div class="project" data-created-date="${projectCreatedDate}">
       <div class="project-heading">
         <h2>${title}</h2>
         <button class="btn-close project-close">
@@ -86,7 +106,7 @@ class Project extends Create {
           </svg>
         </button>
       </div>
-      <div class="project-todo">
+      <div class="project-todo" data-created-date="${createdDate}">
         <label class="todo-checkbox-container">
           <input
             type="checkbox"
@@ -102,7 +122,7 @@ class Project extends Create {
           </p>
         </div>
         <div class="todo-info-container">
-          <span class="todo-date">${date}</span>
+          <span class="todo-date">${dueDate}</span>
           <div class="todo-dropdown-container">
             <button class="todo-btn-dropdown">
               <svg
@@ -144,15 +164,16 @@ class Project extends Create {
 }
 
 class Todo extends Create {
-  constructor(type, todo, date) {
+  constructor(type, todo, dueDate, createdDate) {
     super();
     this.type = type;
     this.todo = todo;
-    this.date = date;
+    this.dueDate = dueDate;
+    this.createdDate = createdDate;
   }
 
-  static todoHtml(todo, date) {
-    return `<div class="todo">
+  static todoHtml(createdDate, todo, dueDate) {
+    return `<div class="todo" data-created-date="${createdDate}">
   <div class="todo-content-container">
     <label class="todo-checkbox-container">
       <input
@@ -169,7 +190,7 @@ class Todo extends Create {
       </p>
     </div>
     <div class="todo-info-container">
-      <span class="todo-date">${date}</span>
+      <span class="todo-date">${dueDate}</span>
       <div class="todo-dropdown-container">
         <button class="todo-btn-dropdown">
           <svg
@@ -201,18 +222,11 @@ class Todo extends Create {
 window.addEventListener('load', (e) => {
   console.log('page is fully loaded');
 
-  const storedProjects = JSON.parse(localStorage.getItem('dataArray'));
-  console.log('The stored object', storedProjects);
-  Create.getData();
-
-  // todoDeleteBtn.forEach((btn) =>
-  //   btn.addEventListener('click', () => {
-  //     console.log(todoEl);
-  //     console.log(dataArray);
-  //     const todo = dataArray.filter((todo) => todo.date === '2023-12-01');
-  //     console.log(todo);
-  //   })
-  // );
+  if (localStorage.dataArray) {
+    const storedDataArray = JSON.parse(localStorage.getItem('dataArray'));
+    dataArray.push(...storedDataArray);
+  }
+  Create.getLocalData();
 });
 
 form.addEventListener('submit', (e) => {
@@ -222,44 +236,33 @@ form.addEventListener('submit', (e) => {
     const project = new Project(
       inputProject.dataset.type,
       inputTitle.value,
+      getTime(new Date()),
       inputContent.value,
+      getTime(new Date()),
       Create.createDate()
     );
-
     console.log(project);
     dataArray.push(project);
-    localStorage.setItem('dataArray', JSON.stringify(dataArray));
-
-    Create.insertHtml(
-      Project.projectHtml(
-        inputTitle.value,
-        inputContent.value,
-        Create.createDate()
-      )
-    );
   } else if (inputTodo.checked) {
     const todo = new Todo(
       inputTodo.dataset.type,
       inputContent.value,
-      Create.createDate()
+      Create.createDate(),
+      getTime(new Date())
     );
     console.log(todo);
     dataArray.push(todo);
-    localStorage.setItem('dataArray', JSON.stringify(dataArray));
-
-    Create.insertHtml(Todo.todoHtml(inputContent.value, Create.createDate()));
   }
 
-  console.log(inputDate.value);
+  localStorage.setItem('dataArray', JSON.stringify(dataArray));
+  Create.getLocalData();
 });
 
-const modalCloseBtn = document.querySelector('.modal-close');
 function log() {
   console.log('dataArray', dataArray);
   const storedProjects = JSON.parse(localStorage.getItem('dataArray'));
   console.log('The stored object', storedProjects);
 }
-
-modalCloseBtn.addEventListener('mouseenter', () => {
-  log();
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey) log();
 });
