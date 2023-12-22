@@ -10,15 +10,27 @@ const submitBtn = document.querySelector('button[type=submit]');
 const form = document.querySelector('.modal-content > form');
 
 const todoEl = document.querySelectorAll('.todo');
-const todoDeleteBtn = document.querySelectorAll('.todo-btn-delete');
 
 const dataArray = [
   // {
   //   type: 'project',
-  //   title: 'dataArrayTest',
-  //   todoes: [{ todo: 'dataArray', date: '2023-11-21' }],
+  //   title: 'manual project',
+  //   projectCreatedDate: 1701626533536,
+  //   todoes: [
+  //     {
+  //       createdDate: 1701616544536,
+  //       todo: 'project todo1',
+  //       dueDate: 1702162800000,
+  //     },
+  //     {
+  //       createdDate: 1701616866536,
+  //       todo: 'project todo2',
+  //       dueDate: 1702192800000,
+  //     },
+  //   ],
   // },
 ];
+
 class Create {
   static createDate() {
     if (!inputDate.value) {
@@ -29,8 +41,8 @@ class Create {
   }
 
   static filterStoredObjects(type) {
-    const storedProjects = JSON.parse(localStorage.getItem('dataArray'));
-    const objects = storedProjects.filter((el) => el.type === type);
+    const storedDataArray = JSON.parse(localStorage.getItem('dataArray'));
+    const objects = storedDataArray.filter((el) => el.type === type);
     return objects;
   }
 
@@ -74,6 +86,49 @@ class Create {
     }
   }
 
+  static getHtmlElementData(element, classNames) {
+    for (const className of classNames) {
+      const closestEl = element.closest(className);
+      if (closestEl) {
+        return {
+          element: closestEl,
+          createdDate: closestEl.dataset.createdDate,
+          className: closestEl.className,
+        };
+      }
+    }
+    return null;
+  }
+
+  static getElementIndex(element) {
+    const storedDataArray = JSON.parse(localStorage.getItem('dataArray'));
+
+    const index = {
+      project: undefined,
+      todo: undefined,
+    };
+
+    if (element.className === 'todo') {
+      index.todo = storedDataArray.findIndex(
+        (obj) => obj.createdDate === +element.createdDate
+      );
+      return index;
+    } else if (
+      element.className === 'project-todo' ||
+      element.className === 'project'
+    ) {
+      index.project = storedDataArray.findIndex(
+        (obj) => obj.projectCreatedDate === +element.createdDate
+      );
+
+      index.todo = storedDataArray[index.project].todoes.findIndex(
+        (todo) => todo.createdDate === +element.createdDate
+      );
+      return index;
+    }
+    return null;
+  }
+
   static insertHtml(html) {
     mainEl.insertAdjacentHTML('afterbegin', html);
   }
@@ -92,7 +147,7 @@ class Project extends Create {
     return `<div class="project" data-created-date="${projectCreatedDate}">
       <div class="project-heading">
         <h2>${title}</h2>
-        <button class="btn-close project-close">
+        <button class="btn-close project-close" data-id-btn>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -140,10 +195,10 @@ class Project extends Create {
             <div class="todo-dropdown-content">
               <ul>
                 <li>
-                  <button class="todo-btn-edit">Edit</button>
+                  <button class="todo-btn-edit" data-id-btn>Edit</button>
                 </li>
                 <li>
-                  <button class="todo-btn-delete">Delete</button>
+                  <button class="todo-btn-delete" data-id-btn>Delete</button>
                 </li>
               </ul>
             </div>
@@ -151,7 +206,7 @@ class Project extends Create {
         </div>
       </div>
       <div class="project-input-container">
-        <button type="button" aria-label="add task"></button>
+        <button type="button" aria-label="add task" data-id-btn></button>
         <input
           type="text"
           name="project-input"
@@ -207,8 +262,8 @@ class Todo extends Create {
         </button>
         <div class="todo-dropdown-content">
           <ul>
-            <li><button class="todo-btn-edit">Edit</button></li>
-            <li><button class="todo-btn-delete">Delete</button></li>
+            <li><button class="todo-btn-edit" data-id-btn>Edit</button></li>
+            <li><button class="todo-btn-delete" data-id-btn>Delete</button></li>
           </ul>
         </div>
       </div>
@@ -256,12 +311,13 @@ form.addEventListener('submit', (e) => {
 
   localStorage.setItem('dataArray', JSON.stringify(dataArray));
   Create.getLocalData();
+  console.log(dataArray);
 });
 
 function log() {
   console.log('dataArray', dataArray);
-  const storedProjects = JSON.parse(localStorage.getItem('dataArray'));
-  console.log('The stored object', storedProjects);
+  const storedDataArray = JSON.parse(localStorage.getItem('dataArray'));
+  console.log(storedDataArray);
 }
 document.addEventListener('keydown', (e) => {
   if (e.ctrlKey) log();
