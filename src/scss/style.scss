@@ -467,7 +467,7 @@ main {
         // margin-bottom: 2rem;
       }
 
-      button.project-close {
+      button.project-delete {
         border-radius: 50%;
         color: $clr-secondary;
         padding: 6px;
@@ -475,6 +475,10 @@ main {
         &:hover {
           background-color: #e5e5e5;
           color: $clr-hover-dark;
+        }
+
+        svg {
+          pointer-events: none;
         }
       }
     }
@@ -684,11 +688,11 @@ main {
       }
     }
   }
-  .todo {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-  }
+  // .todo {
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: flex-end;
+  // }
 }
 
 @media only screen and (max-width: 768px) {
