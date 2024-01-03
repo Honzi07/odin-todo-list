@@ -1,5 +1,9 @@
 import { format, parseISO, getTime, differenceInCalendarDays } from 'date-fns';
 
+// document.addEventListener('click', (e) => {
+//   console.dir(e.target);
+// });
+
 const mainEl = document.querySelector('main');
 const inputProject = document.querySelector('#project');
 const inputTodo = document.querySelector('#todo');
@@ -129,6 +133,40 @@ class Create {
     return null;
   }
 
+  static saveLocalData() {
+    localStorage.setItem('dataArray', JSON.stringify(dataArray));
+  }
+
+  static deleteTodo(btn) {
+    const index = Create.getElementIndex(
+      Create.getHtmlElementData(btn, ['.todo', '.project-todo'])
+    );
+    const el = Create.getHtmlElementData(btn, ['.todo', '.project-todo']);
+
+    if (el.className === 'todo') {
+      el.element.remove();
+      dataArray.splice(index.todo, 1);
+    } else if (el.className === 'project-todo') {
+      el.element.remove();
+      dataArray[index.project].todoes.splice(index.todo, 1);
+    }
+    Create.saveLocalData();
+  }
+
+  static deleteProject(btn) {
+    const index = Create.getElementIndex(
+      Create.getHtmlElementData(btn, ['.project'])
+    );
+    console.log('projectDeleteBtns', index);
+
+    const el = Create.getHtmlElementData(btn, ['.project']);
+    console.log(el);
+
+    el.element.remove();
+    dataArray.splice(index.project, 1);
+    Create.saveLocalData();
+  }
+
   static insertHtml(html) {
     mainEl.insertAdjacentHTML('afterbegin', html);
   }
@@ -147,7 +185,7 @@ class Project extends Create {
     return `<div class="project" data-created-date="${projectCreatedDate}">
       <div class="project-heading">
         <h2>${title}</h2>
-        <button class="btn-close project-close" data-id-btn>
+        <button class="btn-close project-delete">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -284,6 +322,16 @@ window.addEventListener('load', (e) => {
   Create.getLocalData();
 });
 
+document.querySelector('main').addEventListener('click', (e) => {
+  const btn = e.target;
+
+  if (btn.className === 'todo-btn-delete') {
+    Create.deleteTodo(btn);
+  } else if (btn.className === 'btn-close project-delete') {
+    Create.deleteProject(btn);
+  }
+});
+
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -317,7 +365,7 @@ form.addEventListener('submit', (e) => {
 function log() {
   console.log('dataArray', dataArray);
   const storedDataArray = JSON.parse(localStorage.getItem('dataArray'));
-  console.log(storedDataArray);
+  console.log('storedDataArray', storedDataArray);
 }
 document.addEventListener('keydown', (e) => {
   if (e.ctrlKey) log();
