@@ -2,12 +2,14 @@ const openModalBtn = document.querySelector('.btn-open-modal');
 const modal = document.querySelector('.modal');
 const modalEl = document.querySelector('.modal-content');
 const modalCloseBtn = document.querySelector('.modal-close');
+const radioFieldset = document.querySelector('.input-radio');
 const inputProject = document.querySelector('#project');
 const inputTodo = document.querySelector('#todo');
 const inputTitle = document.querySelector('#title');
 const inputContent = document.querySelector('#content');
 const inputDate = document.querySelector('#date');
-// const submitBtn = document.querySelector('button[type=submit]');
+const modalSubmitBtn = document.querySelector('button[type=submit]');
+const modalForm = document.querySelector('.modal-content form');
 
 function changeInputsState() {
   if (inputTodo.checked) {
@@ -38,6 +40,25 @@ function selectProject() {
   el.addEventListener('click', changeInputsState);
 });
 
+function showEditModal() {
+  modalEl.dataset.mode = 'edit';
+  modal.style.display = 'flex';
+  radioFieldset.style.pointerEvents = 'none';
+  inputTodo.checked = true;
+  inputTitle.setAttribute('disabled', '');
+  inputContent.labels[0].classList.add('float-label');
+  modalSubmitBtn.textContent = 'Save';
+}
+
+function resetModal() {
+  modalForm.reset();
+  modalEl.dataset.mode = 'create';
+  radioFieldset.style.removeProperty('pointer-events');
+  inputTitle.removeAttribute('disabled');
+  inputContent.labels[0].classList.remove('float-label');
+  modalSubmitBtn.textContent = 'Create';
+}
+
 function floatLabel() {
   if (this.value && this.value !== ' ') {
     this.labels[0].classList.add('float-label');
@@ -62,6 +83,15 @@ modalCloseBtn.addEventListener('click', () => {
 
 openModalBtn.addEventListener('click', () => {
   modal.style.display = 'flex';
+  resetModal();
+});
+
+document.querySelector('main').addEventListener('click', (e) => {
+  const btn = e.target;
+
+  if (btn.className === 'todo-btn-edit') {
+    showEditModal();
+  }
 });
 
 function currentDate() {
