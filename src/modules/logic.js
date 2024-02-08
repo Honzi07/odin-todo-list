@@ -1,7 +1,15 @@
-import { format, parseISO, getTime, differenceInCalendarDays } from 'date-fns';
+import {
+  format,
+  parseISO,
+  getTime,
+  differenceInCalendarDays,
+  fromUnixTime,
+  millisecondsToSeconds,
+} from 'date-fns';
 
 // document.addEventListener('click', (e) => {
 //   console.dir(e.target);
+//   // e.target.contentEditable = true;
 // });
 
 const mainEl = document.querySelector('main');
@@ -137,6 +145,45 @@ class Create {
     localStorage.setItem('dataArray', JSON.stringify(dataArray));
   }
 
+  static editTodo(btn) {
+    const inputContent = document.querySelector('#content');
+
+    const index = Create.getElementIndex(
+      Create.getHtmlElementData(btn, ['.todo', '.project-todo'])
+    );
+
+    let todo;
+
+    if (index.project != undefined) {
+      todo = dataArray[index.project].todoes[index.todo];
+    } else {
+      todo = dataArray[index.todo];
+    }
+
+    todo.todo = inputContent.value;
+    todo.dueDate = Create.createDate();
+  }
+
+  static todoEditingForm(btn) {
+    const index = Create.getElementIndex(
+      Create.getHtmlElementData(btn, ['.todo', '.project-todo'])
+    );
+
+    let el;
+
+    if (index.project != undefined) {
+      el = dataArray[index.project].todoes[index.todo];
+    } else if (index.todo) {
+      el = dataArray[index.todo];
+    }
+
+    const unixDueDate = fromUnixTime(millisecondsToSeconds(el.dueDate));
+    const formattedDate = format(unixDueDate, 'yyyy-MM-dd');
+
+    inputContent.value = el.todo;
+    inputDate.value = formattedDate;
+  }
+
   static deleteTodo(btn) {
     const index = Create.getElementIndex(
       Create.getHtmlElementData(btn, ['.todo', '.project-todo'])
@@ -160,7 +207,6 @@ class Create {
     console.log('projectDeleteBtns', index);
 
     const el = Create.getHtmlElementData(btn, ['.project']);
-    console.log(el);
 
     el.element.remove();
     dataArray.splice(index.project, 1);
@@ -200,7 +246,7 @@ class Project extends Create {
         </button>
       </div>
       <div class="project-todo" data-created-date="${createdDate}">
-        <label class="todo-checkbox-container">
+        <label contenteditable="false" class="todo-checkbox-container">
           <input
             type="checkbox"
             name="todo-checkbox"
@@ -322,51 +368,63 @@ window.addEventListener('load', (e) => {
   Create.getLocalData();
 });
 
+let btn;
+
 document.querySelector('main').addEventListener('click', (e) => {
-  const btn = e.target;
+  btn = e.target;
+  //TODO change this to not use global variable if possible.
+  // clickedBtn = e.target;
 
   if (btn.className === 'todo-btn-delete') {
     Create.deleteTodo(btn);
   } else if (btn.className === 'btn-close project-delete') {
     Create.deleteProject(btn);
+  } else if (btn.className === 'todo-btn-edit') {
+    Create.todoEditingForm(btn);
   }
 });
 
 form.addEventListener('submit', (e) => {
+  // submitBtn.addEventListener('click', () => {
   e.preventDefault();
 
-  if (inputProject.checked) {
-    const project = new Project(
-      inputProject.dataset.type,
-      inputTitle.value,
-      getTime(new Date()),
-      inputContent.value,
-      getTime(new Date()),
-      Create.createDate()
-    );
-    console.log(project);
-    dataArray.push(project);
-  } else if (inputTodo.checked) {
-    const todo = new Todo(
-      inputTodo.dataset.type,
-      inputContent.value,
-      Create.createDate(),
-      getTime(new Date())
-    );
-    console.log(todo);
-    dataArray.push(todo);
+  if (form.parentElement.dataset.mode === 'create') {
+    if (inputProject.checked) {
+      const project = new Project(
+        inputProject.dataset.type,
+        inputTitle.value,
+        getTime(new Date()),
+        inputContent.value,
+        getTime(new Date()),
+        Create.createDate()
+      );
+      dataArray.push(project);
+    } else if (inputTodo.checked) {
+      const todo = new Todo(
+        inputTodo.dataset.type,
+        inputContent.value,
+        Create.createDate(),
+        getTime(new Date())
+      );
+      dataArray.push(todo);
+    }
+  } else {
+    Create.editTodo(btn);
   }
 
-  localStorage.setItem('dataArray', JSON.stringify(dataArray));
+  Create.saveLocalData();
   Create.getLocalData();
-  console.log(dataArray);
 });
 
-function log() {
-  console.log('dataArray', dataArray);
-  const storedDataArray = JSON.parse(localStorage.getItem('dataArray'));
-  console.log('storedDataArray', storedDataArray);
-}
-document.addEventListener('keydown', (e) => {
-  if (e.ctrlKey) log();
-});
+// function log() {
+//   console.log('dataArray', dataArray);
+//   const storedDataArray = JSON.parse(localStorage.getItem('dataArray'));
+//   console.log('storedDataArray', storedDataArray);
+//   console.dir(form);
+//   document.addEventListener('click', (e) => {
+//     console.dir(e.target);
+//   });
+// }
+// document.addEventListener('keydown', (e) => {
+//   if (e.ctrlKey) log();
+// });
