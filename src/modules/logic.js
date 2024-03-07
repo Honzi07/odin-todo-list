@@ -9,7 +9,6 @@ import {
 
 // document.addEventListener('click', (e) => {
 //   console.dir(e.target);
-//   // e.target.contentEditable = true;
 // });
 
 const mainEl = document.querySelector('main');
@@ -62,13 +61,39 @@ class Create {
     if (localStorage.getItem('dataArray')) {
       const projects = Create.filterStoredObjects('project');
 
+      // for (const project of projects) {
+      //   const todoes = project.todoes;
+      //   console.log(todoes);
+      //   for (const todo of todoes) {
+      //     Create.insertHtml(
+      //       Project.projectHtml(
+      //         project.projectCreatedDate,
+      //         project.title,
+      //         todo.createdDate,
+      //         todo.todo,
+      //         Create.showDate(todo.dueDate)
+      //       )
+      //     );
+      //   }
+      // }
+
       for (const project of projects) {
-        const todoes = project.todoes;
+        const [firstTodo, ...todoes] = project.todoes;
+        console.log('project', project);
+        // console.log('first', firstTodo);
+        console.log('rest', todoes);
+        Create.insertHtml(
+          Project.projectHtml(
+            project.projectCreatedDate,
+            project.title,
+            firstTodo.createdDate,
+            firstTodo.todo,
+            Create.showDate(firstTodo.dueDate)
+          )
+        );
         for (const todo of todoes) {
-          Create.insertHtml(
-            Project.projectHtml(
-              project.projectCreatedDate,
-              project.title,
+          Create.insertProjectTodoHtml(
+            Project.projectTodoHtml(
               todo.createdDate,
               todo.todo,
               Create.showDate(todo.dueDate)
@@ -125,12 +150,20 @@ class Create {
         (obj) => obj.createdDate === +element.createdDate
       );
       return index;
-    } else if (
-      element.className === 'project-todo' ||
-      element.className === 'project'
-    ) {
+    } else if (element.className === 'project-todo') {
       index.project = storedDataArray.findIndex(
-        (obj) => obj.projectCreatedDate === +element.createdDate
+        (project) =>
+          project.projectCreatedDate ===
+          +element.element.parentElement.dataset.createdDate
+      );
+
+      index.todo = storedDataArray[index.project].todoes.findIndex(
+        (todo) => todo.createdDate === +element.createdDate
+      );
+      return index;
+    } else if (element.className === 'project') {
+      index.project = storedDataArray.findIndex(
+        (project) => project.projectCreatedDate === +element.createdDate
       );
 
       index.todo = storedDataArray[index.project].todoes.findIndex(
@@ -138,11 +171,62 @@ class Create {
       );
       return index;
     }
-    return null;
+
+    // if (element.className === 'todo') {
+    //   index.todo = storedDataArray.findIndex(
+    //     (obj) => obj.createdDate === +element.createdDate
+    //   );
+    //   return index;
+    // } else if (
+    //   element.className === 'project-todo' ||
+    //   element.className === 'project'
+    // ) {
+    //   // index.project = storedDataArray.findIndex(
+    //   //   (obj) => obj.projectCreatedDate === +element.createdDate
+    //   // );
+
+    //   index.project = storedDataArray.findIndex(
+    //     (project) =>
+    //       project.projectCreatedDate ===
+    //       +element.element.parentElement.dataset.createdDate
+    //   );
+
+    //   index.todo = storedDataArray[index.project].todoes.findIndex(
+    //     (todo) => todo.createdDate === +element.createdDate
+    //   );
+    //   return index;
+    // }
+    // return null;
   }
 
   static saveLocalData() {
     localStorage.setItem('dataArray', JSON.stringify(dataArray));
+  }
+
+  static addTodoToProject(btn) {
+    const index = Create.getElementIndex(
+      Create.getHtmlElementData(btn, ['.project'])
+    );
+    console.log(index);
+
+    const todo = new Todo(
+      inputTodo.dataset.type,
+      inputContent.value,
+      Create.createDate(),
+      getTime(new Date())
+    );
+    console.log(todo);
+
+    dataArray[index.project].todoes.push(todo);
+
+    // Create.insertHtml(
+    // Todo.todoHtml(
+    //     inputTodo.dataset.type,
+    //     inputContent.value,
+    //     Create.createDate(),
+    //     getTime(new Date())
+    //   )
+    // );
   }
 
   static editTodo(btn) {
@@ -216,6 +300,19 @@ class Create {
   static insertHtml(html) {
     mainEl.insertAdjacentHTML('afterbegin', html);
   }
+
+  static insertProjectTodoHtml(html) {
+    const projectEl = mainEl.querySelector('.project');
+    projectEl.insertAdjacentHTML('beforeend', html);
+  }
+
+  static removeHtmlElements() {
+    const modalBtn = mainEl.querySelector('.btn-open-modal');
+
+    while (mainEl.firstChild && mainEl.firstChild != modalBtn) {
+      mainEl.removeChild(mainEl.firstChild);
+    }
+  }
 }
 
 class Project extends Create {
@@ -244,6 +341,7 @@ class Project extends Create {
             />
           </svg>
         </button>
+        <button class="btn-add-project-todo">ADD TODO</button>
       </div>
       <div class="project-todo" data-created-date="${createdDate}">
         <label contenteditable="false" class="todo-checkbox-container">
@@ -299,6 +397,54 @@ class Project extends Create {
         />
       </div>
     </div>`;
+  }
+
+  static projectTodoHtml(createdDate, todo, dueDate) {
+    return `<div class="project-todo" data-created-date="${createdDate}">
+    <label contenteditable="false" class="todo-checkbox-container">
+      <input
+        type="checkbox"
+        name="todo-checkbox"
+        class="todo-checkbox"
+        aria-label="todo checkbox"
+      />
+      <span class="checkmark"></span>
+    </label>
+    <div class="todo-text">
+      <p>
+        ${todo}
+      </p>
+    </div>
+    <div class="todo-info-container">
+      <span class="todo-date">${dueDate}</span>
+      <div class="todo-dropdown-container">
+        <button class="todo-btn-dropdown">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 256 256"
+          >
+            <path
+              fill="currentColor"
+              d="M156 128a28 28 0 1 1-28-28a28 28 0 0 1 28 28ZM48 100a28 28 0 1 0 28 28a28 28 0 0 0-28-28Zm160 0a28 28 0 1 0 28 28a28 28 0 0 0-28-28Z"
+            />
+          </svg>
+        </button>
+        <div class="todo-dropdown-content">
+          <ul>
+            <li>
+              <button class="todo-btn-edit" data-id-btn>Edit</button>
+            </li>
+            <li>
+              <button class="todo-btn-delete" data-id-btn>Delete</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+    `;
   }
 }
 
@@ -408,23 +554,29 @@ form.addEventListener('submit', (e) => {
       );
       dataArray.push(todo);
     }
-  } else {
+  } else if (form.parentElement.dataset.mode === 'edit') {
     Create.editTodo(btn);
+  } else if (form.parentElement.dataset.mode === 'add-todo') {
+    Project.addTodoToProject(btn);
   }
 
   Create.saveLocalData();
+  Create.removeHtml();
   Create.getLocalData();
 });
 
-// function log() {
-//   console.log('dataArray', dataArray);
-//   const storedDataArray = JSON.parse(localStorage.getItem('dataArray'));
-//   console.log('storedDataArray', storedDataArray);
-//   console.dir(form);
-//   document.addEventListener('click', (e) => {
-//     console.dir(e.target);
-//   });
-// }
-// document.addEventListener('keydown', (e) => {
-//   if (e.ctrlKey) log();
-// });
+function log() {
+  console.log('dataArray', dataArray);
+  const storedDataArray = JSON.parse(localStorage.getItem('dataArray'));
+  console.log('storedDataArray', storedDataArray);
+  // console.dir(form);
+  // document.addEventListener('click', (e) => {
+  // });
+  // console.log(projectInputContainer);
+  const testEl = mainEl.querySelector('.project');
+  console.dir(testEl);
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey) log();
+});
