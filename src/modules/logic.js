@@ -61,34 +61,17 @@ class Create {
     if (localStorage.getItem('dataArray')) {
       const projects = Create.filterStoredObjects('project');
 
-      // for (const project of projects) {
-      //   const todoes = project.todoes;
-      //   console.log(todoes);
-      //   for (const todo of todoes) {
-      //     Create.insertHtml(
-      //       Project.projectHtml(
-      //         project.projectCreatedDate,
-      //         project.title,
-      //         todo.createdDate,
-      //         todo.todo,
-      //         Create.showDate(todo.dueDate)
-      //       )
-      //     );
-      //   }
-      // }
-
       for (const project of projects) {
         const [firstTodo, ...todoes] = project.todoes;
-        console.log('project', project);
-        // console.log('first', firstTodo);
-        console.log('rest', todoes);
         Create.insertHtml(
           Project.projectHtml(
             project.projectCreatedDate,
             project.title,
             firstTodo.createdDate,
             firstTodo.todo,
-            Create.showDate(firstTodo.dueDate)
+            Create.showDate(firstTodo.dueDate),
+            Create.addClassToDoneTodo(firstTodo),
+            Create.isChecked(firstTodo)
           )
         );
         for (const todo of todoes) {
@@ -96,7 +79,9 @@ class Create {
             Project.projectTodoHtml(
               todo.createdDate,
               todo.todo,
-              Create.showDate(todo.dueDate)
+              Create.showDate(todo.dueDate),
+              Create.addClassToDoneTodo(todo),
+              Create.isChecked(todo)
             )
           );
         }
@@ -108,7 +93,9 @@ class Create {
           Todo.todoHtml(
             todo.createdDate,
             todo.todo,
-            Create.showDate(todo.dueDate)
+            Create.showDate(todo.dueDate),
+            Create.addClassToDoneTodo(todo),
+            Create.isChecked(todo)
           )
         );
       }
@@ -272,6 +259,7 @@ class Create {
     const index = Create.getElementIndex(
       Create.getHtmlElementData(btn, ['.todo', '.project-todo'])
     );
+
     const el = Create.getHtmlElementData(btn, ['.todo', '.project-todo']);
 
     if (el.className === 'todo') {
@@ -313,6 +301,53 @@ class Create {
       mainEl.removeChild(mainEl.firstChild);
     }
   }
+
+  static addClassToDoneTodo(todo) {
+    return todo.done ? 'todo-done' : '';
+  }
+
+  static isChecked(checkbox) {
+    return checkbox.done ? checkbox.done : false;
+  }
+
+  static isDone() {
+    const checkboxes = document.querySelectorAll('[data-checked]');
+
+    checkboxes.forEach((checkbox) => {
+      if (checkbox.getAttribute('data-checked') === 'true') {
+        checkbox.checked = true;
+      }
+    });
+  }
+
+  static changeTodoClass(checkbox) {
+    const index = Create.getElementIndex(
+      Create.getHtmlElementData(btn, ['.todo', '.project-todo'])
+    );
+
+    console.log(checkbox);
+
+    let todo;
+
+    if (index.project || index.project === 0) {
+      todo = dataArray[index.project].todoes[index.todo];
+    } else {
+      todo = dataArray[index.todo];
+    }
+
+    if (todo.done) {
+      todo.done = false;
+    } else {
+      todo.done = true;
+    }
+
+    const todoEl =
+      checkbox.closest('.project-todo') || checkbox.closest('.todo');
+    const todoText = todoEl.querySelector('.todo-text');
+    todoText.classList.toggle('todo-done');
+
+    Create.saveLocalData();
+  }
 }
 
 class Project extends Create {
@@ -321,10 +356,18 @@ class Project extends Create {
     this.type = type;
     this.title = title;
     this.projectCreatedDate = projectCreatedDate;
-    this.todoes = [{ createdDate, todo, dueDate }];
+    this.todoes = [{ createdDate, todo, dueDate, done: false }];
   }
 
-  static projectHtml(projectCreatedDate, title, createdDate, todo, dueDate) {
+  static projectHtml(
+    projectCreatedDate,
+    title,
+    createdDate,
+    todo,
+    dueDate,
+    done,
+    checked
+  ) {
     return `<div class="project" data-created-date="${projectCreatedDate}">
       <div class="project-heading">
         <h2>${title}</h2>
@@ -350,10 +393,11 @@ class Project extends Create {
             name="todo-checkbox"
             class="todo-checkbox"
             aria-label="todo checkbox"
+            data-checked="${checked}"
           />
           <span class="checkmark"></span>
         </label>
-        <div class="todo-text">
+        <div class="todo-text ${done}">
           <p>
             ${todo}
           </p>
@@ -399,7 +443,7 @@ class Project extends Create {
     </div>`;
   }
 
-  static projectTodoHtml(createdDate, todo, dueDate) {
+  static projectTodoHtml(createdDate, todo, dueDate, done, checked) {
     return `<div class="project-todo" data-created-date="${createdDate}">
     <label contenteditable="false" class="todo-checkbox-container">
       <input
@@ -407,10 +451,11 @@ class Project extends Create {
         name="todo-checkbox"
         class="todo-checkbox"
         aria-label="todo checkbox"
+        data-checked="${checked}"
       />
       <span class="checkmark"></span>
     </label>
-    <div class="todo-text">
+    <div class="todo-text ${done}">
       <p>
         ${todo}
       </p>
@@ -457,7 +502,7 @@ class Todo extends Create {
     this.createdDate = createdDate;
   }
 
-  static todoHtml(createdDate, todo, dueDate) {
+  static todoHtml(createdDate, todo, dueDate, done, checked) {
     return `<div class="todo" data-created-date="${createdDate}">
   <div class="todo-content-container">
     <label class="todo-checkbox-container">
@@ -466,10 +511,11 @@ class Todo extends Create {
         name="todo-checkbox"
         class="todo-checkbox"
         aria-label="todo checkbox"
+        data-checked="${checked}"
       />
       <span class="checkmark"></span>
     </label>
-    <div class="todo-text">
+    <div class="todo-text ${done}">
       <p>
         ${todo}
       </p>
@@ -512,6 +558,8 @@ window.addEventListener('load', (e) => {
     dataArray.push(...storedDataArray);
   }
   Create.getLocalData();
+  console.log(dataArray);
+  Create.isDone();
 });
 
 let btn;
@@ -527,6 +575,8 @@ document.querySelector('main').addEventListener('click', (e) => {
     Create.deleteProject(btn);
   } else if (btn.className === 'todo-btn-edit') {
     Create.todoEditingForm(btn);
+  } else if (btn.className === 'todo-checkbox') {
+    Create.changeTodoClass(btn);
   }
 });
 
@@ -561,7 +611,7 @@ form.addEventListener('submit', (e) => {
   }
 
   Create.saveLocalData();
-  Create.removeHtml();
+  Create.removeHtmlElements();
   Create.getLocalData();
 });
 
@@ -573,8 +623,8 @@ function log() {
   // document.addEventListener('click', (e) => {
   // });
   // console.log(projectInputContainer);
-  const testEl = mainEl.querySelector('.project');
-  console.dir(testEl);
+  // const testEl = mainEl.querySelector('.project');
+  // console.dir(testEl);
 }
 
 document.addEventListener('keydown', (e) => {
