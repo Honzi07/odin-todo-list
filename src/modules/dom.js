@@ -11,6 +11,8 @@ const inputDate = document.querySelector('#date');
 const modalSubmitBtn = document.querySelector('button[type=submit]');
 const modalForm = document.querySelector('.modal-content form');
 
+const btnAddProjectTodo = document.querySelector('.btn-add-project-todo');
+
 function changeInputsState() {
   if (inputTodo.checked) {
     selectTodo();
@@ -48,6 +50,15 @@ function showEditModal() {
   inputTitle.setAttribute('disabled', '');
   inputContent.labels[0].classList.add('float-label');
   modalSubmitBtn.textContent = 'Save';
+}
+
+function showAddTodoModal() {
+  modalEl.dataset.mode = 'add-todo';
+  modal.style.display = 'flex';
+  radioFieldset.style.pointerEvents = 'none';
+  inputTodo.checked = true;
+  inputTitle.setAttribute('disabled', '');
+  modalSubmitBtn.textContent = 'Add';
 }
 
 function resetModal() {
@@ -91,6 +102,8 @@ document.querySelector('main').addEventListener('click', (e) => {
 
   if (btn.className === 'todo-btn-edit') {
     showEditModal();
+  } else if (btn.classList.contains('btn-add-project-todo')) {
+    showAddTodoModal();
   }
 });
 
