@@ -5,6 +5,9 @@ import {
   differenceInCalendarDays,
   fromUnixTime,
   millisecondsToSeconds,
+  differenceInDays,
+  isToday,
+  isThisWeek,
 } from 'date-fns';
 
 // document.addEventListener('click', (e) => {
@@ -301,7 +304,7 @@ class Create {
       mainEl.removeChild(mainEl.firstChild);
     }
   }
-
+  f;
   static addClassToDoneTodo(todo) {
     return todo.done ? 'todo-done' : '';
   }
@@ -325,7 +328,7 @@ class Create {
       Create.getHtmlElementData(btn, ['.todo', '.project-todo'])
     );
 
-    console.log(checkbox);
+    // console.log(checkbox);
 
     let todo;
 
@@ -347,6 +350,41 @@ class Create {
     todoText.classList.toggle('todo-done');
 
     Create.saveLocalData();
+  }
+
+  static filterByDay(array, day) {
+    const arrayDeepCopy = structuredClone(array);
+    const arr = [];
+
+    arrayDeepCopy.forEach((project) => {
+      if (project.todoes) {
+        project.todoes = project.todoes.filter((todo) => {
+          if (day === 1) {
+            return isToday(todo.dueDate, Date.now());
+          } else if (day === 7) {
+            return isThisWeek(todo.dueDate, Date.now());
+          } else;
+        });
+
+        if (project.todoes.length > 0) arr.push(project);
+      }
+    });
+
+    arrayDeepCopy.forEach((el) => {
+      if (el.type === 'todo') {
+        let dayDiff;
+
+        if (day === 1) {
+          dayDiff = isToday(el.dueDate, Date.now());
+        } else if (day === 7) {
+          dayDiff = isThisWeek(el.dueDate, Date.now());
+        }
+
+        if (dayDiff) arr.push(el);
+      }
+    });
+
+    return arr;
   }
 }
 
@@ -550,6 +588,13 @@ class Todo extends Create {
   }
 }
 
+const home = document.querySelector('.nav-home').children[0];
+
+home.addEventListener('click', () => {
+  Create.removeHtmlElements();
+  Create.getLocalData();
+});
+
 window.addEventListener('load', (e) => {
   console.log('page is fully loaded');
 
@@ -559,6 +604,11 @@ window.addEventListener('load', (e) => {
   }
   Create.getLocalData();
   console.log(dataArray);
+
+  console.log('today', Create.filterByDay(dataArray, 1));
+  console.log('this week', Create.filterByDay(dataArray, 7));
+  console.log('test', Create.filterByDay(dataArray, 11));
+
   Create.isDone();
 });
 
