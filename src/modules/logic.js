@@ -54,15 +54,14 @@ class Create {
     }
   }
 
-  static filterStoredObjects(type) {
-    const storedDataArray = JSON.parse(localStorage.getItem('dataArray'));
-    const objects = storedDataArray.filter((el) => el.type === type);
+  static filterByType(array, type) {
+    const objects = array.filter((el) => el.type === type);
     return objects;
   }
 
-  static getLocalData() {
-    if (localStorage.getItem('dataArray')) {
-      const projects = Create.filterStoredObjects('project');
+  static getLocalData(array) {
+    if (dataArray.length > 0) {
+      const projects = Create.filterByType(array, 'project');
 
       for (const project of projects) {
         const [firstTodo, ...todoes] = project.todoes;
@@ -90,7 +89,7 @@ class Create {
         }
       }
 
-      const todoes = Create.filterStoredObjects('todo');
+      const todoes = Create.filterByType(array, 'todo');
       for (const todo of todoes) {
         Create.insertHtml(
           Todo.todoHtml(
@@ -592,7 +591,6 @@ const home = document.querySelector('.nav-home').children[0];
 
 home.addEventListener('click', () => {
   Create.removeHtmlElements();
-  Create.getLocalData();
 });
 
 window.addEventListener('load', (e) => {
@@ -602,12 +600,11 @@ window.addEventListener('load', (e) => {
     const storedDataArray = JSON.parse(localStorage.getItem('dataArray'));
     dataArray.push(...storedDataArray);
   }
-  Create.getLocalData();
+  Create.getLocalData(dataArray);
   console.log(dataArray);
 
   console.log('today', Create.filterByDay(dataArray, 1));
   console.log('this week', Create.filterByDay(dataArray, 7));
-  console.log('test', Create.filterByDay(dataArray, 11));
 
   Create.isDone();
 });
@@ -662,7 +659,7 @@ form.addEventListener('submit', (e) => {
 
   Create.saveLocalData();
   Create.removeHtmlElements();
-  Create.getLocalData();
+  Create.getLocalData(dataArray);
 });
 
 function log() {
