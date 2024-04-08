@@ -59,7 +59,7 @@ class Create {
     return objects;
   }
 
-  static getLocalData(array) {
+  static displayArray(array) {
     if (dataArray.length > 0) {
       const projects = Create.filterByType(array, 'project');
 
@@ -600,7 +600,7 @@ window.addEventListener('load', (e) => {
     const storedDataArray = JSON.parse(localStorage.getItem('dataArray'));
     dataArray.push(...storedDataArray);
   }
-  Create.getLocalData(dataArray);
+  Create.displayArray(dataArray);
   console.log(dataArray);
 
   console.log('today', Create.filterByDay(dataArray, 1));
@@ -659,7 +659,7 @@ form.addEventListener('submit', (e) => {
 
   Create.saveLocalData();
   Create.removeHtmlElements();
-  Create.getLocalData(dataArray);
+  Create.displayArray(dataArray);
 });
 
 function log() {
