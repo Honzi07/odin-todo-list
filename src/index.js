@@ -20,23 +20,3 @@ menuBtn.addEventListener('click', () => {
   asideEL.classList.toggle('active');
   mainEL.classList.toggle('active');
 });
-
-function mouseOver() {
-  this.timeout = window.setTimeout(() => {
-    projectInputContainer.classList.add('active');
-  }, 1000);
-}
-
-function mouseLeft() {
-  if (this.timeout) {
-    window.clearTimeout(this.timeout);
-    projectInputContainer.classList.remove('active');
-  }
-}
-
-const checkbox = document.querySelector('.todo-checkbox');
-checkbox.addEventListener('click', logCheckbox);
-
-function logCheckbox() {
-  checkbox.checked ? console.log('pipa') : console.log('nincs pipa');
-}
