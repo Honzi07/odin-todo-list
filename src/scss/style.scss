@@ -47,8 +47,7 @@ button {
 
 .modal {
   position: fixed;
-  // change this back to none
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.3);
@@ -563,6 +562,11 @@ main {
       max-height: 200px;
       overflow: auto;
       grid-area: todo;
+    }
+
+    .todo-done {
+      text-decoration-line: line-through;
+      text-decoration-color: $clr-warning;
     }
 
     .todo-info-container {
