@@ -25,25 +25,7 @@ const form = document.querySelector('.modal-content > form');
 
 const todoEl = document.querySelectorAll('.todo');
 
-const dataArray = [
-  // {
-  //   type: 'project',
-  //   title: 'manual project',
-  //   projectCreatedDate: 1701626533536,
-  //   todoes: [
-  //     {
-  //       createdDate: 1701616544536,
-  //       todo: 'project todo1',
-  //       dueDate: 1702162800000,
-  //     },
-  //     {
-  //       createdDate: 1701616866536,
-  //       todo: 'project todo2',
-  //       dueDate: 1702192800000,
-  //     },
-  //   ],
-  // },
-];
+const dataArray = [];
 
 class Create {
   static createDate() {
@@ -303,7 +285,7 @@ class Create {
       mainEl.removeChild(mainEl.firstChild);
     }
   }
-  f;
+
   static addClassToDoneTodo(todo) {
     return todo.done ? 'todo-done' : '';
   }
@@ -588,9 +570,60 @@ class Todo extends Create {
 }
 
 const home = document.querySelector('.nav-home').children[0];
-
 home.addEventListener('click', () => {
   Create.removeHtmlElements();
+  Create.displayArray(dataArray);
+  Create.isDone();
+});
+
+const today = document.querySelector('.nav-today').children[0];
+today.addEventListener('click', () => {
+  Create.removeHtmlElements();
+  Create.displayArray(Create.filterByDay(dataArray, 1));
+  Create.isDone();
+});
+
+const projectToday = document.querySelector('.project-today');
+projectToday.addEventListener('click', () => {
+  Create.removeHtmlElements();
+  Create.displayArray(
+    Create.filterByType(Create.filterByDay(dataArray, 1), 'project')
+  );
+  Create.isDone();
+});
+
+const todoToday = document.querySelector('.todo-today');
+todoToday.addEventListener('click', () => {
+  Create.removeHtmlElements();
+  Create.displayArray(
+    Create.filterByType(Create.filterByDay(dataArray, 1), 'todo')
+  );
+  Create.isDone();
+});
+
+const thisWeek = document.querySelector('.nav-week').children[0];
+thisWeek.addEventListener('click', () => {
+  Create.removeHtmlElements();
+  Create.displayArray(Create.filterByDay(dataArray, 7));
+  Create.isDone();
+});
+
+const projectThisWeek = document.querySelector('.project-week');
+projectThisWeek.addEventListener('click', () => {
+  Create.removeHtmlElements();
+  Create.displayArray(
+    Create.filterByType(Create.filterByDay(dataArray, 7), 'project')
+  );
+  Create.isDone();
+});
+
+const todoThisWeek = document.querySelector('.todo-week');
+todoThisWeek.addEventListener('click', () => {
+  Create.removeHtmlElements();
+  Create.displayArray(
+    Create.filterByType(Create.filterByDay(dataArray, 7), 'todo')
+  );
+  Create.isDone();
 });
 
 window.addEventListener('load', (e) => {
@@ -602,10 +635,6 @@ window.addEventListener('load', (e) => {
   }
   Create.displayArray(dataArray);
   console.log(dataArray);
-
-  console.log('today', Create.filterByDay(dataArray, 1));
-  console.log('this week', Create.filterByDay(dataArray, 7));
-
   Create.isDone();
 });
 
