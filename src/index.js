@@ -1,4 +1,7 @@
 import './modules/logic.js';
+import './modules/create.js';
+import './modules/project.js';
+import './modules/todo.js';
 import './modules/dom.js';
 import './scss/style.scss';
 import './scss/reset.scss';

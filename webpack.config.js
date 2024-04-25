@@ -5,6 +5,8 @@ module.exports = {
   entry: './src/index.js',
   devtool: 'inline-source-map',
   devServer: {
+    host: '0.0.0.0',
+    port: 8080,
     static: './dist',
     hot: true,
   },
