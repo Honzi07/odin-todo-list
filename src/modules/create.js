@@ -8,6 +8,18 @@ export default class Create {
     Create.tasksArr.push(el);
   }
 
+  saveTasksInLocal() {
+    localStorage.setItem('tasks', JSON.stringify(Create.tasksArr));
+  }
+
+  getLocalData() {
+    const localData = localStorage.getItem('tasks');
+
+    if (localData) {
+      Create.tasksArr = JSON.parse(localData);
+    }
+  }
+
   get getTasks() {
     return Create.tasksArr;
   }
