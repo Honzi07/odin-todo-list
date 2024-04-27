@@ -1,12 +1,22 @@
 export default class Create {
+  static tasksArr = [];
   constructor() {
-    this.tasks = [];
+    // this.tasksArr = [];
   }
 
-  test() {
-    console.log('This is a test!');
+  storeElement(el) {
+    Create.tasksArr.push(el);
+  }
+
+  get getTasks() {
+    return Create.tasksArr;
+  }
+
+  clearTasksArr() {
+    Create.tasksArr.length = 0;
   }
 }
 
-const create = new Create();
-console.log(create);
+// const create = new Create();
+// console.log(create);
+// console.log(create.getTasks);
