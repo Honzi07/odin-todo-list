@@ -1,14 +1,15 @@
 import Create from './create';
 
-class Todo extends Create {
-  constructor(type, description, dueDate) {
+export default class Todo extends Create {
+  constructor(description, dueDate) {
     super();
-    this.type = type;
+    this.type = 'todo';
     this.description = description;
     this.dueDate = dueDate;
     this.completed = false;
+    this.id = new Date().getTime();
   }
 }
 
-const todo = new Todo();
-console.log(todo);
+// const todo = new Todo();
+// console.log(todo);
