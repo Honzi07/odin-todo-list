@@ -8,6 +8,14 @@ export default class Project extends Create {
     this.tasks = [];
     this.id = new Date().getTime();
   }
+
+  storeTodoInTasks(todo) {
+    this.tasks.push(todo);
+  }
+
+  get getTasks() {
+    return this.tasks;
+  }
 }
 
 // const project = new Project();
