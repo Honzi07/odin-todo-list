@@ -1,14 +1,17 @@
 import Create from './create';
 
-class Project extends Create {
-  constructor(type, name, dueDate) {
+export default class Project extends Create {
+  constructor(title) {
     super();
-    this.type = type;
-    this.name = name;
-    this.dueDate = dueDate;
+    this.type = 'project';
+    this.title = title;
+    this.tasks = [];
+    this.id = new Date().getTime();
   }
 }
 
-const project = new Project();
-console.log(project);
-project.test();
+// const project = new Project();
+// console.log(project);
+// project.test();
+// // project.storeElement(project);
+// console.log(project.getTasks);
