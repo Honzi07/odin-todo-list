@@ -11,6 +11,8 @@ const domCl = new DOM();
 const createCl = new Create();
 const form = document.querySelector('#form');
 
+createCl.getLocalData();
+
 function handleFormCreateMode(input) {
   const inputProject = document.querySelector('#project');
   const inputTodo = document.querySelector('#todo');
@@ -40,3 +42,20 @@ form.addEventListener('submit', (e) => {
 });
 
 console.log('taskArray', createCl.getTasks);
+
+// setTimeout(() => {
+//   create.saveTasksInLocal();
+//   console.log('save done');
+//   console.log(create.getTasks);
+// }, 2000);
+
+// console.log(new Date());
+// const date = new Date().getTime();
+// // const result = date.getTime();
+// console.log(date);
+
+function log() {}
+
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey) log();
+});
