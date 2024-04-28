@@ -9,3 +9,19 @@ import DOM from './modules/dom.js';
 
 const domCl = new DOM();
 const createCl = new Create();
+
+function handleFormCreateMode(input) {
+  const inputProject = document.querySelector('#project');
+  const inputTodo = document.querySelector('#todo');
+
+  if (inputProject.checked) {
+    const project = new Project(input.title);
+    const todo = new Todo(input.description, input.date);
+    project.storeTodoInTasks(todo);
+    createCl.storeElement(project);
+  }
+  if (inputTodo.checked) {
+    const todo = new Todo(input.description, input.date);
+    createCl.storeElement(todo);
+  }
+}
