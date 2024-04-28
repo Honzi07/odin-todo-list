@@ -2,6 +2,7 @@ export default class Create {
   static tasksArr = [];
   constructor() {
     // this.tasksArr = [];
+    this.getLocalData();
   }
 
   storeElement(el) {
