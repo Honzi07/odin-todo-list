@@ -9,6 +9,7 @@ import DOM from './modules/dom.js';
 
 const domCl = new DOM();
 const createCl = new Create();
+const form = document.querySelector('#form');
 
 function handleFormCreateMode(input) {
   const inputProject = document.querySelector('#project');
@@ -25,3 +26,17 @@ function handleFormCreateMode(input) {
     createCl.storeElement(todo);
   }
 }
+
+form.addEventListener('submit', (e) => {
+  const input = domCl.getModalInputValues();
+
+  e.preventDefault();
+
+  if (form.dataset.mode === 'create') {
+    handleFormCreateMode(input);
+    createCl.saveTasksInLocal();
+  }
+  console.log(createCl.getTasks);
+});
+
+console.log('taskArray', createCl.getTasks);
