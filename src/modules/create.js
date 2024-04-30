@@ -28,6 +28,10 @@ export default class Create {
   clearTasksArr() {
     Create.tasksArr.length = 0;
   }
+
+  insertHtml(parentEl, html) {
+    parentEl.insertAdjacentHTML('afterbegin', html);
+  }
 }
 
 // const create = new Create();
