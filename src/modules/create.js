@@ -1,7 +1,6 @@
 export default class Create {
   static tasksArr = [];
   constructor() {
-    // this.tasksArr = [];
     this.getLocalData();
   }
 
@@ -25,15 +24,11 @@ export default class Create {
     return Create.tasksArr;
   }
 
-  clearTasksArr() {
-    Create.tasksArr.length = 0;
+  filterTasksByType(type) {
+    return Create.tasksArr.filter((obj) => obj.type === type);
   }
 
   insertHtml(parentEl, html) {
     parentEl.insertAdjacentHTML('afterbegin', html);
   }
 }
-
-// const create = new Create();
-// console.log(create);
-// console.log(create.getTasks);
