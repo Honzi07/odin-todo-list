@@ -1,13 +1,13 @@
 import Create from './create';
 
 export default class Todo extends Create {
-  constructor(description, dueDate) {
+  constructor(description, dueDate, id) {
     super();
     this.type = 'todo';
     this.description = description;
     this.dueDate = dueDate;
     this.completed = false;
-    this.id = new Date().getTime();
+    this.id = id || new Date().getTime();
   }
 
   todoHTML() {
@@ -57,6 +57,3 @@ export default class Todo extends Create {
   `;
   }
 }
-
-// const todo = new Todo();
-// console.log(todo);
