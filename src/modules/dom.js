@@ -13,10 +13,10 @@ export default class DOM {
     };
   }
 
-  displayTodo(arr, jsClass) {
+  displayTodo(arr, todoClass) {
     const mainEL = document.querySelector('main');
     arr.forEach((el) => {
-      const todo = new jsClass(el.description, el.dueDate, el.id);
+      const todo = new todoClass(el.description, el.dueDate, el.id);
       todo.insertHtml(mainEL, todo.todoHTML());
     });
   }
