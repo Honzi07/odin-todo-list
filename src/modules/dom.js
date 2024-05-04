@@ -1,5 +1,8 @@
 export default class DOM {
-  constructor() {}
+  constructor() {
+    // this.displayTodo(createCL.filterTasksByType('todo'));
+    // console.log('dom class');
+  }
 
   getModalInputValues() {
     const inputTitle = document.querySelector('#title');
@@ -11,5 +14,13 @@ export default class DOM {
       description: inputContent.value,
       date: inputDate.valueAsNumber,
     };
+  }
+
+  displayTodo(arr, jsClass) {
+    const mainEL = document.querySelector('main');
+    arr.forEach((el) => {
+      const todo = new jsClass(el.description, el.dueDate, el.id);
+      todo.insertHtml(mainEL, todo.todoHTML());
+    });
   }
 }
