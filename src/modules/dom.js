@@ -1,8 +1,5 @@
 export default class DOM {
-  constructor() {
-    // this.displayTodo(createCL.filterTasksByType('todo'));
-    // console.log('dom class');
-  }
+  constructor() {}
 
   getModalInputValues() {
     const inputTitle = document.querySelector('#title');
@@ -21,6 +18,19 @@ export default class DOM {
     arr.forEach((el) => {
       const todo = new jsClass(el.description, el.dueDate, el.id);
       todo.insertHtml(mainEL, todo.todoHTML());
+    });
+  }
+
+  displayProject(arr, projectClass, todoClass) {
+    const mainEL = document.querySelector('main');
+
+    arr.forEach((el) => {
+      const project = new projectClass(el.title, el.tasks, el.id);
+
+      project.tasks.forEach((task) => {
+        const todo = new todoClass(task.description, task.dueDate, task.id);
+        project.insertHtml(mainEL, project.projectHTML(todo.todoHTML()));
+      });
     });
   }
 }
