@@ -59,6 +59,28 @@ export default class Create {
     };
   }
 
+  getClickedElementIndex(ev, arr) {
+    const clickedEL = this.getClickedElement(ev, arr);
+
+    const todoInProjectIndex = () => {
+      return clickedEL.project.tasks.findIndex(
+        (el) => el.id === clickedEL.todo.id
+      );
+    };
+
+    const todoAndProjectIndex = (type) => {
+      return arr.findIndex((el) => el.id === clickedEL[type].id);
+    };
+
+    if (clickedEL.todo && clickedEL.project) {
+      return todoInProjectIndex();
+    } else if (clickedEL.todo) {
+      return todoAndProjectIndex('todo');
+    } else if (clickedEL.project) {
+      return todoAndProjectIndex('project');
+    }
+  }
+
   insertHtml(parentEl, html) {
     parentEl.insertAdjacentHTML('afterbegin', html);
   }
