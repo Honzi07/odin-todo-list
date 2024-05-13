@@ -26,10 +26,12 @@ export default class DOM {
 
     arr.forEach((el) => {
       const project = new projectClass(el.title, el.tasks, el.id);
+      project.insertHtml(mainEL, project.projectHTML());
+      const projectEL = document.querySelector('.project');
 
       project.tasks.forEach((task) => {
         const todo = new todoClass(task.description, task.dueDate, task.id);
-        project.insertHtml(mainEL, project.projectHTML(todo.todoHTML()));
+        projectEL.insertAdjacentHTML('beforeend', todo.todoHTML());
       });
     });
   }
