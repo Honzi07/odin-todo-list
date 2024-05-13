@@ -11,28 +11,29 @@ const domCl = new DOM();
 const createCl = new Create();
 const form = document.querySelector('#form');
 
-createCl.getLocalData();
-
 function handleFormCreateMode(input) {
   const inputProject = document.querySelector('#project');
   const inputTodo = document.querySelector('#todo');
+  const mainEL = document.querySelector('main');
 
   if (inputProject.checked) {
     const project = new Project(input.title);
     const todo = new Todo(input.description, input.date);
+    project.insertHtml(mainEL, project.projectHTML(todo.todoHTML()));
     project.storeTodoInTasks(todo);
     createCl.storeElement(project);
   }
+
   if (inputTodo.checked) {
     const todo = new Todo(input.description, input.date);
+    todo.insertHtml(mainEL, todo.todoHTML());
     createCl.storeElement(todo);
   }
 }
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', (ev) => {
+  ev.preventDefault();
   const input = domCl.getModalInputValues();
-
-  e.preventDefault();
 
   if (form.dataset.mode === 'create') {
     handleFormCreateMode(input);
@@ -43,19 +44,11 @@ form.addEventListener('submit', (e) => {
 
 console.log('taskArray', createCl.getTasks);
 
-// setTimeout(() => {
-//   create.saveTasksInLocal();
-//   console.log('save done');
-//   console.log(create.getTasks);
-// }, 2000);
-
-// console.log(new Date());
-// const date = new Date().getTime();
-// // const result = date.getTime();
-// console.log(date);
+domCl.displayProject(createCl.filterTasksByType('project'), Project, Todo);
+domCl.displayTodo(createCl.filterTasksByType('todo'), Todo);
 
 function log() {}
 
-document.addEventListener('keydown', (e) => {
-  if (e.ctrlKey) log();
+document.addEventListener('keydown', (ev) => {
+  if (ev.ctrlKey) log();
 });
