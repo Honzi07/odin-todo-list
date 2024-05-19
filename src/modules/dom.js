@@ -1,6 +1,53 @@
 export default class DOM {
   constructor() {}
 
+  get elementSelector() {
+    const mainEL = document.querySelector('main');
+    const form = document.querySelector('#modal-form');
+    const inputProject = document.querySelector('#project');
+    const inputTodo = document.querySelector('#todo');
+
+    return {
+      mainEL,
+      form,
+      inputProject,
+      inputTodo,
+    };
+  }
+
+  handleFormCreateMode(createClass, projectClass, todoClass) {
+    const { mainEL, inputProject, inputTodo } = this.elementSelector;
+    const input = this.getModalInputValues();
+
+    if (inputProject.checked) {
+      const project = new projectClass(input.title);
+      const todo = new todoClass(input.description, input.date);
+      project.insertHtml(mainEL, project.projectHTML(todo.todoHTML()));
+      project.storeTodoInTasks(todo);
+      createClass.storeElement(project);
+    }
+
+    if (inputTodo.checked) {
+      const todo = new todoClass(input.description, input.date);
+      todo.insertHtml(mainEL, todo.todoHTML());
+      createClass.storeElement(todo);
+    }
+  }
+
+  handleCreationForm(createClass, projectClass, todoClass) {
+    const form = this.elementSelector.form;
+
+    form.addEventListener('submit', (ev) => {
+      ev.preventDefault();
+
+      if (form.dataset.mode === 'create') {
+        this.handleFormCreateMode(createClass, projectClass, todoClass);
+        createClass.saveTasksInLocal();
+      }
+      console.log(createClass.getTasks);
+    });
+  }
+
   getModalInputValues() {
     const inputTitle = document.querySelector('#title');
     const inputContent = document.querySelector('#content');
