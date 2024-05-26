@@ -44,6 +44,11 @@ export default class DOM {
     const project = new projectClass(pData.title, pData.tasks, pData.id);
     const todo = new todoClass(input.description, input.date);
 
+    this.clickedElData.htmlEl.projectEl.insertAdjacentHTML(
+      'beforeend',
+      todo.todoHTML()
+    );
+
     project.storeTodoInTasks(todo);
     createClass.getTasks.splice(this.clickedElData.elIndex, 1);
     createClass.storeElement(project);
@@ -61,9 +66,15 @@ export default class DOM {
         const projectEl = createClass.getTasks[elIndex];
         htmlEl.inputTitle.value = projectEl.title;
 
+        const clickedEl = createClass.getClickedElement(
+          ev,
+          createClass.getTasks
+        ).element;
+
         this.clickedElData = {
           project: projectEl,
           elIndex: elIndex,
+          htmlEl: clickedEl,
         };
       }
     });
