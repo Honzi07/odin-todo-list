@@ -1,37 +1,72 @@
 export default class DOM {
+  clickedElData;
   constructor() {}
 
   get elementSelector() {
-    const mainEL = document.querySelector('main');
+    const mainEl = document.querySelector('main');
     const form = document.querySelector('#modal-form');
     const inputProject = document.querySelector('#project');
     const inputTodo = document.querySelector('#todo');
+    const inputTitle = document.querySelector('#title');
 
     return {
-      mainEL,
+      mainEl,
       form,
       inputProject,
       inputTodo,
+      inputTitle,
     };
   }
 
   handleFormCreateMode(createClass, projectClass, todoClass) {
-    const { mainEL, inputProject, inputTodo } = this.elementSelector;
+    const { mainEl, inputProject, inputTodo } = this.elementSelector;
     const input = this.getModalInputValues();
 
     if (inputProject.checked) {
       const project = new projectClass(input.title);
       const todo = new todoClass(input.description, input.date);
-      project.insertHtml(mainEL, project.projectHTML(todo.todoHTML()));
+      project.insertHtml(mainEl, project.projectHTML(todo.todoHTML()));
       project.storeTodoInTasks(todo);
       createClass.storeElement(project);
     }
 
     if (inputTodo.checked) {
       const todo = new todoClass(input.description, input.date);
-      todo.insertHtml(mainEL, todo.todoHTML());
+      todo.insertHtml(mainEl, todo.todoHTML());
       createClass.storeElement(todo);
     }
+  }
+
+  handleFormAddMode(createClass, projectClass, todoClass) {
+    const input = this.getModalInputValues();
+    const pData = this.clickedElData.project;
+
+    const project = new projectClass(pData.title, pData.tasks, pData.id);
+    const todo = new todoClass(input.description, input.date);
+
+    project.storeTodoInTasks(todo);
+    createClass.getTasks.splice(this.clickedElData.elIndex, 1);
+    createClass.storeElement(project);
+  }
+
+  saveProjectDataOnClick(createClass) {
+    const htmlEl = this.elementSelector;
+
+    htmlEl.mainEl.addEventListener('click', (ev) => {
+      if (ev.target.classList.contains('btn-add-project-todo')) {
+        const elIndex = createClass.getClickedElementIndex(
+          ev,
+          createClass.getTasks
+        );
+        const projectEl = createClass.getTasks[elIndex];
+        htmlEl.inputTitle.value = projectEl.title;
+
+        this.clickedElData = {
+          project: projectEl,
+          elIndex: elIndex,
+        };
+      }
+    });
   }
 
   handleCreationForm(createClass, projectClass, todoClass) {
@@ -42,9 +77,11 @@ export default class DOM {
 
       if (form.dataset.mode === 'create') {
         this.handleFormCreateMode(createClass, projectClass, todoClass);
-        createClass.saveTasksInLocal();
+      } else if (form.dataset.mode === 'add-todo') {
+        this.handleFormAddMode(createClass, projectClass, todoClass);
       }
-      console.log(createClass.getTasks);
+
+      createClass.saveTasksInLocal();
     });
   }
 
@@ -61,19 +98,19 @@ export default class DOM {
   }
 
   displayTodo(arr, todoClass) {
-    const mainEL = document.querySelector('main');
+    const mainEl = document.querySelector('main');
     arr.forEach((el) => {
       const todo = new todoClass(el.description, el.dueDate, el.id);
-      todo.insertHtml(mainEL, todo.todoHTML());
+      todo.insertHtml(mainEl, todo.todoHTML());
     });
   }
 
   displayProject(arr, projectClass, todoClass) {
-    const mainEL = document.querySelector('main');
+    const mainEl = document.querySelector('main');
 
     arr.forEach((el) => {
       const project = new projectClass(el.title, el.tasks, el.id);
-      project.insertHtml(mainEL, project.projectHTML());
+      project.insertHtml(mainEl, project.projectHTML());
       const projectEL = document.querySelector('.project');
 
       project.tasks.forEach((task) => {
