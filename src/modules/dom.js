@@ -62,7 +62,8 @@ export default class DOM {
         const elIndex = createClass.getClickedElementIndex(
           ev,
           createClass.getTasks
-        );
+        ).project;
+
         const projectEl = createClass.getTasks[elIndex];
         htmlEl.inputTitle.value = projectEl.title;
 

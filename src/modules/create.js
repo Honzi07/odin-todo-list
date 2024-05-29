@@ -61,6 +61,7 @@ export default class Create {
 
   getClickedElementIndex(ev, arr) {
     const clickedEL = this.getClickedElement(ev, arr);
+    let todo, project;
 
     const todoInProjectIndex = () => {
       return clickedEL.project.tasks.findIndex(
@@ -68,17 +69,23 @@ export default class Create {
       );
     };
 
-    const todoAndProjectIndex = (type) => {
+    const todoOrProjectIndex = (type) => {
       return arr.findIndex((el) => el.id === clickedEL[type].id);
     };
 
     if (clickedEL.todo && clickedEL.project) {
-      return todoInProjectIndex();
+      project = todoOrProjectIndex('project');
+      todo = todoInProjectIndex();
     } else if (clickedEL.todo) {
-      return todoAndProjectIndex('todo');
+      todo = todoOrProjectIndex('todo');
     } else if (clickedEL.project) {
-      return todoAndProjectIndex('project');
+      project = todoOrProjectIndex('project');
     }
+
+    return {
+      project,
+      todo,
+    };
   }
 
   insertHtml(parentEl, html) {
