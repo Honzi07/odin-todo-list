@@ -88,6 +88,23 @@ export default class Create {
     };
   }
 
+  removeElementFromArray(arr, tIndex, pIndex) {
+    const isNumber = (variable) => typeof variable === 'number';
+
+    if (isNumber(tIndex) && isNumber(pIndex)) {
+      arr[pIndex].tasks.splice(tIndex, 1);
+      return;
+    }
+    if (isNumber(tIndex)) {
+      arr.splice(tIndex, 1);
+      return;
+    }
+    if (isNumber(pIndex)) {
+      arr.splice(pIndex, 1);
+      return;
+    }
+  }
+
   insertHtml(parentEl, html) {
     parentEl.insertAdjacentHTML('afterbegin', html);
   }
