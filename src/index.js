@@ -17,13 +17,15 @@ domCl.displayTodo(createCl.filterTasksByType('todo'), Todo);
 
 domCl.saveProjectDataOnClick(createCl);
 
+domCl.removeClickedElement(createCl, createCl.getTasks);
+
 console.log('taskArray', createCl.getTasks);
 
-const mainEL = document.querySelector('main');
-mainEL.addEventListener('click', function (ev) {});
-
-function log() {}
+function log(ev) {
+  // console.dir(ev.target);
+  console.log('taskArray', createCl.getTasks);
+}
 
 document.addEventListener('keydown', (ev) => {
-  if (ev.ctrlKey) log();
+  if (ev.ctrlKey) log(ev);
 });

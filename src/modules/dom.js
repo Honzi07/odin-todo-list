@@ -97,6 +97,26 @@ export default class DOM {
     });
   }
 
+  removeClickedElement(createClass, arr) {
+    const mainEl = this.elementSelector.mainEl;
+    mainEl.addEventListener('click', (ev) => {
+      if (
+        ev.target.classList.contains('todo-btn-delete') ||
+        ev.target.classList.contains('project-delete')
+      ) {
+        const evTargetEl =
+          ev.target.closest('.todo') || ev.target.closest('.project');
+        evTargetEl.remove();
+
+        const elIndex = createClass.getClickedElementIndex(ev, arr);
+
+        createClass.removeElementFromArray(arr, elIndex.todo, elIndex.project);
+
+        createClass.saveTasksInLocal();
+      }
+    });
+  }
+
   getModalInputValues() {
     const inputTitle = document.querySelector('#title');
     const inputContent = document.querySelector('#content');
