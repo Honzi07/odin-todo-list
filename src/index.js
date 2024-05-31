@@ -15,7 +15,7 @@ domCl.handleCreationForm(createCl, Project, Todo);
 domCl.displayProject(createCl.filterTasksByType('project'), Project, Todo);
 domCl.displayTodo(createCl.filterTasksByType('todo'), Todo);
 
-domCl.saveProjectDataOnClick(createCl);
+domCl.saveClickedHtmlElData(createCl);
 
 domCl.removeClickedElement(createCl, createCl.getTasks);
 

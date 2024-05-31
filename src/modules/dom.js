@@ -54,29 +54,47 @@ export default class DOM {
     createClass.storeElement(project);
   }
 
-  saveProjectDataOnClick(createClass) {
-    const htmlEl = this.elementSelector;
-
-    htmlEl.mainEl.addEventListener('click', (ev) => {
-      if (ev.target.classList.contains('btn-add-project-todo')) {
+  saveClickedHtmlElData(createClass) {
+    const mainEl = this.elementSelector.mainEl;
+    mainEl.addEventListener('click', (ev) => {
+      if (
+        ev.target.classList.contains('todo-btn-edit') ||
+        ev.target.classList.contains('btn-add-project-todo')
+      ) {
         const elIndex = createClass.getClickedElementIndex(
           ev,
           createClass.getTasks
-        ).project;
+        );
 
-        const projectEl = createClass.getTasks[elIndex];
-        htmlEl.inputTitle.value = projectEl.title;
-
-        const clickedEl = createClass.getClickedElement(
+        const { element, ...projectAndTodo } = createClass.getClickedElement(
           ev,
           createClass.getTasks
-        ).element;
+        );
+
+        // const getDefinedEntries = (variable) => {
+        //   const testObj = {};
+        //   for (const [key, value] of Object.entries(variable)) {
+        //     if (value !== undefined && value !== null) {
+        //       testObj[key] = value;
+        //     }
+        //   }
+        //   return testObj;
+        // };
+
+        const getDefinedEntries = (variable) => {
+          return Object.fromEntries(
+            Object.entries(variable).filter(
+              ([, value]) => value !== undefined && value !== null
+            )
+          );
+        };
 
         this.clickedElData = {
-          project: projectEl,
-          elIndex: elIndex,
-          htmlEl: clickedEl,
+          index: getDefinedEntries(elIndex),
+          elData: getDefinedEntries(projectAndTodo),
+          htmlEl: getDefinedEntries(element),
         };
+        console.log(this.clickedElData);
       }
     });
   }
