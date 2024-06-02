@@ -56,4 +56,9 @@ export default class Todo extends Create {
 </div>
   `;
   }
+
+  updateDOMElement(el) {
+    el.querySelector('.todo-text').textContent = this.description;
+    el.querySelector('.todo-date').textContent = this.dueDate;
+  }
 }
