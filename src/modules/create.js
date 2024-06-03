@@ -24,6 +24,10 @@ export default class Create {
     return Create.tasksArr;
   }
 
+  isNumber(variable) {
+    return typeof variable === 'number';
+  }
+
   filterTasksByType(type) {
     return Create.tasksArr.filter((obj) => obj.type === type);
   }
@@ -89,30 +93,26 @@ export default class Create {
   }
 
   updateElementInArray(newTask, arr, tIndex, pIndex) {
-    const isNumber = (variable) => typeof variable === 'number';
-
-    if (isNumber(tIndex) && isNumber(pIndex)) {
+    if (this.isNumber(tIndex) && this.isNumber(pIndex)) {
       arr[pIndex].tasks[tIndex] = newTask;
       return;
     }
-    if (isNumber(tIndex)) {
+    if (this.isNumber(tIndex)) {
       arr[tIndex] = newTask;
       return;
     }
   }
 
   removeElementFromArray(arr, tIndex, pIndex) {
-    const isNumber = (variable) => typeof variable === 'number';
-
-    if (isNumber(tIndex) && isNumber(pIndex)) {
+    if (this.isNumber(tIndex) && this.isNumber(pIndex)) {
       arr[pIndex].tasks.splice(tIndex, 1);
       return;
     }
-    if (isNumber(tIndex)) {
+    if (this.isNumber(tIndex)) {
       arr.splice(tIndex, 1);
       return;
     }
-    if (isNumber(pIndex)) {
+    if (this.isNumber(pIndex)) {
       arr.splice(pIndex, 1);
       return;
     }
