@@ -88,6 +88,19 @@ export default class Create {
     };
   }
 
+  updateElementInArray(newTask, arr, tIndex, pIndex) {
+    const isNumber = (variable) => typeof variable === 'number';
+
+    if (isNumber(tIndex) && isNumber(pIndex)) {
+      arr[pIndex].tasks[tIndex] = newTask;
+      return;
+    }
+    if (isNumber(tIndex)) {
+      arr[tIndex] = newTask;
+      return;
+    }
+  }
+
   removeElementFromArray(arr, tIndex, pIndex) {
     const isNumber = (variable) => typeof variable === 'number';
 
