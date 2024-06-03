@@ -8,6 +8,8 @@ export default class DOM {
     const inputProject = document.querySelector('#project');
     const inputTodo = document.querySelector('#todo');
     const inputTitle = document.querySelector('#title');
+    const inputContent = document.querySelector('#content');
+    const inputDate = document.querySelector('#date');
 
     return {
       mainEl,
@@ -15,6 +17,8 @@ export default class DOM {
       inputProject,
       inputTodo,
       inputTitle,
+      inputContent,
+      inputDate,
     };
   }
 
@@ -52,6 +56,35 @@ export default class DOM {
     project.storeTodoInTasks(todo);
     createClass.getTasks.splice(this.clickedElData.elIndex, 1);
     createClass.storeElement(project);
+  }
+
+  handleFormEditMode(createClass, todoClass) {
+    const input = this.getModalInputValues();
+    const todoId = this.clickedElData.elData.todo.id;
+    const todoIndex = this.clickedElData.index.todo;
+    const projectIndex = this.clickedElData.index.project;
+    const targetEl = this.clickedElData.htmlEl.todoEl;
+    const todo = new todoClass(input.description, input.date, todoId);
+    const arr = createClass.getTasks;
+
+    todo.updateDOMElement(targetEl);
+    createClass.updateElementInArray(todo, arr, todoIndex, projectIndex);
+  }
+
+  updateModalForEditMode() {
+    const el = this.elementSelector;
+    el.mainEl.addEventListener('click', (ev) => {
+      if (ev.target.classList.contains('todo-btn-edit')) {
+        const elData = this.clickedElData.elData;
+
+        if (elData.project) {
+          el.inputTitle.value = elData.project.title;
+        }
+
+        el.inputContent.value = elData.todo.description;
+        el.inputDate.valueAsNumber = elData.todo.dueDate;
+      }
+    });
   }
 
   saveClickedHtmlElData(createClass) {
@@ -109,6 +142,8 @@ export default class DOM {
         this.handleFormCreateMode(createClass, projectClass, todoClass);
       } else if (form.dataset.mode === 'add-todo') {
         this.handleFormAddMode(createClass, projectClass, todoClass);
+      } else if (form.dataset.mode === 'edit') {
+        this.handleFormEditMode(createClass, todoClass);
       }
 
       createClass.saveTasksInLocal();
