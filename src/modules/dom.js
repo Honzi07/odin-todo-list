@@ -89,11 +89,18 @@ export default class DOM {
 
   saveClickedHtmlElData(createClass) {
     const mainEl = this.elementSelector.mainEl;
+
+    const classListArray = [
+      'todo-btn-edit',
+      'btn-add-project-todo',
+      'todo-btn-delete',
+      'project-delete',
+    ];
+    const hasClassInArray = (event) =>
+      classListArray.some((name) => event.target.classList.contains(name));
+
     mainEl.addEventListener('click', (ev) => {
-      if (
-        ev.target.classList.contains('todo-btn-edit') ||
-        ev.target.classList.contains('btn-add-project-todo')
-      ) {
+      if (hasClassInArray(ev)) {
         const elIndex = createClass.getClickedElementIndex(
           ev,
           createClass.getTasks
@@ -161,11 +168,8 @@ export default class DOM {
           ev.target.closest('.todo') || ev.target.closest('.project');
         evTargetEl.remove();
 
-        const elIndex = createClass.getClickedElementIndex(ev, arr);
-
-        createClass.removeElementFromArray(arr, elIndex.todo, elIndex.project);
-
-        createClass.saveTasksInLocal();
+        const index = this.clickedElData.index;
+        createClass.removeElementFromArray(arr, index.todo, index.project);
       }
     });
   }
