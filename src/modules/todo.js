@@ -1,13 +1,21 @@
 import Create from './create';
 
 export default class Todo extends Create {
-  constructor(description, dueDate, id) {
+  constructor(description, dueDate, id, completed) {
     super();
     this.type = 'todo';
     this.description = description;
     this.dueDate = dueDate;
-    this.completed = false;
+    this.completed = completed || false;
     this.id = id || new Date().getTime();
+  }
+
+  isCompleted() {
+    return this.completed ? 'checked' : '';
+  }
+
+  changeCompleted() {
+    this.completed = this.completed ? false : true;
   }
 
   todoHTML() {
@@ -19,11 +27,11 @@ export default class Todo extends Create {
         name="todo-checkbox"
         class="todo-checkbox"
         aria-label="todo checkbox"
-        data-checked=""
+        ${this.completed ? 'checked' : ''}
       />
       <span class="checkmark"></span>
     </label>
-    <div class="todo-text">
+    <div class="todo-text ${this.completed ? 'todo-done' : ''}">
       <p>
         ${this.description}
       </p>

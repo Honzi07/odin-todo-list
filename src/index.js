@@ -21,11 +21,12 @@ domCl.updateModalForEditMode();
 
 domCl.removeClickedElement(createCl, createCl.getTasks);
 
+domCl.checkboxEventHandler(createCl, Todo);
+
 console.log('taskArray', createCl.getTasks);
 
 function log(ev) {
-  // console.log('taskArray', createCl.getTasks);
-  // console.dir(ev.target);
+  console.log('taskArray', createCl.getTasks);
 }
 
 document.addEventListener('mouseover', (ev) => {

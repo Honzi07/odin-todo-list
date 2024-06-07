@@ -95,6 +95,7 @@ export default class DOM {
       'btn-add-project-todo',
       'todo-btn-delete',
       'project-delete',
+      'todo-checkbox',
     ];
     const hasClassInArray = (event) =>
       classListArray.some((name) => event.target.classList.contains(name));
@@ -170,6 +171,8 @@ export default class DOM {
 
         const index = this.clickedElData.index;
         createClass.removeElementFromArray(arr, index.todo, index.project);
+
+        createClass.saveTasksInLocal();
       }
     });
   }
@@ -189,7 +192,12 @@ export default class DOM {
   displayTodo(arr, todoClass) {
     const mainEl = document.querySelector('main');
     arr.forEach((el) => {
-      const todo = new todoClass(el.description, el.dueDate, el.id);
+      const todo = new todoClass(
+        el.description,
+        el.dueDate,
+        el.id,
+        el.completed
+      );
       todo.insertHtml(mainEl, todo.todoHTML());
     });
   }
@@ -203,9 +211,46 @@ export default class DOM {
       const projectEL = document.querySelector('.project');
 
       project.tasks.forEach((task) => {
-        const todo = new todoClass(task.description, task.dueDate, task.id);
+        const todo = new todoClass(
+          task.description,
+          task.dueDate,
+          task.id,
+          task.completed
+        );
         projectEL.insertAdjacentHTML('beforeend', todo.todoHTML());
       });
+    });
+  }
+
+  checkboxEventHandler(createClass, todoClass) {
+    const mainEL = this.elementSelector.mainEl;
+
+    mainEL.addEventListener('click', (ev) => {
+      if (ev.target.classList.contains('todo-checkbox')) {
+        const data = this.clickedElData.elData.todo;
+        const index = this.clickedElData.index;
+        const todoEl = this.clickedElData.htmlEl.todoEl;
+
+        const todo = new todoClass(
+          data.description,
+          data.dueDate,
+          data.id,
+          data.completed
+        );
+        todo.changeCompleted();
+        todo.updateDOMElement(todoEl);
+        todoEl.insertAdjacentHTML('beforebegin', todo.todoHTML());
+        todoEl.remove();
+
+        createClass.updateElementInArray(
+          todo,
+          createClass.getTasks,
+          index.todo,
+          index.project
+        );
+
+        createClass.saveTasksInLocal();
+      }
     });
   }
 }
