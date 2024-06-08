@@ -1,4 +1,5 @@
 import Create from './create';
+import { format, isThisYear } from 'date-fns';
 
 export default class Todo extends Create {
   constructor(description, dueDate, id, completed) {
@@ -10,12 +11,14 @@ export default class Todo extends Create {
     this.id = id || new Date().getTime();
   }
 
-  isCompleted() {
-    return this.completed ? 'checked' : '';
-  }
-
   changeCompleted() {
     this.completed = this.completed ? false : true;
+  }
+
+  formattedDate() {
+    return isThisYear(this.dueDate)
+      ? format(this.dueDate, 'MMM. d, eee.')
+      : format(this.dueDate, 'y. MMM. d, eee.');
   }
 
   todoHTML() {
@@ -37,7 +40,7 @@ export default class Todo extends Create {
       </p>
     </div>
     <div class="todo-info-container">
-      <span class="todo-date">${this.dueDate}</span>
+      <span class="todo-date">${this.formattedDate()}</span>
       <div class="todo-dropdown-container">
         <button class="todo-btn-dropdown">
           <svg
