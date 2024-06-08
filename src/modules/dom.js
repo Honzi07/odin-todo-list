@@ -43,7 +43,8 @@ export default class DOM {
 
   handleFormAddMode(createClass, projectClass, todoClass) {
     const input = this.getModalInputValues();
-    const pData = this.clickedElData.project;
+    const pData = this.clickedElData.elData.project;
+    const pIndex = this.clickedElData.index.project;
 
     const project = new projectClass(pData.title, pData.tasks, pData.id);
     const todo = new todoClass(input.description, input.date);
@@ -54,8 +55,7 @@ export default class DOM {
     );
 
     project.storeTodoInTasks(todo);
-    createClass.getTasks.splice(this.clickedElData.elIndex, 1);
-    createClass.storeElement(project);
+    createClass.updateElementInArray(project, createClass.getTasks, pIndex);
   }
 
   handleFormEditMode(createClass, todoClass) {
