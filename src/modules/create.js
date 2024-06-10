@@ -118,6 +118,21 @@ export default class Create {
     }
   }
 
+  filterProjectsByDueDate(dateInterval) {
+    return this.filterTasksByType('project')
+      .map((project) => {
+        const newTasks = project.tasks.filter((el) => dateInterval(el.dueDate));
+        return { ...project, tasks: newTasks };
+      })
+      .filter((project) => project.tasks.length > 0);
+  }
+
+  filterTodoesByDueDate(dateInterval) {
+    return this.filterTasksByType('todo').filter((todo) =>
+      dateInterval(todo.dueDate)
+    );
+  }
+
   insertHtml(parentEl, html) {
     parentEl.insertAdjacentHTML('afterbegin', html);
   }
