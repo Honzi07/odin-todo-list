@@ -321,26 +321,35 @@ aside {
       list-style: none;
       padding: 0;
 
-      & li span:hover {
+      & li button:hover {
         cursor: pointer;
         text-decoration: underline;
       }
 
-      .nav-home {
-        margin-bottom: 50px;
-        font-size: 2rem;
+      .nav-show-all {
+        margin-bottom: 40px;
+        font-size: 1.5rem;
+
+        .btn-show-all {
+          color: $clr-text-light;
+        }
       }
 
       .nav-today,
       .nav-week {
-        & > span {
-          margin-bottom: 15px;
+        margin-bottom: 15px;
+        color: inherit;
+
+        & * {
+          color: inherit;
+        }
+
+        & > button {
           font-size: 1.5rem;
           letter-spacing: 1px;
         }
 
-        & ul {
-          margin-bottom: 15px;
+        & li > button {
           font-size: 1.25rem;
           letter-spacing: 1px;
         }
