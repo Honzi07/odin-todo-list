@@ -127,7 +127,7 @@ export default class Create {
       .filter((project) => project.tasks.length > 0);
   }
 
-  filterTodoesByDueDate(dateInterval) {
+  filterTodosByDueDate(dateInterval) {
     return this.filterTasksByType('todo').filter((todo) =>
       dateInterval(todo.dueDate)
     );
