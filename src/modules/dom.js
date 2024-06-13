@@ -1,29 +1,43 @@
+import { isToday, isThisWeek } from 'date-fns';
+
 export default class DOM {
   clickedElData;
   constructor() {}
 
   get elementSelector() {
-    const mainEl = document.querySelector('main');
-    const form = document.querySelector('#modal-form');
-    const inputProject = document.querySelector('#project');
-    const inputTodo = document.querySelector('#todo');
-    const inputTitle = document.querySelector('#title');
-    const inputContent = document.querySelector('#content');
-    const inputDate = document.querySelector('#date');
-
     return {
-      mainEl,
-      form,
-      inputProject,
-      inputTodo,
-      inputTitle,
-      inputContent,
-      inputDate,
+      mainEl: document.querySelector('main'),
+      form: document.querySelector('#modal-form'),
+    };
+  }
+
+  get inputSelector() {
+    return {
+      inputProject: document.querySelector('#project'),
+      inputTodo: document.querySelector('#todo'),
+      inputTitle: document.querySelector('#title'),
+      inputContent: document.querySelector('#content'),
+      inputDate: document.querySelector('#date'),
+    };
+  }
+
+  get buttonSelector() {
+    return {
+      btnToday: document.querySelector('.btn-today'),
+      btnWeek: document.querySelector('.btn-week'),
+    };
+  }
+
+  get allElements() {
+    return {
+      ...this.elementSelector,
+      ...this.inputSelector,
+      ...this.buttonSelector,
     };
   }
 
   handleFormCreateMode(createClass, projectClass, todoClass) {
-    const { mainEl, inputProject, inputTodo } = this.elementSelector;
+    const { mainEl, inputProject, inputTodo } = this.allElements;
     const input = this.getModalInputValues();
 
     if (inputProject.checked) {
@@ -72,7 +86,7 @@ export default class DOM {
   }
 
   updateModalForEditMode() {
-    const el = this.elementSelector;
+    const el = this.allElements;
     el.mainEl.addEventListener('click', (ev) => {
       if (ev.target.classList.contains('todo-btn-edit')) {
         const elData = this.clickedElData.elData;
@@ -88,7 +102,7 @@ export default class DOM {
   }
 
   saveClickedHtmlElData(createClass) {
-    const mainEl = this.elementSelector.mainEl;
+    const mainEl = this.allElements.mainEl;
 
     const classListArray = [
       'todo-btn-edit',
@@ -141,7 +155,7 @@ export default class DOM {
   }
 
   handleCreationForm(createClass, projectClass, todoClass) {
-    const form = this.elementSelector.form;
+    const form = this.allElements.form;
 
     form.addEventListener('submit', (ev) => {
       ev.preventDefault();
@@ -159,7 +173,7 @@ export default class DOM {
   }
 
   removeClickedElement(createClass, arr) {
-    const mainEl = this.elementSelector.mainEl;
+    const mainEl = this.allElements.mainEl;
     mainEl.addEventListener('click', (ev) => {
       if (
         ev.target.classList.contains('todo-btn-delete') ||
@@ -223,7 +237,7 @@ export default class DOM {
   }
 
   checkboxEventHandler(createClass, todoClass) {
-    const mainEL = this.elementSelector.mainEl;
+    const mainEL = this.allElements.mainEl;
 
     mainEL.addEventListener('click', (ev) => {
       if (ev.target.classList.contains('todo-checkbox')) {
