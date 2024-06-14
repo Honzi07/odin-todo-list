@@ -300,4 +300,16 @@ export default class DOM {
       });
     });
   }
+
+  displayAll(createClass, projectClass, todoClass) {
+    this.allElements.btnShowAll.addEventListener('click', () => {
+      this.allElements.mainEl.innerHTML = '';
+
+      const arrTodos = createClass.filterTasksByType('todo');
+      const arrProjects = createClass.filterTasksByType('project');
+
+      this.displayProject(arrProjects, projectClass, todoClass);
+      this.displayTodo(arrTodos, todoClass);
+    });
+  }
 }
