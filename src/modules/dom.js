@@ -23,8 +23,13 @@ export default class DOM {
 
   get buttonSelector() {
     return {
+      btnShowAll: document.querySelector('.btn-show-all'),
       btnToday: document.querySelector('.btn-today'),
+      btnProjectToday: document.querySelector('.btn-project-today'),
+      btnTodoToday: document.querySelector('.btn-todo-today'),
       btnWeek: document.querySelector('.btn-week'),
+      btnProjectWeek: document.querySelector('.btn-project-week'),
+      btnTodoWeek: document.querySelector('.btn-todo-week'),
     };
   }
 
@@ -265,6 +270,34 @@ export default class DOM {
 
         createClass.saveTasksInLocal();
       }
+    });
+  }
+
+  displayFilteredByType(createClass, projectClass, todoClass) {
+    const filterTodo = [
+      { button: this.allElements.btnTodoToday, filter: isToday },
+      { button: this.allElements.btnTodoWeek, filter: isThisWeek },
+    ];
+
+    const filterProject = [
+      { button: this.allElements.btnProjectToday, filter: isToday },
+      { button: this.allElements.btnProjectWeek, filter: isThisWeek },
+    ];
+
+    filterTodo.forEach(({ button, filter }) => {
+      button.addEventListener('click', () => {
+        this.allElements.mainEl.innerHTML = '';
+        const filteredTodos = createClass.filterTodosByDueDate(filter);
+        this.displayTodo(filteredTodos, todoClass);
+      });
+    });
+
+    filterProject.forEach(({ button, filter }) => {
+      button.addEventListener('click', () => {
+        this.allElements.mainEl.innerHTML = '';
+        const filteredProjects = createClass.filterProjectsByDueDate(filter);
+        this.displayProject(filteredProjects, projectClass, todoClass);
+      });
     });
   }
 }
