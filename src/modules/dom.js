@@ -312,4 +312,28 @@ export default class DOM {
       this.displayTodo(arrTodos, todoClass);
     });
   }
+
+  displayFilteredToday(createClass, projectClass, todoClass) {
+    this.allElements.btnToday.addEventListener('click', () => {
+      this.allElements.mainEl.innerHTML = '';
+
+      const filteredProjects = createClass.filterProjectsByDueDate(isToday);
+      const filteredTodos = createClass.filterTodosByDueDate(isToday);
+
+      this.displayProject(filteredProjects, projectClass, todoClass);
+      this.displayTodo(filteredTodos, todoClass);
+    });
+  }
+
+  displayFilteredWeek(createClass, projectClass, todoClass) {
+    this.allElements.btnWeek.addEventListener('click', () => {
+      this.allElements.mainEl.innerHTML = '';
+
+      const filteredProjects = createClass.filterProjectsByDueDate(isThisWeek);
+      const filteredTodos = createClass.filterTodosByDueDate(isThisWeek);
+
+      this.displayProject(filteredProjects, projectClass, todoClass);
+      this.displayTodo(filteredTodos, todoClass);
+    });
+  }
 }
