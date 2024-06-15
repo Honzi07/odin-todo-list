@@ -23,18 +23,17 @@ domCl.removeClickedElement(createCl, createCl.getTasks);
 
 domCl.checkboxEventHandler(createCl, Todo);
 
+domCl.displayFilteredByType(createCl, Project, Todo);
+
+domCl.displayAll(createCl, Project, Todo);
+
+domCl.displayFilterByTime(createCl, Project, Todo);
+
 console.log('taskArray', createCl.getTasks);
 
 function log(ev) {
-  // console.log('taskArray', createCl.getTasks);
-  const language = () => {
-    const local = window.navigator.languages.length
-      ? window.navigator.languages[0]
-      : window.navigator.language;
-
-    return local.split('-')[0];
-  };
-  // console.log(language());
+  console.log('taskArray', createCl.getTasks);
+  console.dir(ev.target);
 }
 
 document.addEventListener('mouseover', (ev) => {
