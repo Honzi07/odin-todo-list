@@ -301,6 +301,24 @@ export default class DOM {
     });
   }
 
+  displayFilterByTime(createClass, projectClass, todoClass) {
+    const filterByTime = [
+      { button: this.allElements.btnToday, filter: isToday },
+      { button: this.allElements.btnWeek, filter: isThisWeek },
+    ];
+
+    filterByTime.forEach(({ button, filter }) => {
+      button.addEventListener('click', () => {
+        this.allElements.mainEl.innerHTML = '';
+        const filteredProjects = createClass.filterProjectsByDueDate(filter);
+        const filteredTodos = createClass.filterTodosByDueDate(filter);
+
+        this.displayProject(filteredProjects, projectClass, todoClass);
+        this.displayTodo(filteredTodos, todoClass);
+      });
+    });
+  }
+
   displayAll(createClass, projectClass, todoClass) {
     this.allElements.btnShowAll.addEventListener('click', () => {
       this.allElements.mainEl.innerHTML = '';
@@ -310,30 +328,6 @@ export default class DOM {
 
       this.displayProject(arrProjects, projectClass, todoClass);
       this.displayTodo(arrTodos, todoClass);
-    });
-  }
-
-  displayFilteredToday(createClass, projectClass, todoClass) {
-    this.allElements.btnToday.addEventListener('click', () => {
-      this.allElements.mainEl.innerHTML = '';
-
-      const filteredProjects = createClass.filterProjectsByDueDate(isToday);
-      const filteredTodos = createClass.filterTodosByDueDate(isToday);
-
-      this.displayProject(filteredProjects, projectClass, todoClass);
-      this.displayTodo(filteredTodos, todoClass);
-    });
-  }
-
-  displayFilteredWeek(createClass, projectClass, todoClass) {
-    this.allElements.btnWeek.addEventListener('click', () => {
-      this.allElements.mainEl.innerHTML = '';
-
-      const filteredProjects = createClass.filterProjectsByDueDate(isThisWeek);
-      const filteredTodos = createClass.filterTodosByDueDate(isThisWeek);
-
-      this.displayProject(filteredProjects, projectClass, todoClass);
-      this.displayTodo(filteredTodos, todoClass);
     });
   }
 }
