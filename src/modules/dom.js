@@ -1,13 +1,17 @@
 import { isToday, isThisWeek } from 'date-fns';
+import domManager from './domManager';
 
 export default class DOM {
   clickedElData;
-  constructor() {}
+  constructor() {
+    this.domManager = new domManager(this.allElements);
+  }
 
   get elementSelector() {
     return {
       mainEl: document.querySelector('main'),
       form: document.querySelector('#modal-form'),
+      modal: document.querySelector('.modal'),
     };
   }
 
@@ -30,6 +34,8 @@ export default class DOM {
       btnWeek: document.querySelector('.btn-week'),
       btnProjectWeek: document.querySelector('.btn-project-week'),
       btnTodoWeek: document.querySelector('.btn-todo-week'),
+      btnOpenModal: document.querySelector('.btn-open-modal'),
+      btnCloseModal: document.querySelector('.modal-close'),
     };
   }
 

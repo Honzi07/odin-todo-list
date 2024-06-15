@@ -29,6 +29,8 @@ domCl.displayAll(createCl, Project, Todo);
 
 domCl.displayFilterByTime(createCl, Project, Todo);
 
+// domCl.modalEvents();
+
 console.log('taskArray', createCl.getTasks);
 
 function log(ev) {
