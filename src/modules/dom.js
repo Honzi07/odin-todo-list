@@ -218,6 +218,14 @@ export default class DOM {
     });
   }
 
+  setMinDate() {
+    function currentDate() {
+      return new Date().toISOString().split('T')[0];
+    }
+
+    this.allElements.inputDate.setAttribute('min', currentDate());
+  }
+
   getModalInputValues() {
     const inputTitle = document.querySelector('#title');
     const inputContent = document.querySelector('#content');

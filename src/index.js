@@ -30,6 +30,7 @@ domCl.displayAll(createCl, Project, Todo);
 domCl.displayFilterByTime(createCl, Project, Todo);
 
 domCl.updateModalForAddTodoMode();
+domCl.setMinDate();
 
 console.log('taskArray', createCl.getTasks);
 
