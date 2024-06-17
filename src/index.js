@@ -29,7 +29,7 @@ domCl.displayAll(createCl, Project, Todo);
 
 domCl.displayFilterByTime(createCl, Project, Todo);
 
-// domCl.modalEvents();
+domCl.updateModalForAddTodoMode();
 
 console.log('taskArray', createCl.getTasks);
 

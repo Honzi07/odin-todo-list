@@ -12,6 +12,8 @@ export default class DOM {
       mainEl: document.querySelector('main'),
       form: document.querySelector('#modal-form'),
       modal: document.querySelector('.modal'),
+      asideEl: document.querySelector('aside'),
+      fieldsetRadio: document.querySelector('.input-radio'),
     };
   }
 
@@ -36,6 +38,8 @@ export default class DOM {
       btnTodoWeek: document.querySelector('.btn-todo-week'),
       btnOpenModal: document.querySelector('.btn-open-modal'),
       btnCloseModal: document.querySelector('.modal-close'),
+      btnSubmit: document.querySelector('button[type=submit]'),
+      btnMobileMenu: document.querySelector('.btn-menu'),
     };
   }
 
@@ -66,7 +70,7 @@ export default class DOM {
     }
   }
 
-  handleFormAddMode(createClass, projectClass, todoClass) {
+  handleFormAddTodoMode(createClass, projectClass, todoClass) {
     const input = this.getModalInputValues();
     const pData = this.clickedElData.elData.project;
     const pIndex = this.clickedElData.index.project;
@@ -94,6 +98,18 @@ export default class DOM {
 
     todo.updateDOMElement(targetEl);
     createClass.updateElementInArray(todo, arr, todoIndex, projectIndex);
+  }
+
+  updateModalForAddTodoMode() {
+    const el = this.allElements;
+
+    el.mainEl.addEventListener('click', (ev) => {
+      if (ev.target.dataset.btnType === 'add-todo') {
+        const pData = this.clickedElData.elData.project;
+        el.inputTitle.labels[0].classList.add('float-label');
+        el.inputTitle.value = pData.title;
+      }
+    });
   }
 
   updateModalForEditMode() {
@@ -174,7 +190,7 @@ export default class DOM {
       if (form.dataset.mode === 'create') {
         this.handleFormCreateMode(createClass, projectClass, todoClass);
       } else if (form.dataset.mode === 'add-todo') {
-        this.handleFormAddMode(createClass, projectClass, todoClass);
+        this.handleFormAddTodoMode(createClass, projectClass, todoClass);
       } else if (form.dataset.mode === 'edit') {
         this.handleFormEditMode(createClass, todoClass);
       }
