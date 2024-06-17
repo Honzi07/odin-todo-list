@@ -34,7 +34,7 @@ export default class Project extends Create {
             />
           </svg>
         </button>
-        <button class="btn-add-project-todo">ADD TODO</button>
+        <button class="btn-add-project-todo" data-btn-type="add-todo">Add Todo</button>
       </div>
         ${todo}
       <div class="project-input-container">

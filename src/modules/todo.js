@@ -57,8 +57,8 @@ export default class Todo extends Create {
         </button>
         <div class="todo-dropdown-content">
           <ul>
-            <li><button class="todo-btn-edit" data-id-btn>Edit</button></li>
-            <li><button class="todo-btn-delete" data-id-btn>Delete</button></li>
+            <li><button class="todo-btn-edit"  data-btn-type="edit">Edit</button></li>
+            <li><button class="todo-btn-delete"  data="delete">Delete</button></li>
           </ul>
         </div>
       </div>
