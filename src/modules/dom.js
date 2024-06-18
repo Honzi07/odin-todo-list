@@ -246,9 +246,10 @@ export default class DOM {
     };
   }
 
-  displayTodo(arr, todoClass) {
-    const mainEl = document.querySelector('main');
-    arr.forEach((el) => {
+  displayTodo(todoArr, todoClass) {
+    const mainEl = this.allElements.mainEl;
+
+    todoArr.forEach((el) => {
       const todo = new todoClass(
         el.description,
         el.dueDate,
@@ -259,10 +260,10 @@ export default class DOM {
     });
   }
 
-  displayProject(arr, projectClass, todoClass) {
-    const mainEl = document.querySelector('main');
+  displayProject(projectArr, projectClass, todoClass) {
+    const mainEl = this.allElements.mainEl;
 
-    arr.forEach((el) => {
+    projectArr.forEach((el) => {
       const project = new projectClass(el.title, el.tasks, el.id);
       project.insertHtml(mainEl, project.projectHTML());
       const projectEL = document.querySelector('.project');
