@@ -87,6 +87,14 @@ export default class DOM {
     createClass.updateElementInArray(project, createClass.getTasks, pIndex);
   }
 
+  clearMainContent() {
+    const mainEl = this.allElements.mainEl;
+    const btn = this.allElements.btnOpenModal;
+
+    mainEl.innerHTML = '';
+    mainEl.appendChild(btn);
+  }
+
   handleFormEditMode(createClass, todoClass) {
     const input = this.getModalInputValues();
     const todoId = this.clickedElData.elData.todo.id;
@@ -316,7 +324,7 @@ export default class DOM {
 
     filterTodo.forEach(({ button, filter }) => {
       button.addEventListener('click', () => {
-        this.allElements.mainEl.innerHTML = '';
+        this.clearMainContent();
         const filteredTodos = createClass.filterTodosByDueDate(filter);
         this.displayTodo(filteredTodos, todoClass);
       });
@@ -324,7 +332,7 @@ export default class DOM {
 
     filterProject.forEach(({ button, filter }) => {
       button.addEventListener('click', () => {
-        this.allElements.mainEl.innerHTML = '';
+        this.clearMainContent();
         const filteredProjects = createClass.filterProjectsByDueDate(filter);
         this.displayProject(filteredProjects, projectClass, todoClass);
       });
@@ -339,7 +347,7 @@ export default class DOM {
 
     filterByTime.forEach(({ button, filter }) => {
       button.addEventListener('click', () => {
-        this.allElements.mainEl.innerHTML = '';
+        this.clearMainContent();
         const filteredProjects = createClass.filterProjectsByDueDate(filter);
         const filteredTodos = createClass.filterTodosByDueDate(filter);
 
@@ -351,7 +359,7 @@ export default class DOM {
 
   displayAll(createClass, projectClass, todoClass) {
     this.allElements.btnShowAll.addEventListener('click', () => {
-      this.allElements.mainEl.innerHTML = '';
+      this.clearMainContent();
 
       const arrTodos = createClass.filterTasksByType('todo');
       const arrProjects = createClass.filterTasksByType('project');
