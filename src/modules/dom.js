@@ -369,4 +369,25 @@ export default class DOM {
       this.displayTodo(arrTodos, todoClass);
     });
   }
+
+  initializeMethods({
+    createClass,
+    projectClass,
+    todoClass,
+    todoArr,
+    projectArr,
+  }) {
+    this.handleCreationForm(createClass, projectClass, todoClass);
+    this.displayProject(projectArr, projectClass, todoClass);
+    this.displayTodo(todoArr, todoClass);
+    this.saveClickedHtmlElData(createClass);
+    this.updateModalForEditMode();
+    this.removeClickedElement(createClass, createClass.getTasks);
+    this.checkboxEventHandler(createClass, todoClass);
+    this.displayFilteredByType(createClass, projectClass, todoClass);
+    this.displayAll(createClass, projectClass, todoClass);
+    this.displayFilterByTime(createClass, projectClass, todoClass);
+    this.updateModalForAddTodoMode();
+    this.setMinDate();
+  }
 }

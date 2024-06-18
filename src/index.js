@@ -10,27 +10,37 @@ import DOM from './modules/dom.js';
 const domCl = new DOM();
 const createCl = new Create();
 
-domCl.handleCreationForm(createCl, Project, Todo);
+// domCl.handleCreationForm(createCl, Project, Todo);
 
-domCl.displayProject(createCl.filterTasksByType('project'), Project, Todo);
-domCl.displayTodo(createCl.filterTasksByType('todo'), Todo);
+// domCl.displayProject(createCl.filterTasksByType('project'), Project, Todo);
+// domCl.displayTodo(createCl.filterTasksByType('todo'), Todo);
 
-domCl.saveClickedHtmlElData(createCl);
+// domCl.saveClickedHtmlElData(createCl);
 
-domCl.updateModalForEditMode();
+// domCl.updateModalForEditMode();
 
-domCl.removeClickedElement(createCl, createCl.getTasks);
+// domCl.removeClickedElement(createCl, createCl.getTasks);
 
-domCl.checkboxEventHandler(createCl, Todo);
+// domCl.checkboxEventHandler(createCl, Todo);
 
-domCl.displayFilteredByType(createCl, Project, Todo);
+// domCl.displayFilteredByType(createCl, Project, Todo);
 
-domCl.displayAll(createCl, Project, Todo);
+// domCl.displayAll(createCl, Project, Todo);
 
-domCl.displayFilterByTime(createCl, Project, Todo);
+// domCl.displayFilterByTime(createCl, Project, Todo);
 
-domCl.updateModalForAddTodoMode();
-domCl.setMinDate();
+// domCl.updateModalForAddTodoMode();
+// domCl.setMinDate();
+
+const args = {
+  createClass: createCl,
+  projectClass: Project,
+  todoClass: Todo,
+  todoArr: createCl.filterTasksByType('todo'),
+  projectArr: createCl.filterTasksByType('project'),
+};
+
+domCl.initializeMethods(args);
 
 console.log('taskArray', createCl.getTasks);
 
