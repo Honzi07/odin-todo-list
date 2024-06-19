@@ -1,0 +1,186 @@
+.modal {
+  position: fixed;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  height: 100%;
+  width: 100%;
+  z-index: 9999;
+
+  .modal-content {
+    background-color: #ffffff;
+    border: 2px solid $clr-secondary;
+    border-radius: 10px;
+    box-shadow: 0px 0px 13px 5px $shadow;
+    color: $clr-text-dark;
+    padding: 3rem 2rem 2rem;
+    position: relative;
+    width: 500px;
+
+    .btn-close.modal-close {
+      color: $clr-secondary;
+      position: absolute;
+      top: 1rem;
+      right: 2rem;
+      transition-duration: 0.2s;
+
+      &:hover {
+        color: $clr-hover-dark;
+        scale: 1.2;
+      }
+    }
+
+    form {
+      font-family: $normal-font;
+
+      fieldset {
+        border: none;
+      }
+
+      fieldset.input-radio {
+        display: flex;
+
+        div {
+          width: 50%;
+
+          label {
+            display: block;
+            background-color: $clr-primary;
+            border: solid 2px $clr-secondary;
+            cursor: pointer;
+            color: $clr-text-light;
+            font: {
+              family: $heading-font;
+              size: 1.3rem;
+              weight: 700;
+            }
+            letter-spacing: 1px;
+            padding: 1rem 2rem;
+            text-align: center;
+            transition-duration: 0.2s;
+
+            &:hover {
+              background-color: #42aaff;
+            }
+          }
+
+          label[for='project'] {
+            border-radius: 10px 0 0 10px;
+            border-right-width: 1px;
+          }
+
+          label[for='todo'] {
+            border-radius: 0 10px 10px 0;
+            border-left-width: 1px;
+          }
+
+          input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+
+            &:checked ~ label {
+              background-color: #35a4ff;
+              border-color: $clr-hover-dark;
+              border-radius: 10px;
+              scale: 1.05;
+              transition-duration: 0.2s;
+            }
+
+            // &:not(:checked) ~ label {
+            //   scale: 0.95;
+            //   border-radius: 10px;
+            // }
+          }
+        }
+      }
+
+      fieldset.input-content {
+        div {
+          position: relative;
+        }
+
+        div input,
+        button {
+          border-radius: 10px;
+          box-shadow: none;
+          border: 2px solid $clr-secondary;
+          padding: 1rem 1rem 0.3rem;
+          outline: none;
+          width: 100%;
+        }
+
+        div label {
+          position: absolute;
+          cursor: text;
+          top: 13px;
+          left: 10px;
+          transition-duration: 0.2s;
+        }
+
+        div input:focus {
+          border-color: $clr-primary;
+        }
+
+        div input:focus + label,
+        .float-label {
+          top: 2px;
+          left: 18px;
+          font-size: 0.8rem;
+          opacity: 60%;
+          transition-duration: 0.2s;
+        }
+
+        & > *:not(:first-child) {
+          margin-top: 1rem;
+        }
+
+        // div input:focus:valid {
+        //   border-color: green;
+        // }
+
+        // div input:focus:invalid {
+        //   border-color: #d30000;
+        // }
+
+        div input:invalid,
+        div input:focus:invalid {
+          border-color: $clr-warning;
+        }
+
+        div input:invalid + label {
+          color: $clr-warning;
+        }
+
+        div input:invalid + label::after {
+          content: ' required!';
+        }
+
+        div input:focus {
+          border-color: $clr-primary;
+        }
+
+        button {
+          background-color: $clr-primary;
+          color: $clr-text-light;
+          font: {
+            family: $heading-font;
+            size: 1.3rem;
+            weight: 700;
+          }
+          letter-spacing: 1px;
+          padding: 0.7rem;
+
+          &:hover {
+            background-color: #068fffd1;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

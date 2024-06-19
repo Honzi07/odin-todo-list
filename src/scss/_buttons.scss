@@ -1,0 +1,10 @@
+button {
+  background-color: transparent;
+  border: none;
+  color: $clr-secondary;
+
+  &:hover {
+    cursor: pointer;
+    color: $clr-hover-dark;
+  }
+}

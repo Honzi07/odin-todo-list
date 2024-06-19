@@ -1,383 +1,391 @@
+@import 'variables';
+@import 'modal';
+@import 'aside';
+@import 'main';
+@import 'buttons';
+@import 'utilities';
+@import 'breakpoints';
+
 // CUSTOM COLORS
-$clr-text-light: #eeeeee;
-$clr-text-dark: #000000;
-$clr-primary: #068fff;
-$clr-secondary: #bbbbbb;
-$clr-warning: #d30000;
-$clr-hover-dark: #8e8e8e;
-$shadow: rgba(0, 0, 0, 0.2);
+// $clr-text-light: #eeeeee;
+// $clr-text-dark: #000000;
+// $clr-primary: #068fff;
+// $clr-secondary: #bbbbbb;
+// $clr-warning: #d30000;
+// $clr-hover-dark: #8e8e8e;
+// $shadow: rgba(0, 0, 0, 0.2);
 
 // CUSTOM FONTS
-$heading-font: 'Roboto', sans-serif;
-$normal-font: 'AR One Sans', sans-serif;
+// $heading-font: 'Roboto', sans-serif;
+// $normal-font: 'AR One Sans', sans-serif;
 
 body {
   display: flex;
   // height: 100vh;
 }
 
-button {
-  background-color: transparent;
-  border: none;
-  color: $clr-secondary;
+// button {
+//   background-color: transparent;
+//   border: none;
+//   color: $clr-secondary;
 
-  &:hover {
-    cursor: pointer;
-    color: $clr-hover-dark;
-  }
-}
+//   &:hover {
+//     cursor: pointer;
+//     color: $clr-hover-dark;
+//   }
+// }
 
-.visually-hidden {
-  border: 0;
-  padding: 0;
-  margin: 0;
-  position: absolute !important;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  clip: rect(1px 1px 1px 1px);
-  clip: rect(1px, 1px, 1px, 1px);
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
+// .visually-hidden {
+//   border: 0;
+//   padding: 0;
+//   margin: 0;
+//   position: absolute !important;
+//   height: 1px;
+//   width: 1px;
+//   overflow: hidden;
+//   clip: rect(1px 1px 1px 1px);
+//   clip: rect(1px, 1px, 1px, 1px);
+//   clip-path: inset(50%);
+//   white-space: nowrap;
+// }
 
-.disabled {
-  opacity: 50%;
-}
+// .disabled {
+//   opacity: 50%;
+// }
 
-.modal {
-  position: fixed;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(5px);
-  height: 100%;
-  width: 100%;
-  z-index: 9999;
+// .modal {
+//   position: fixed;
+//   display: none;
+//   align-items: center;
+//   justify-content: center;
+//   background-color: rgba(0, 0, 0, 0.3);
+//   backdrop-filter: blur(5px);
+//   height: 100%;
+//   width: 100%;
+//   z-index: 9999;
 
-  .modal-content {
-    background-color: #ffffff;
-    border: 2px solid $clr-secondary;
-    border-radius: 10px;
-    box-shadow: 0px 0px 13px 5px $shadow;
-    color: $clr-text-dark;
-    padding: 3rem 2rem 2rem;
-    position: relative;
-    width: 500px;
+//   .modal-content {
+//     background-color: #ffffff;
+//     border: 2px solid $clr-secondary;
+//     border-radius: 10px;
+//     box-shadow: 0px 0px 13px 5px $shadow;
+//     color: $clr-text-dark;
+//     padding: 3rem 2rem 2rem;
+//     position: relative;
+//     width: 500px;
 
-    .btn-close.modal-close {
-      color: $clr-secondary;
-      position: absolute;
-      top: 1rem;
-      right: 2rem;
-      transition-duration: 0.2s;
+//     .btn-close.modal-close {
+//       color: $clr-secondary;
+//       position: absolute;
+//       top: 1rem;
+//       right: 2rem;
+//       transition-duration: 0.2s;
 
-      &:hover {
-        color: $clr-hover-dark;
-        scale: 1.2;
-      }
-    }
+//       &:hover {
+//         color: $clr-hover-dark;
+//         scale: 1.2;
+//       }
+//     }
 
-    form {
-      font-family: $normal-font;
+//     form {
+//       font-family: $normal-font;
 
-      fieldset {
-        border: none;
-      }
+//       fieldset {
+//         border: none;
+//       }
 
-      fieldset.input-radio {
-        display: flex;
+//       fieldset.input-radio {
+//         display: flex;
 
-        div {
-          width: 50%;
+//         div {
+//           width: 50%;
 
-          label {
-            display: block;
-            background-color: $clr-primary;
-            border: solid 2px $clr-secondary;
-            cursor: pointer;
-            color: $clr-text-light;
-            font: {
-              family: $heading-font;
-              size: 1.3rem;
-              weight: 700;
-            }
-            letter-spacing: 1px;
-            padding: 1rem 2rem;
-            text-align: center;
-            transition-duration: 0.2s;
+//           label {
+//             display: block;
+//             background-color: $clr-primary;
+//             border: solid 2px $clr-secondary;
+//             cursor: pointer;
+//             color: $clr-text-light;
+//             font: {
+//               family: $heading-font;
+//               size: 1.3rem;
+//               weight: 700;
+//             }
+//             letter-spacing: 1px;
+//             padding: 1rem 2rem;
+//             text-align: center;
+//             transition-duration: 0.2s;
 
-            &:hover {
-              background-color: #42aaff;
-            }
-          }
+//             &:hover {
+//               background-color: #42aaff;
+//             }
+//           }
 
-          label[for='project'] {
-            border-radius: 10px 0 0 10px;
-            border-right-width: 1px;
-          }
+//           label[for='project'] {
+//             border-radius: 10px 0 0 10px;
+//             border-right-width: 1px;
+//           }
 
-          label[for='todo'] {
-            border-radius: 0 10px 10px 0;
-            border-left-width: 1px;
-          }
+//           label[for='todo'] {
+//             border-radius: 0 10px 10px 0;
+//             border-left-width: 1px;
+//           }
 
-          input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-            height: 0;
-            width: 0;
+//           input {
+//             position: absolute;
+//             opacity: 0;
+//             cursor: pointer;
+//             height: 0;
+//             width: 0;
 
-            &:checked ~ label {
-              background-color: #35a4ff;
-              border-color: $clr-hover-dark;
-              border-radius: 10px;
-              scale: 1.05;
-              transition-duration: 0.2s;
-            }
+//             &:checked ~ label {
+//               background-color: #35a4ff;
+//               border-color: $clr-hover-dark;
+//               border-radius: 10px;
+//               scale: 1.05;
+//               transition-duration: 0.2s;
+//             }
 
-            // &:not(:checked) ~ label {
-            //   scale: 0.95;
-            //   border-radius: 10px;
-            // }
-          }
-        }
-      }
+//             // &:not(:checked) ~ label {
+//             //   scale: 0.95;
+//             //   border-radius: 10px;
+//             // }
+//           }
+//         }
+//       }
 
-      fieldset.input-content {
-        div {
-          position: relative;
-        }
+//       fieldset.input-content {
+//         div {
+//           position: relative;
+//         }
 
-        div input,
-        button {
-          border-radius: 10px;
-          box-shadow: none;
-          border: 2px solid $clr-secondary;
-          padding: 1rem 1rem 0.3rem;
-          outline: none;
-          width: 100%;
-        }
+//         div input,
+//         button {
+//           border-radius: 10px;
+//           box-shadow: none;
+//           border: 2px solid $clr-secondary;
+//           padding: 1rem 1rem 0.3rem;
+//           outline: none;
+//           width: 100%;
+//         }
 
-        div label {
-          position: absolute;
-          cursor: text;
-          top: 13px;
-          left: 10px;
-          transition-duration: 0.2s;
-        }
+//         div label {
+//           position: absolute;
+//           cursor: text;
+//           top: 13px;
+//           left: 10px;
+//           transition-duration: 0.2s;
+//         }
 
-        div input:focus {
-          border-color: $clr-primary;
-        }
+//         div input:focus {
+//           border-color: $clr-primary;
+//         }
 
-        div input:focus + label,
-        .float-label {
-          top: 2px;
-          left: 18px;
-          font-size: 0.8rem;
-          opacity: 60%;
-          transition-duration: 0.2s;
-        }
+//         div input:focus + label,
+//         .float-label {
+//           top: 2px;
+//           left: 18px;
+//           font-size: 0.8rem;
+//           opacity: 60%;
+//           transition-duration: 0.2s;
+//         }
 
-        & > *:not(:first-child) {
-          margin-top: 1rem;
-        }
+//         & > *:not(:first-child) {
+//           margin-top: 1rem;
+//         }
 
-        // div input:focus:valid {
-        //   border-color: green;
-        // }
+//         // div input:focus:valid {
+//         //   border-color: green;
+//         // }
 
-        // div input:focus:invalid {
-        //   border-color: #d30000;
-        // }
+//         // div input:focus:invalid {
+//         //   border-color: #d30000;
+//         // }
 
-        div input:invalid,
-        div input:focus:invalid {
-          border-color: $clr-warning;
-        }
+//         div input:invalid,
+//         div input:focus:invalid {
+//           border-color: $clr-warning;
+//         }
 
-        div input:invalid + label {
-          color: $clr-warning;
-        }
+//         div input:invalid + label {
+//           color: $clr-warning;
+//         }
 
-        div input:invalid + label::after {
-          content: ' required!';
-        }
+//         div input:invalid + label::after {
+//           content: ' required!';
+//         }
 
-        div input:focus {
-          border-color: $clr-primary;
-        }
+//         div input:focus {
+//           border-color: $clr-primary;
+//         }
 
-        button {
-          background-color: $clr-primary;
-          color: $clr-text-light;
-          font: {
-            family: $heading-font;
-            size: 1.3rem;
-            weight: 700;
-          }
-          letter-spacing: 1px;
-          padding: 0.7rem;
+//         button {
+//           background-color: $clr-primary;
+//           color: $clr-text-light;
+//           font: {
+//             family: $heading-font;
+//             size: 1.3rem;
+//             weight: 700;
+//           }
+//           letter-spacing: 1px;
+//           padding: 0.7rem;
 
-          &:hover {
-            background-color: #068fffd1;
-            cursor: pointer;
-          }
-        }
-      }
-    }
-  }
-}
+//           &:hover {
+//             background-color: #068fffd1;
+//             cursor: pointer;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
 
-aside {
-  display: flex;
-  flex-direction: column;
-  background-color: $clr-primary;
-  box-shadow: $shadow 8px 8px 12px 6px;
-  color: $clr-text-light;
-  padding: 2rem;
-  // position: sticky;
-  // top: 0;
-  // height: 100%;
-  min-width: fit-content;
-  z-index: 999;
+// aside {
+//   display: flex;
+//   flex-direction: column;
+//   background-color: $clr-primary;
+//   box-shadow: $shadow 8px 8px 12px 6px;
+//   color: $clr-text-light;
+//   padding: 2rem;
+//   // position: sticky;
+//   // top: 0;
+//   // height: 100%;
+//   min-width: fit-content;
+//   z-index: 999;
 
-  font: {
-    family: $heading-font;
-    weight: 600;
-  }
-  // font-weight: 600;
-  // width: clamp(200px, 30%, 400px);
+//   font: {
+//     family: $heading-font;
+//     weight: 600;
+//   }
+//   // font-weight: 600;
+//   // width: clamp(200px, 30%, 400px);
 
-  header {
-    margin-bottom: 4rem;
+//   header {
+//     margin-bottom: 4rem;
 
-    h1 {
-      font-size: 2rem;
-    }
-  }
+//     h1 {
+//       font-size: 2rem;
+//     }
+//   }
 
-  // nav {
-  //   position: sticky;
-  //   top: 2rem;
-  // }
+//   // nav {
+//   //   position: sticky;
+//   //   top: 2rem;
+//   // }
 
-  .container-sticky {
-    display: flex;
-    flex-direction: column;
-    position: sticky;
-    top: 1rem;
-    bottom: 2rem;
-    height: calc(100vh - 4rem);
+//   .container-sticky {
+//     display: flex;
+//     flex-direction: column;
+//     position: sticky;
+//     top: 1rem;
+//     bottom: 2rem;
+//     height: calc(100vh - 4rem);
 
-    .btn-menu {
-      background-color: transparent;
-      border: none;
-      display: none;
-      // margin-bottom: 15px;
-      padding: 0;
-      height: 50px;
-      transition: all 1s ease;
-      width: 50px;
+//     .btn-menu {
+//       background-color: transparent;
+//       border: none;
+//       display: none;
+//       // margin-bottom: 15px;
+//       padding: 0;
+//       height: 50px;
+//       transition: all 1s ease;
+//       width: 50px;
 
-      &:hover {
-        cursor: pointer;
-      }
+//       &:hover {
+//         cursor: pointer;
+//       }
 
-      span {
-        display: block;
-        background-color: $clr-text-light;
-        border-radius: 10px;
-        height: 6px;
-        margin: 10px 0;
-        transition: all 0.5s ease;
-        width: 100%;
-      }
-    }
+//       span {
+//         display: block;
+//         background-color: $clr-text-light;
+//         border-radius: 10px;
+//         height: 6px;
+//         margin: 10px 0;
+//         transition: all 0.5s ease;
+//         width: 100%;
+//       }
+//     }
 
-    .btn-menu.active {
-      span:nth-child(1) {
-        transform: rotate(45deg);
-        position: absolute;
-        bottom: 25%;
-      }
+//     .btn-menu.active {
+//       span:nth-child(1) {
+//         transform: rotate(45deg);
+//         position: absolute;
+//         bottom: 25%;
+//       }
 
-      span:nth-child(2) {
-        opacity: 0;
-        transition: 0ms;
-      }
+//       span:nth-child(2) {
+//         opacity: 0;
+//         transition: 0ms;
+//       }
 
-      span:nth-child(3) {
-        transform: rotate(-45deg);
-        position: absolute;
-        top: 25%;
-      }
-    }
+//       span:nth-child(3) {
+//         transform: rotate(-45deg);
+//         position: absolute;
+//         top: 25%;
+//       }
+//     }
 
-    ul {
-      list-style: none;
-      padding: 0;
+//     ul {
+//       list-style: none;
+//       padding: 0;
 
-      & li button:hover {
-        cursor: pointer;
-        text-decoration: underline;
-      }
+//       & li button:hover {
+//         cursor: pointer;
+//         text-decoration: underline;
+//       }
 
-      .nav-show-all {
-        margin-bottom: 40px;
-        font-size: 1.5rem;
+//       .nav-show-all {
+//         margin-bottom: 40px;
+//         font-size: 1.5rem;
 
-        .btn-show-all {
-          color: $clr-text-light;
-        }
-      }
+//         .btn-show-all {
+//           color: $clr-text-light;
+//         }
+//       }
 
-      .nav-today,
-      .nav-week {
-        margin-bottom: 15px;
-        color: inherit;
+//       .nav-today,
+//       .nav-week {
+//         margin-bottom: 15px;
+//         color: inherit;
 
-        & * {
-          color: inherit;
-        }
+//         & * {
+//           color: inherit;
+//         }
 
-        & > button {
-          font-size: 1.5rem;
-          letter-spacing: 1px;
-        }
+//         & > button {
+//           font-size: 1.5rem;
+//           letter-spacing: 1px;
+//         }
 
-        & li > button {
-          font-size: 1.25rem;
-          letter-spacing: 1px;
-        }
-      }
-    }
+//         & li > button {
+//           font-size: 1.25rem;
+//           letter-spacing: 1px;
+//         }
+//       }
+//     }
 
-    footer {
-      display: flex;
-      align-items: center;
-      font: {
-        family: $normal-font;
-        weight: 400;
-      }
+//     footer {
+//       display: flex;
+//       align-items: center;
+//       font: {
+//         family: $normal-font;
+//         weight: 400;
+//       }
 
-      p {
-        margin-right: 10px;
-      }
+//       p {
+//         margin-right: 10px;
+//       }
 
-      svg {
-        color: $clr-text-light;
+//       svg {
+//         color: $clr-text-light;
 
-        &:hover {
-          scale: 1.1;
-        }
-      }
-    }
-  }
-}
+//         &:hover {
+//           scale: 1.1;
+//         }
+//       }
+//     }
+//   }
+// }
 
 header,
 nav {
@@ -388,373 +396,397 @@ footer {
   margin-top: auto;
 }
 
-main {
-  // background-color: lightgreen;
-  // flex: 1;
-  padding: 2rem;
-  // position: relative;
+// main {
+//   // background-color: lightgreen;
+//   // flex: 1;
+//   padding: 2rem;
+//   // position: relative;
 
-  // display: grid;
-  // gap: 2rem;
-  // grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  // break-inside: avoid;
-  // grid-template-rows: 1fr auto;
+//   // display: grid;
+//   // gap: 2rem;
+//   // grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+//   // break-inside: avoid;
+//   // grid-template-rows: 1fr auto;
 
-  // display: flex;
-  // flex-direction: column;
-  // flex-wrap: wrap;
-  // gap: 2rem;
+//   // display: flex;
+//   // flex-direction: column;
+//   // flex-wrap: wrap;
+//   // gap: 2rem;
 
-  columns: auto 300px;
-  column-gap: 2rem;
+//   columns: auto 300px;
+//   column-gap: 2rem;
 
-  .btn-open-modal {
-    background-color: $clr-primary;
-    border: none;
-    border-radius: 50%;
-    box-shadow: $shadow 0 0 10px 4px;
-    cursor: pointer;
-    position: fixed;
-    right: 1rem;
-    bottom: 1rem;
-    height: 60px;
-    width: 60px;
-    transition: all 0.2s ease;
+//   .btn-open-modal {
+//     background-color: $clr-primary;
+//     border: none;
+//     border-radius: 50%;
+//     box-shadow: $shadow 0 0 10px 4px;
+//     cursor: pointer;
+//     position: fixed;
+//     right: 1rem;
+//     bottom: 1rem;
+//     height: 60px;
+//     width: 60px;
+//     transition: all 0.2s ease;
 
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      background-color: $clr-text-light;
-      border-radius: 10px;
-      display: block;
-      height: 60%;
-      width: 6px;
-      right: calc(50% - 3px);
-      bottom: 20%;
-    }
+//     &::before,
+//     &::after {
+//       content: '';
+//       position: absolute;
+//       background-color: $clr-text-light;
+//       border-radius: 10px;
+//       display: block;
+//       height: 60%;
+//       width: 6px;
+//       right: calc(50% - 3px);
+//       bottom: 20%;
+//     }
 
-    &::after {
-      rotate: 90deg;
-    }
+//     &::after {
+//       rotate: 90deg;
+//     }
 
-    &:hover {
-      scale: 1.1;
-      // transition: all 0.5s ease-in-out;
-    }
-  }
+//     &:hover {
+//       scale: 1.1;
+//       // transition: all 0.5s ease-in-out;
+//     }
+//   }
 
-  .project,
-  .todo {
-    background-color: rgb(255, 255, 255);
-    border: $clr-secondary 2px solid;
-    border-radius: 10px;
-    display: inline-block;
-    // cursor: pointer;
-    // color: $clr-text-light;
-    // width: 300px;
-    padding: 1rem;
-    transition: all 0.3s ease;
-    height: min-content;
-    margin: 1rem 0;
-    width: 100%;
+//   .project,
+//   .todo {
+//     background-color: rgb(255, 255, 255);
+//     border: $clr-secondary 2px solid;
+//     border-radius: 10px;
+//     display: inline-block;
+//     // cursor: pointer;
+//     // color: $clr-text-light;
+//     // width: 300px;
+//     padding: 1rem;
+//     transition: all 0.3s ease;
+//     height: min-content;
+//     margin: 1rem 0;
+//     width: 100%;
 
-    &:hover {
-      box-shadow: $shadow 4px 4px 9px 3px;
-    }
+//     &:hover {
+//       box-shadow: $shadow 4px 4px 9px 3px;
+//     }
 
-    .project-heading {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 2rem;
+//     .project-heading {
+//       display: flex;
+//       flex-direction: row;
+//       align-items: center;
+//       justify-content: space-between;
+//       margin-bottom: 2rem;
 
-      h2 {
-        font-family: $heading-font;
-        // margin-bottom: 2rem;
-      }
+//       h2 {
+//         font-family: $heading-font;
+//         // margin-bottom: 2rem;
+//       }
 
-      button.project-delete {
-        border-radius: 50%;
-        color: $clr-secondary;
-        padding: 6px;
+//       button.project-delete {
+//         border-radius: 50%;
+//         color: $clr-secondary;
+//         padding: 6px;
 
-        &:hover {
-          background-color: #e5e5e5;
-          color: $clr-hover-dark;
-        }
+//         &:hover {
+//           background-color: #e5e5e5;
+//           color: $clr-hover-dark;
+//         }
 
-        svg {
-          pointer-events: none;
-        }
-      }
-    }
+//         svg {
+//           pointer-events: none;
+//         }
+//       }
+//     }
 
-    .project-todo,
-    .todo-content-container {
-      // display: flex;
-      // flex-direction: column;
-      display: grid;
-      grid-template-columns: 50px auto;
-      grid-template-rows: auto 50px;
-      grid-template-areas:
-        'checkbox todo'
-        'checkbox todo-info';
-      border: $clr-secondary 1px solid;
-      border-radius: 10px;
-      font-family: $normal-font;
-      // padding: 1rem;
+//     .project-todo,
+//     .todo-content-container {
+//       // display: flex;
+//       // flex-direction: column;
+//       display: grid;
+//       grid-template-columns: 50px auto;
+//       grid-template-rows: auto 50px;
+//       grid-template-areas:
+//         'checkbox todo'
+//         'checkbox todo-info';
+//       border: $clr-secondary 1px solid;
+//       border-radius: 10px;
+//       font-family: $normal-font;
+//       // padding: 1rem;
 
-      &:not(:last-child) {
-        margin-bottom: 1rem;
-      }
-    }
+//       &:not(:last-child) {
+//         margin-bottom: 1rem;
+//       }
+//     }
 
-    .todo-checkbox-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      grid-area: checkbox;
+//     .todo-checkbox-container {
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//       position: relative;
+//       grid-area: checkbox;
 
-      &:hover .checkmark {
-        outline: 2px solid $clr-hover-dark;
-      }
+//       &:hover .checkmark {
+//         outline: 2px solid $clr-hover-dark;
+//       }
 
-      & input:checked ~ .checkmark {
-        background-color: $clr-primary;
-      }
+//       & input:checked ~ .checkmark {
+//         background-color: $clr-primary;
+//       }
 
-      & input:checked ~ .checkmark:after {
-        display: block;
-      }
+//       & input:checked ~ .checkmark:after {
+//         display: block;
+//       }
 
-      input {
-        position: absolute;
-        opacity: 0;
-        height: 0;
-        width: 0;
+//       input {
+//         position: absolute;
+//         opacity: 0;
+//         height: 0;
+//         width: 0;
 
-        &:checked .checkmark:after {
-          display: block;
-        }
-      }
+//         &:checked .checkmark:after {
+//           display: block;
+//         }
+//       }
 
-      .checkmark {
-        border-radius: 5px;
-        position: absolute;
-        outline: 1px solid $clr-secondary;
-        height: 35px;
-        width: 35px;
+//       .checkmark {
+//         border-radius: 5px;
+//         position: absolute;
+//         outline: 1px solid $clr-secondary;
+//         height: 35px;
+//         width: 35px;
 
-        &:after {
-          content: '';
-          position: absolute;
-          display: none;
-          left: 12px;
-          top: 0px;
-          width: 13px;
-          height: 30px;
-          border: solid $clr-text-light;
-          border-width: 0 5px 5px 0;
-          border-radius: 0 0 5px 0;
-          transform: rotate(40deg);
-        }
-      }
-    }
+//         &:after {
+//           content: '';
+//           position: absolute;
+//           display: none;
+//           left: 12px;
+//           top: 0px;
+//           width: 13px;
+//           height: 30px;
+//           border: solid $clr-text-light;
+//           border-width: 0 5px 5px 0;
+//           border-radius: 0 0 5px 0;
+//           transform: rotate(40deg);
+//         }
+//       }
+//     }
 
-    .todo-text {
-      border-left: solid 1px $clr-secondary;
-      border-bottom: solid 1px $clr-secondary;
-      padding: 1rem;
-      max-height: 200px;
-      overflow: auto;
-      grid-area: todo;
-    }
+//     @keyframes line {
+//       from {
+//         text-decoration-color: transparent;
+//       }
+//       to {
+//         text-decoration-color: $clr-warning;
+//       }
+//     }
 
-    .todo-done {
-      text-decoration-line: line-through;
-      text-decoration-color: $clr-warning;
-    }
+//     @keyframes lineremove {
+//       from {
+//         text-decoration-color: $clr-warning;
+//       }
+//       to {
+//         text-decoration-color: transparent;
+//       }
+//     }
 
-    .todo-info-container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-left: solid 1px $clr-secondary;
-      padding: 0 1rem;
-      grid-area: todo-info;
+//     .todo-text {
+//       border-left: solid 1px $clr-secondary;
+//       border-bottom: solid 1px $clr-secondary;
+//       padding: 1rem;
+//       max-height: 200px;
+//       overflow: auto;
+//       grid-area: todo;
+//       // text-decoration: none;
+//       // text-decoration-thickness: 0;
+//       // text-decoration-color: transparent;
+//       animation: lineremove 1s linear;
+//     }
 
-      .todo-date {
-        // color: $clr-secondary;
-        opacity: 60%;
-      }
+//     .todo-done {
+//       text-decoration: line-through;
+//       text-decoration-thickness: 3px;
+//       text-decoration-color: $clr-warning;
+//       animation: line 1s linear;
+//     }
 
-      .todo-dropdown-container {
-        position: relative;
+//     .todo-info-container {
+//       display: flex;
+//       align-items: center;
+//       justify-content: space-between;
+//       border-left: solid 1px $clr-secondary;
+//       padding: 0 1rem;
+//       grid-area: todo-info;
 
-        .todo-btn-dropdown {
-          background-color: transparent;
-          border: none;
-          // position: relative;
-          svg {
-            color: $clr-secondary;
+//       .todo-date {
+//         // color: $clr-secondary;
+//         opacity: 60%;
+//       }
 
-            &:hover {
-              color: $clr-hover-dark;
-              cursor: pointer;
-            }
-          }
-        }
+//       .todo-dropdown-container {
+//         position: relative;
 
-        .todo-dropdown-content {
-          display: none;
-          background-color: white;
-          border: $clr-secondary 2px solid;
-          border-radius: 10px;
-          color: $clr-text-dark;
-          position: absolute;
-          right: 36px;
-          top: 10px;
+//         .todo-btn-dropdown {
+//           background-color: transparent;
+//           border: none;
+//           // position: relative;
+//           svg {
+//             color: $clr-secondary;
 
-          ul {
-            list-style: none;
-            padding: 0.5rem;
+//             &:hover {
+//               color: $clr-hover-dark;
+//               cursor: pointer;
+//             }
+//           }
+//         }
 
-            button:hover {
-              text-decoration: underline;
-            }
+//         .todo-dropdown-content {
+//           display: none;
+//           background-color: white;
+//           border: $clr-secondary 2px solid;
+//           border-radius: 10px;
+//           color: $clr-text-dark;
+//           position: absolute;
+//           right: 36px;
+//           top: 10px;
 
-            .todo-btn-edit {
-              color: $clr-text-dark;
-            }
+//           ul {
+//             list-style: none;
+//             padding: 0.5rem;
 
-            .todo-btn-delete {
-              color: $clr-warning;
-            }
-          }
-        }
+//             button:hover {
+//               text-decoration: underline;
+//             }
 
-        &:hover .todo-dropdown-content {
-          display: block;
-        }
-      }
-    }
+//             .todo-btn-edit {
+//               color: $clr-text-dark;
+//             }
 
-    .project-input-container {
-      display: none;
-    }
+//             .todo-btn-delete {
+//               color: $clr-warning;
+//             }
+//           }
+//         }
 
-    .project-input-container.active {
-      display: block;
-      position: relative;
+//         &:hover .todo-dropdown-content {
+//           display: block;
+//         }
+//       }
+//     }
 
-      button {
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        // border: 2px solid $shadow;
-        border: none;
-        outline: none;
-        border-radius: 10px 0 0 10px;
-        padding: 0;
-        cursor: pointer;
-        left: 2px;
-        top: 2px;
+//     .project-input-container {
+//       display: none;
+//     }
 
-        &::before,
-        &::after {
-          content: '';
-          border-radius: 10px;
-          position: absolute;
-          display: block;
-          width: 4px;
-          height: 80%;
-          background-color: $clr-secondary;
-          right: calc(50% - 2px);
-          top: 10%;
-        }
+//     .project-input-container.active {
+//       display: block;
+//       position: relative;
 
-        &::after {
-          rotate: 90deg;
-        }
+//       button {
+//         position: absolute;
+//         width: 40px;
+//         height: 40px;
+//         // border: 2px solid $shadow;
+//         border: none;
+//         outline: none;
+//         border-radius: 10px 0 0 10px;
+//         padding: 0;
+//         cursor: pointer;
+//         left: 2px;
+//         top: 2px;
 
-        &:hover::after,
-        &:hover::before {
-          background-color: $clr-hover-dark;
-        }
-      }
+//         &::before,
+//         &::after {
+//           content: '';
+//           border-radius: 10px;
+//           position: absolute;
+//           display: block;
+//           width: 4px;
+//           height: 80%;
+//           background-color: $clr-secondary;
+//           right: calc(50% - 2px);
+//           top: 10%;
+//         }
 
-      input {
-        border-radius: 10px;
-        width: 100%;
-        padding: 8px;
-        padding-left: 50px;
-        outline: none;
-        border-color: $shadow;
-        font-family: $normal-font;
+//         &::after {
+//           rotate: 90deg;
+//         }
 
-        &:focus {
-          border-color: $clr-secondary;
-        }
-      }
-    }
-  }
-  // .todo {
-  //   display: flex;
-  //   flex-direction: column;
-  //   align-items: flex-end;
-  // }
-}
+//         &:hover::after,
+//         &:hover::before {
+//           background-color: $clr-hover-dark;
+//         }
+//       }
 
-@media only screen and (max-width: 768px) {
-  body {
-    flex-direction: column;
-  }
+//       input {
+//         border-radius: 10px;
+//         width: 100%;
+//         padding: 8px;
+//         padding-left: 50px;
+//         outline: none;
+//         border-color: $shadow;
+//         font-family: $normal-font;
 
-  aside {
-    // height: 2rem;
-    overflow: hidden;
-    padding-top: 0;
-    position: fixed;
-    height: 90px;
-    width: 100%;
-    transition: all 0.5s ease;
+//         &:focus {
+//           border-color: $clr-secondary;
+//         }
+//       }
+//     }
+//   }
+//   // .todo {
+//   //   display: flex;
+//   //   flex-direction: column;
+//   //   align-items: flex-end;
+//   // }
+// }
 
-    .container-sticky {
-      position: relative;
+// @media only screen and (max-width: 768px) {
+//   body {
+//     flex-direction: column;
+//   }
 
-      .btn-menu,
-      .btn-menu.active {
-        display: initial;
-        position: absolute;
-        top: 0;
-        right: 0;
-      }
+//   aside {
+//     // height: 2rem;
+//     overflow: hidden;
+//     padding-top: 0;
+//     position: fixed;
+//     height: 90px;
+//     width: 100%;
+//     transition: all 0.5s ease;
 
-      footer {
-        margin-bottom: 1rem;
-      }
-    }
-  }
+//     .container-sticky {
+//       position: relative;
 
-  aside.active {
-    height: 530px;
-  }
+//       .btn-menu,
+//       .btn-menu.active {
+//         display: initial;
+//         position: absolute;
+//         top: 0;
+//         right: 0;
+//       }
 
-  main {
-    margin-top: 90px;
-    transition: all 0.5s ease;
-  }
+//       footer {
+//         margin-bottom: 1rem;
+//       }
+//     }
+//   }
 
-  main.active {
-    margin-top: 410px;
-    transition: all 0.5s ease;
-  }
+//   aside.active {
+//     height: 530px;
+//   }
 
-  // nav,
-  // footer {
-  //   display: hidden;
-  // }
-}
+//   main {
+//     margin-top: 90px;
+//     transition: all 0.5s ease;
+//   }
+
+//   main.active {
+//     margin-top: 410px;
+//     transition: all 0.5s ease;
+//   }
+
+//   // nav,
+//   // footer {
+//   //   display: hidden;
+//   // }
+// }

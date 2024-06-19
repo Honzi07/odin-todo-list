@@ -1,0 +1,343 @@
+main {
+  // background-color: lightgreen;
+  // flex: 1;
+  padding: 2rem;
+  // position: relative;
+
+  // display: grid;
+  // gap: 2rem;
+  // grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  // break-inside: avoid;
+  // grid-template-rows: 1fr auto;
+
+  // display: flex;
+  // flex-direction: column;
+  // flex-wrap: wrap;
+  // gap: 2rem;
+
+  columns: auto 300px;
+  column-gap: 2rem;
+
+  .btn-open-modal {
+    background-color: $clr-primary;
+    border: none;
+    border-radius: 50%;
+    box-shadow: $shadow 0 0 10px 4px;
+    cursor: pointer;
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    height: 60px;
+    width: 60px;
+    transition: all 0.2s ease;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      background-color: $clr-text-light;
+      border-radius: 10px;
+      display: block;
+      height: 60%;
+      width: 6px;
+      right: calc(50% - 3px);
+      bottom: 20%;
+    }
+
+    &::after {
+      rotate: 90deg;
+    }
+
+    &:hover {
+      scale: 1.1;
+      // transition: all 0.5s ease-in-out;
+    }
+  }
+
+  .project,
+  .todo {
+    background-color: rgb(255, 255, 255);
+    border: $clr-secondary 2px solid;
+    border-radius: 10px;
+    display: inline-block;
+    // cursor: pointer;
+    // color: $clr-text-light;
+    // width: 300px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+    height: min-content;
+    margin: 1rem 0;
+    width: 100%;
+
+    &:hover {
+      box-shadow: $shadow 4px 4px 9px 3px;
+    }
+
+    .project-heading {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+
+      h2 {
+        font-family: $heading-font;
+        // margin-bottom: 2rem;
+      }
+
+      button.project-delete {
+        border-radius: 50%;
+        color: $clr-secondary;
+        padding: 6px;
+
+        &:hover {
+          background-color: #e5e5e5;
+          color: $clr-hover-dark;
+        }
+
+        svg {
+          pointer-events: none;
+        }
+      }
+    }
+
+    .project-todo,
+    .todo-content-container {
+      // display: flex;
+      // flex-direction: column;
+      display: grid;
+      grid-template-columns: 50px auto;
+      grid-template-rows: auto 50px;
+      grid-template-areas:
+        'checkbox todo'
+        'checkbox todo-info';
+      border: $clr-secondary 1px solid;
+      border-radius: 10px;
+      font-family: $normal-font;
+      // padding: 1rem;
+
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
+
+    .todo-checkbox-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      grid-area: checkbox;
+
+      &:hover .checkmark {
+        outline: 2px solid $clr-hover-dark;
+      }
+
+      & input:checked ~ .checkmark {
+        background-color: $clr-primary;
+      }
+
+      & input:checked ~ .checkmark:after {
+        display: block;
+      }
+
+      input {
+        position: absolute;
+        opacity: 0;
+        height: 0;
+        width: 0;
+
+        &:checked .checkmark:after {
+          display: block;
+        }
+      }
+
+      .checkmark {
+        border-radius: 5px;
+        position: absolute;
+        outline: 1px solid $clr-secondary;
+        height: 35px;
+        width: 35px;
+
+        &:after {
+          content: '';
+          position: absolute;
+          display: none;
+          left: 12px;
+          top: 0px;
+          width: 13px;
+          height: 30px;
+          border: solid $clr-text-light;
+          border-width: 0 5px 5px 0;
+          border-radius: 0 0 5px 0;
+          transform: rotate(40deg);
+        }
+      }
+    }
+
+    @keyframes line {
+      from {
+        text-decoration-color: transparent;
+      }
+      to {
+        text-decoration-color: $clr-warning;
+      }
+    }
+
+    @keyframes lineremove {
+      from {
+        text-decoration-color: $clr-warning;
+      }
+      to {
+        text-decoration-color: transparent;
+      }
+    }
+
+    .todo-text {
+      border-left: solid 1px $clr-secondary;
+      border-bottom: solid 1px $clr-secondary;
+      padding: 1rem;
+      max-height: 200px;
+      overflow: auto;
+      grid-area: todo;
+      // text-decoration: none;
+      // text-decoration-thickness: 0;
+      // text-decoration-color: transparent;
+      animation: lineremove 1s linear;
+    }
+
+    .todo-done {
+      text-decoration: line-through;
+      text-decoration-thickness: 3px;
+      text-decoration-color: $clr-warning;
+      animation: line 1s linear;
+    }
+
+    .todo-info-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-left: solid 1px $clr-secondary;
+      padding: 0 1rem;
+      grid-area: todo-info;
+
+      .todo-date {
+        // color: $clr-secondary;
+        opacity: 60%;
+      }
+
+      .todo-dropdown-container {
+        position: relative;
+
+        .todo-btn-dropdown {
+          background-color: transparent;
+          border: none;
+          // position: relative;
+          svg {
+            color: $clr-secondary;
+
+            &:hover {
+              color: $clr-hover-dark;
+              cursor: pointer;
+            }
+          }
+        }
+
+        .todo-dropdown-content {
+          display: none;
+          background-color: white;
+          border: $clr-secondary 2px solid;
+          border-radius: 10px;
+          color: $clr-text-dark;
+          position: absolute;
+          right: 36px;
+          top: 10px;
+
+          ul {
+            list-style: none;
+            padding: 0.5rem;
+
+            button:hover {
+              text-decoration: underline;
+            }
+
+            .todo-btn-edit {
+              color: $clr-text-dark;
+            }
+
+            .todo-btn-delete {
+              color: $clr-warning;
+            }
+          }
+        }
+
+        &:hover .todo-dropdown-content {
+          display: block;
+        }
+      }
+    }
+
+    .project-input-container {
+      display: none;
+    }
+
+    .project-input-container.active {
+      display: block;
+      position: relative;
+
+      button {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        // border: 2px solid $shadow;
+        border: none;
+        outline: none;
+        border-radius: 10px 0 0 10px;
+        padding: 0;
+        cursor: pointer;
+        left: 2px;
+        top: 2px;
+
+        &::before,
+        &::after {
+          content: '';
+          border-radius: 10px;
+          position: absolute;
+          display: block;
+          width: 4px;
+          height: 80%;
+          background-color: $clr-secondary;
+          right: calc(50% - 2px);
+          top: 10%;
+        }
+
+        &::after {
+          rotate: 90deg;
+        }
+
+        &:hover::after,
+        &:hover::before {
+          background-color: $clr-hover-dark;
+        }
+      }
+
+      input {
+        border-radius: 10px;
+        width: 100%;
+        padding: 8px;
+        padding-left: 50px;
+        outline: none;
+        border-color: $shadow;
+        font-family: $normal-font;
+
+        &:focus {
+          border-color: $clr-secondary;
+        }
+      }
+    }
+  }
+  // .todo {
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: flex-end;
+  // }
+}

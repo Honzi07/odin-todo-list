@@ -1,0 +1,50 @@
+@media only screen and (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  aside {
+    // height: 2rem;
+    overflow: hidden;
+    padding-top: 0;
+    position: fixed;
+    height: 90px;
+    width: 100%;
+    transition: all 0.5s ease;
+
+    .container-sticky {
+      position: relative;
+
+      .btn-menu,
+      .btn-menu.active {
+        display: initial;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+
+      footer {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  aside.active {
+    height: 530px;
+  }
+
+  main {
+    margin-top: 90px;
+    transition: all 0.5s ease;
+  }
+
+  main.active {
+    margin-top: 410px;
+    transition: all 0.5s ease;
+  }
+
+  // nav,
+  // footer {
+  //   display: hidden;
+  // }
+}

@@ -1,0 +1,146 @@
+aside {
+  display: flex;
+  flex-direction: column;
+  background-color: $clr-primary;
+  box-shadow: $shadow 8px 8px 12px 6px;
+  color: $clr-text-light;
+  padding: 2rem;
+  // position: sticky;
+  // top: 0;
+  // height: 100%;
+  min-width: fit-content;
+  z-index: 999;
+
+  font: {
+    family: $heading-font;
+    weight: 600;
+  }
+  // font-weight: 600;
+  // width: clamp(200px, 30%, 400px);
+
+  header {
+    margin-bottom: 4rem;
+
+    h1 {
+      font-size: 2rem;
+    }
+  }
+
+  // nav {
+  //   position: sticky;
+  //   top: 2rem;
+  // }
+
+  .container-sticky {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 1rem;
+    bottom: 2rem;
+    height: calc(100vh - 4rem);
+
+    .btn-menu {
+      background-color: transparent;
+      border: none;
+      display: none;
+      // margin-bottom: 15px;
+      padding: 0;
+      height: 50px;
+      transition: all 1s ease;
+      width: 50px;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      span {
+        display: block;
+        background-color: $clr-text-light;
+        border-radius: 10px;
+        height: 6px;
+        margin: 10px 0;
+        transition: all 0.5s ease;
+        width: 100%;
+      }
+    }
+
+    .btn-menu.active {
+      span:nth-child(1) {
+        transform: rotate(45deg);
+        position: absolute;
+        bottom: 25%;
+      }
+
+      span:nth-child(2) {
+        opacity: 0;
+        transition: 0ms;
+      }
+
+      span:nth-child(3) {
+        transform: rotate(-45deg);
+        position: absolute;
+        top: 25%;
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      & li button:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+
+      .nav-show-all {
+        margin-bottom: 40px;
+        font-size: 1.5rem;
+
+        .btn-show-all {
+          color: $clr-text-light;
+        }
+      }
+
+      .nav-today,
+      .nav-week {
+        margin-bottom: 15px;
+        color: inherit;
+
+        & * {
+          color: inherit;
+        }
+
+        & > button {
+          font-size: 1.5rem;
+          letter-spacing: 1px;
+        }
+
+        & li > button {
+          font-size: 1.25rem;
+          letter-spacing: 1px;
+        }
+      }
+    }
+
+    footer {
+      display: flex;
+      align-items: center;
+      font: {
+        family: $normal-font;
+        weight: 400;
+      }
+
+      p {
+        margin-right: 10px;
+      }
+
+      svg {
+        color: $clr-text-light;
+
+        &:hover {
+          scale: 1.1;
+        }
+      }
+    }
+  }
+}
