@@ -105,6 +105,8 @@ export default class DOM {
     const arr = createClass.getTasks;
 
     todo.updateDOMElement(targetEl);
+    targetEl.insertAdjacentHTML('beforebegin', todo.todoHTML());
+    targetEl.remove();
     createClass.updateElementInArray(todo, arr, todoIndex, projectIndex);
   }
 
