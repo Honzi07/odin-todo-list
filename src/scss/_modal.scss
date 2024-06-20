@@ -41,6 +41,20 @@
 
       fieldset.input-radio {
         display: flex;
+        position: relative;
+
+        &::after {
+          content: 'Please select a type';
+          display: none;
+          position: absolute;
+          top: -20px;
+          right: calc((100% - 138px) / 2);
+          color: $clr-warning;
+        }
+
+        &.invalid::after {
+          display: block;
+        }
 
         div {
           width: 50%;
@@ -90,11 +104,10 @@
               scale: 1.05;
               transition-duration: 0.2s;
             }
+          }
 
-            // &:not(:checked) ~ label {
-            //   scale: 0.95;
-            //   border-radius: 10px;
-            // }
+          & input:invalid + label {
+            border-color: $clr-warning;
           }
         }
       }

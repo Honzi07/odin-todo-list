@@ -10,6 +10,7 @@ export default class DOMManager {
     this.inputStateEventListener();
     this.floatLabels();
     this.toggleAddEditTodoProperties();
+    this.checkRadioValidity();
   }
 
   resetModal() {
@@ -115,6 +116,31 @@ export default class DOMManager {
         el.inputTitle.labels[0].classList.add('float-label');
       } else if (btn.dataset.btnType === 'add-todo') {
         changeProperties('add-todo', 'Add');
+      }
+    });
+  }
+
+  checkRadioValidity() {
+    const el = this.allElements;
+    const radios = [el.inputProject, el.inputTodo];
+
+    const changeRadioValidity = () => {
+      const isTrue = radios.some((radio) => radio.checked);
+
+      isTrue
+        ? el.fieldsetRadio.classList.remove('invalid')
+        : el.fieldsetRadio.classList.add('invalid');
+    };
+    changeRadioValidity();
+
+    radios.forEach((radio) =>
+      radio.addEventListener('change', changeRadioValidity)
+    );
+
+    el.mainEl.addEventListener('click', (ev) => {
+      const evDataSet = ev.target.dataset.btnType;
+      if (evDataSet === 'add-todo' || evDataSet === 'open-modal') {
+        changeRadioValidity();
       }
     });
   }
