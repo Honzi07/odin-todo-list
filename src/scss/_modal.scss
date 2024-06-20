@@ -44,7 +44,7 @@
         position: relative;
 
         &::after {
-          content: 'Please select a type';
+          content: 'Please select type!';
           display: none;
           position: absolute;
           top: -20px;
