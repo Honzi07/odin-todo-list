@@ -85,19 +85,73 @@ main {
         // margin-bottom: 2rem;
       }
 
-      button.project-delete {
-        border-radius: 50%;
-        color: $clr-secondary;
-        padding: 6px;
+      // button.project-delete {
+      //   border-radius: 50%;
+      //   color: $clr-secondary;
+      //   padding: 6px;
 
-        &:hover {
-          background-color: #e5e5e5;
-          color: $clr-hover-dark;
-        }
+      //   &:hover {
+      //     background-color: #e5e5e5;
+      //     color: $clr-hover-dark;
+      //   }
 
+      //   svg {
+      //     pointer-events: none;
+      //   }
+      // }
+    }
+
+    .todo-dropdown-container {
+      position: relative;
+
+      .todo-btn-dropdown {
+        background-color: transparent;
+        border: none;
+        // position: relative;
         svg {
-          pointer-events: none;
+          color: $clr-secondary;
+
+          &:hover {
+            color: $clr-hover-dark;
+            cursor: pointer;
+          }
         }
+      }
+
+      .todo-dropdown-content {
+        display: none;
+        background-color: white;
+        border: $clr-secondary 2px solid;
+        border-radius: 10px;
+        color: $clr-text-dark;
+        position: absolute;
+        right: 36px;
+        top: 10px;
+        font-family: $normal-font;
+        width: max-content;
+
+        ul {
+          list-style: none;
+          padding: 0.5rem;
+
+          button:hover {
+            text-decoration: underline;
+          }
+
+          .todo-btn-edit,
+          .btn-add-project-todo {
+            color: $clr-text-dark;
+          }
+
+          .todo-btn-delete,
+          .project-delete {
+            color: $clr-warning;
+          }
+        }
+      }
+
+      &:hover .todo-dropdown-content {
+        display: block;
       }
     }
 
@@ -183,14 +237,14 @@ main {
       }
     }
 
-    @keyframes lineremove {
-      from {
-        text-decoration-color: $clr-warning;
-      }
-      to {
-        text-decoration-color: transparent;
-      }
-    }
+    // @keyframes lineremove {
+    //   from {
+    //     text-decoration-color: $clr-warning;
+    //   }
+    //   to {
+    //     text-decoration-color: transparent;
+    //   }
+    // }
 
     .todo-text {
       border-left: solid 1px $clr-secondary;
@@ -202,7 +256,7 @@ main {
       // text-decoration: none;
       // text-decoration-thickness: 0;
       // text-decoration-color: transparent;
-      animation: lineremove 1s linear;
+      // animation: lineremove 1s linear;
     }
 
     .todo-done {
@@ -225,55 +279,55 @@ main {
         opacity: 60%;
       }
 
-      .todo-dropdown-container {
-        position: relative;
+      // .todo-dropdown-container {
+      //   position: relative;
 
-        .todo-btn-dropdown {
-          background-color: transparent;
-          border: none;
-          // position: relative;
-          svg {
-            color: $clr-secondary;
+      //   .todo-btn-dropdown {
+      //     background-color: transparent;
+      //     border: none;
+      //     // position: relative;
+      //     svg {
+      //       color: $clr-secondary;
 
-            &:hover {
-              color: $clr-hover-dark;
-              cursor: pointer;
-            }
-          }
-        }
+      //       &:hover {
+      //         color: $clr-hover-dark;
+      //         cursor: pointer;
+      //       }
+      //     }
+      //   }
 
-        .todo-dropdown-content {
-          display: none;
-          background-color: white;
-          border: $clr-secondary 2px solid;
-          border-radius: 10px;
-          color: $clr-text-dark;
-          position: absolute;
-          right: 36px;
-          top: 10px;
+      //   .todo-dropdown-content {
+      //     display: none;
+      //     background-color: white;
+      //     border: $clr-secondary 2px solid;
+      //     border-radius: 10px;
+      //     color: $clr-text-dark;
+      //     position: absolute;
+      //     right: 36px;
+      //     top: 10px;
 
-          ul {
-            list-style: none;
-            padding: 0.5rem;
+      //     ul {
+      //       list-style: none;
+      //       padding: 0.5rem;
 
-            button:hover {
-              text-decoration: underline;
-            }
+      //       button:hover {
+      //         text-decoration: underline;
+      //       }
 
-            .todo-btn-edit {
-              color: $clr-text-dark;
-            }
+      //       .todo-btn-edit {
+      //         color: $clr-text-dark;
+      //       }
 
-            .todo-btn-delete {
-              color: $clr-warning;
-            }
-          }
-        }
+      //       .todo-btn-delete {
+      //         color: $clr-warning;
+      //       }
+      //     }
+      //   }
 
-        &:hover .todo-dropdown-content {
-          display: block;
-        }
-      }
+      //   &:hover .todo-dropdown-content {
+      //     display: block;
+      //   }
+      // }
     }
 
     .project-input-container {

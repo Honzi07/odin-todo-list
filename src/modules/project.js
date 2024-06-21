@@ -21,20 +21,27 @@ export default class Project extends Create {
     return `<div class="project" data-id="${this.id}">
       <div class="project-heading">
         <h2>${this.title}</h2>
-        <button class="btn-close project-delete">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
-            />
-          </svg>
-        </button>
-        <button class="btn-add-project-todo" data-btn-type="add-todo">Add Todo</button>
+          <div class="todo-dropdown-container">
+            <button class="todo-btn-dropdown">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 256 256"
+              >
+                <path
+                  fill="currentColor"
+                  d="M156 128a28 28 0 1 1-28-28a28 28 0 0 1 28 28ZM48 100a28 28 0 1 0 28 28a28 28 0 0 0-28-28Zm160 0a28 28 0 1 0 28 28a28 28 0 0 0-28-28Z"
+                />
+              </svg>
+            </button>
+            <div class="todo-dropdown-content">
+              <ul>
+                <li><button class="btn-add-project-todo" data-btn-type="add-todo">Add Todo</button></li>
+                <li><button class="project-delete">Delete</button></li>
+              </ul>
+            </div>
+          </div>
       </div>
         ${todo}
       <div class="project-input-container">
