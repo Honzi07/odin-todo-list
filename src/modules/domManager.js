@@ -139,7 +139,11 @@ export default class DOMManager {
 
     el.mainEl.addEventListener('click', (ev) => {
       const evDataSet = ev.target.dataset.btnType;
-      if (evDataSet === 'add-todo' || evDataSet === 'open-modal') {
+      if (
+        evDataSet === 'add-todo' ||
+        evDataSet === 'open-modal' ||
+        evDataSet === 'edit'
+      ) {
         changeRadioValidity();
       }
     });
