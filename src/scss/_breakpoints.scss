@@ -48,3 +48,24 @@
   //   display: hidden;
   // }
 }
+
+@media only screen and (min-width: 600px) {
+  .masonry-item.todo,
+  .masonry-item.project {
+    width: calc(100% - 2rem);
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .masonry-item.todo,
+  .masonry-item.project {
+    width: 45%;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .masonry-item.todo,
+  .masonry-item.project {
+    width: 30%;
+  }
+}

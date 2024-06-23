@@ -1,10 +1,13 @@
 import { isToday, isThisWeek } from 'date-fns';
 import domManager from './domManager';
+import Masonry from 'masonry-layout';
 
 export default class DOM {
   clickedElData;
+  masonry;
   constructor() {
     this.domManager = new domManager(this.allElements);
+    this.handleMasonryLayout();
   }
 
   get elementSelector() {
@@ -14,6 +17,8 @@ export default class DOM {
       modal: document.querySelector('.modal'),
       asideEl: document.querySelector('aside'),
       fieldsetRadio: document.querySelector('.input-radio'),
+      todoEl: document.querySelector('.todo'),
+      projectEL: document.querySelector('.project'),
     };
   }
 
@@ -51,6 +56,17 @@ export default class DOM {
     };
   }
 
+  handleMasonryLayout() {
+    const mainEl = this.allElements.mainEl;
+    this.masonry = new Masonry(mainEl, {
+      itemSelector: 'main > .masonry-item',
+      columnWidth: '.masonry-item',
+      percentPosition: true,
+      gutter: 20,
+      transitionDuration: '0.3s',
+    });
+  }
+
   handleFormCreateMode(createClass, projectClass, todoClass) {
     const { mainEl, inputProject, inputTodo } = this.allElements;
     const input = this.getModalInputValues();
@@ -61,12 +77,14 @@ export default class DOM {
       project.insertHtml(mainEl, project.projectHTML(todo.todoHTML()));
       project.storeTodoInTasks(todo);
       createClass.storeElement(project);
+      this.masonry.prepended(this.allElements.projectEL);
     }
 
     if (inputTodo.checked) {
       const todo = new todoClass(input.description, input.date);
       todo.insertHtml(mainEl, todo.todoHTML());
       createClass.storeElement(todo);
+      this.masonry.prepended(this.allElements.todoEl);
     }
   }
 
@@ -191,7 +209,7 @@ export default class DOM {
     });
   }
 
-  handleCreationForm(createClass, projectClass, todoClass) {
+  handleFormModes(createClass, projectClass, todoClass) {
     const form = this.allElements.form;
 
     form.addEventListener('submit', (ev) => {
@@ -206,6 +224,7 @@ export default class DOM {
       }
 
       createClass.saveTasksInLocal();
+      this.masonry.layout();
     });
   }
 
@@ -218,11 +237,13 @@ export default class DOM {
       ) {
         const evTargetEl =
           ev.target.closest('.todo') || ev.target.closest('.project');
+        this.masonry.remove(evTargetEl);
         evTargetEl.remove();
 
         const index = this.clickedElData.index;
         createClass.removeElementFromArray(arr, index.todo, index.project);
 
+        this.masonry.layout();
         createClass.saveTasksInLocal();
       }
     });
@@ -259,6 +280,8 @@ export default class DOM {
         el.completed
       );
       todo.insertHtml(mainEl, todo.todoHTML());
+      this.masonry.appended(this.allElements.todoEl);
+      this.masonry.layout();
     });
   }
 
@@ -268,7 +291,7 @@ export default class DOM {
     projectArr.forEach((el) => {
       const project = new projectClass(el.title, el.tasks, el.id);
       project.insertHtml(mainEl, project.projectHTML());
-      const projectEL = document.querySelector('.project');
+      const projectEl = this.allElements.projectEL;
 
       project.tasks.forEach((task) => {
         const todo = new todoClass(
@@ -277,9 +300,11 @@ export default class DOM {
           task.id,
           task.completed
         );
-        projectEL.insertAdjacentHTML('beforeend', todo.todoHTML());
+        projectEl.insertAdjacentHTML('beforeend', todo.todoHTML());
       });
+      this.masonry.appended(projectEl);
     });
+    this.masonry.layout();
   }
 
   checkboxEventHandler(createClass, todoClass) {
@@ -379,7 +404,7 @@ export default class DOM {
     todoArr,
     projectArr,
   }) {
-    this.handleCreationForm(createClass, projectClass, todoClass);
+    this.handleFormModes(createClass, projectClass, todoClass);
     this.displayProject(projectArr, projectClass, todoClass);
     this.displayTodo(todoArr, todoClass);
     this.saveClickedHtmlElData(createClass);

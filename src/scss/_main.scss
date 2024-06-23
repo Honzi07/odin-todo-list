@@ -1,7 +1,7 @@
 main {
   // background-color: lightgreen;
   // flex: 1;
-  padding: 2rem;
+
   // position: relative;
 
   // display: grid;
@@ -15,8 +15,33 @@ main {
   // flex-wrap: wrap;
   // gap: 2rem;
 
-  columns: auto 300px;
-  column-gap: 2rem;
+  // columns: auto 300px;
+  // column-gap: 2rem;
+
+  // display: grid;
+  // grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* This is better for small screens, once min() is better supported */
+  /* grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr)); */
+  // gap: 1rem;
+
+  display: flex;
+  // display: grid;
+  flex-wrap: wrap;
+  padding: 2rem;
+  width: 100%;
+
+  main > .masonry-item {
+    float: left;
+    // width: 100%;
+    height: min-content;
+    // border: 2px solid hsla(0, 0%, 0%, 0.5);
+    // background-color: deeppink;
+    // margin-top: 20px;
+  }
+
+  .project > .masonry-item.todo {
+    width: 100%;
+  }
 
   .btn-open-modal {
     background-color: $clr-primary;
@@ -59,15 +84,17 @@ main {
     background-color: rgb(255, 255, 255);
     border: $clr-secondary 2px solid;
     border-radius: 10px;
-    display: inline-block;
+    // display: inline-block;
     // cursor: pointer;
     // color: $clr-text-light;
     // width: 300px;
     padding: 1rem;
     transition: all 0.3s ease;
     height: min-content;
-    margin: 1rem 0;
-    width: 100%;
+    // margin: 1rem 0;
+    // width: 100%;
+    // width: calc(100% - 1rem);
+    // width: 100vw;
 
     &:hover {
       box-shadow: $shadow 4px 4px 9px 3px;

@@ -18,7 +18,7 @@ export default class Project extends Create {
   }
 
   projectHTML(todo = '') {
-    return `<div class="project" data-id="${this.id}">
+    return `<div class="project masonry-item" data-id="${this.id}">
       <div class="project-heading">
         <h2>${this.title}</h2>
           <div class="todo-dropdown-container">

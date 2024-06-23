@@ -22,7 +22,7 @@ export default class Todo extends Create {
   }
 
   todoHTML() {
-    return `<div class="todo" data-id="${this.id}">
+    return `<div class="todo masonry-item" data-id="${this.id}">
   <div class="todo-content-container">
     <label class="todo-checkbox-container">
       <input
