@@ -152,14 +152,6 @@
           margin-top: 1rem;
         }
 
-        // div input:focus:valid {
-        //   border-color: green;
-        // }
-
-        // div input:focus:invalid {
-        //   border-color: #d30000;
-        // }
-
         div input:invalid,
         div input:focus:invalid {
           border-color: $clr-warning;

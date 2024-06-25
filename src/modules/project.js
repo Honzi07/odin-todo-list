@@ -44,15 +44,6 @@ export default class Project extends Create {
           </div>
       </div>
         ${todo}
-      <div class="project-input-container">
-        <button type="button" aria-label="add task" data-id-btn></button>
-        <input
-          type="text"
-          name="project-input"
-          placeholder="Add task"
-          aria-label="enter task"
-        />
-      </div>
     </div>`;
   }
 }

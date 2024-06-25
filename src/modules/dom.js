@@ -185,16 +185,6 @@ export default class DOM {
           createClass.getTasks
         );
 
-        // const getDefinedEntries = (variable) => {
-        //   const testObj = {};
-        //   for (const [key, value] of Object.entries(variable)) {
-        //     if (value !== undefined && value !== null) {
-        //       testObj[key] = value;
-        //     }
-        //   }
-        //   return testObj;
-        // };
-
         const getDefinedEntries = (variable) => {
           return Object.fromEntries(
             Object.entries(variable).filter(

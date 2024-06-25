@@ -1,42 +1,12 @@
 main {
-  // background-color: lightgreen;
-  // flex: 1;
-
-  // position: relative;
-
-  // display: grid;
-  // gap: 2rem;
-  // grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  // break-inside: avoid;
-  // grid-template-rows: 1fr auto;
-
-  // display: flex;
-  // flex-direction: column;
-  // flex-wrap: wrap;
-  // gap: 2rem;
-
-  // columns: auto 300px;
-  // column-gap: 2rem;
-
-  // display: grid;
-  // grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  /* This is better for small screens, once min() is better supported */
-  /* grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr)); */
-  // gap: 1rem;
-
   display: flex;
-  // display: grid;
   flex-wrap: wrap;
   padding: 2rem;
   width: 100%;
 
   main > .masonry-item {
     float: left;
-    // width: 100%;
     height: min-content;
-    // border: 2px solid hsla(0, 0%, 0%, 0.5);
-    // background-color: deeppink;
-    // margin-top: 20px;
   }
 
   .project > .masonry-item.todo {
@@ -75,7 +45,6 @@ main {
 
     &:hover {
       scale: 1.1;
-      // transition: all 0.5s ease-in-out;
     }
   }
 
@@ -84,18 +53,9 @@ main {
     background-color: rgb(255, 255, 255);
     border: $clr-secondary 2px solid;
     border-radius: 10px;
-    // display: inline-block;
-    // cursor: pointer;
-    // color: $clr-text-light;
-    // width: 300px;
     padding: 1rem;
     transition: all 0.3s ease;
     height: min-content;
-    // margin: 1rem 0;
-    // width: 100%;
-    // width: calc(100% - 1rem);
-    // width: 100vw;
-
     &:hover {
       box-shadow: $shadow 4px 4px 9px 3px;
     }
@@ -109,23 +69,7 @@ main {
 
       h2 {
         font-family: $heading-font;
-        // margin-bottom: 2rem;
       }
-
-      // button.project-delete {
-      //   border-radius: 50%;
-      //   color: $clr-secondary;
-      //   padding: 6px;
-
-      //   &:hover {
-      //     background-color: #e5e5e5;
-      //     color: $clr-hover-dark;
-      //   }
-
-      //   svg {
-      //     pointer-events: none;
-      //   }
-      // }
     }
 
     .todo-dropdown-container {
@@ -134,7 +78,6 @@ main {
       .todo-btn-dropdown {
         background-color: transparent;
         border: none;
-        // position: relative;
         svg {
           color: $clr-secondary;
 
@@ -184,8 +127,6 @@ main {
 
     .project-todo,
     .todo-content-container {
-      // display: flex;
-      // flex-direction: column;
       display: grid;
       grid-template-columns: 50px auto;
       grid-template-rows: auto 50px;
@@ -195,7 +136,6 @@ main {
       border: $clr-secondary 1px solid;
       border-radius: 10px;
       font-family: $normal-font;
-      // padding: 1rem;
 
       &:not(:last-child) {
         margin-bottom: 1rem;
@@ -264,15 +204,6 @@ main {
       }
     }
 
-    // @keyframes lineremove {
-    //   from {
-    //     text-decoration-color: $clr-warning;
-    //   }
-    //   to {
-    //     text-decoration-color: transparent;
-    //   }
-    // }
-
     .todo-text {
       border-left: solid 1px $clr-secondary;
       border-bottom: solid 1px $clr-secondary;
@@ -280,10 +211,6 @@ main {
       max-height: 200px;
       overflow: auto;
       grid-area: todo;
-      // text-decoration: none;
-      // text-decoration-thickness: 0;
-      // text-decoration-color: transparent;
-      // animation: lineremove 1s linear;
     }
 
     .todo-done {
@@ -302,125 +229,10 @@ main {
       grid-area: todo-info;
 
       .todo-date {
-        // color: $clr-secondary;
         opacity: 60%;
-      }
-
-      // .todo-dropdown-container {
-      //   position: relative;
-
-      //   .todo-btn-dropdown {
-      //     background-color: transparent;
-      //     border: none;
-      //     // position: relative;
-      //     svg {
-      //       color: $clr-secondary;
-
-      //       &:hover {
-      //         color: $clr-hover-dark;
-      //         cursor: pointer;
-      //       }
-      //     }
-      //   }
-
-      //   .todo-dropdown-content {
-      //     display: none;
-      //     background-color: white;
-      //     border: $clr-secondary 2px solid;
-      //     border-radius: 10px;
-      //     color: $clr-text-dark;
-      //     position: absolute;
-      //     right: 36px;
-      //     top: 10px;
-
-      //     ul {
-      //       list-style: none;
-      //       padding: 0.5rem;
-
-      //       button:hover {
-      //         text-decoration: underline;
-      //       }
-
-      //       .todo-btn-edit {
-      //         color: $clr-text-dark;
-      //       }
-
-      //       .todo-btn-delete {
-      //         color: $clr-warning;
-      //       }
-      //     }
-      //   }
-
-      //   &:hover .todo-dropdown-content {
-      //     display: block;
-      //   }
-      // }
-    }
-
-    .project-input-container {
-      display: none;
-    }
-
-    .project-input-container.active {
-      display: block;
-      position: relative;
-
-      button {
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        // border: 2px solid $shadow;
-        border: none;
-        outline: none;
-        border-radius: 10px 0 0 10px;
-        padding: 0;
-        cursor: pointer;
-        left: 2px;
-        top: 2px;
-
-        &::before,
-        &::after {
-          content: '';
-          border-radius: 10px;
-          position: absolute;
-          display: block;
-          width: 4px;
-          height: 80%;
-          background-color: $clr-secondary;
-          right: calc(50% - 2px);
-          top: 10%;
-        }
-
-        &::after {
-          rotate: 90deg;
-        }
-
-        &:hover::after,
-        &:hover::before {
-          background-color: $clr-hover-dark;
-        }
-      }
-
-      input {
-        border-radius: 10px;
-        width: 100%;
-        padding: 8px;
-        padding-left: 50px;
-        outline: none;
-        border-color: $shadow;
-        font-family: $normal-font;
-
-        &:focus {
-          border-color: $clr-secondary;
-        }
       }
     }
   }
-  // .todo {
-  //   display: flex;
-  //   flex-direction: column;
-  //   align-items: flex-end;
-  // }
 
   .project > .todo {
     padding: 0;
