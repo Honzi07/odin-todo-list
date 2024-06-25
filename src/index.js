@@ -1,5 +1,3 @@
-import './modules/logic.js';
-import './modules/dom_o.js';
 import './scss/style.scss';
 import Create from './modules/create.js';
 import Project from './modules/project.js';
