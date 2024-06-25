@@ -136,6 +136,8 @@ export default class DOM {
         const pData = this.clickedElData.elData.project;
         el.inputTitle.labels[0].classList.add('float-label');
         el.inputTitle.value = pData.title;
+        el.inputContent.setAttribute('required', '');
+        el.inputDate.setAttribute('required', '');
       }
     });
   }
@@ -152,6 +154,8 @@ export default class DOM {
 
         el.inputContent.value = elData.todo.description;
         el.inputDate.valueAsNumber = elData.todo.dueDate;
+        el.inputContent.setAttribute('required', '');
+        el.inputDate.setAttribute('required', '');
       }
     });
   }

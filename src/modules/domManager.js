@@ -14,14 +14,21 @@ export default class DOMManager {
   }
 
   resetModal() {
-    const { form, fieldsetRadio, inputTitle, inputContent, btnSubmit } =
-      this.allElements;
-    form.reset();
-    form.dataset.mode = 'create';
-    fieldsetRadio.style.removeProperty('pointer-events');
-    inputTitle.removeAttribute('disabled');
-    inputContent.labels[0].classList.remove('float-label');
-    btnSubmit.textContent = 'Create';
+    // const { form, fieldsetRadio, inputTitle, inputContent, btnSubmit,inputDate } =
+
+    const el = this.allElements;
+
+    el.form.reset();
+    el.form.dataset.mode = 'create';
+    el.fieldsetRadio.style.removeProperty('pointer-events');
+    el.inputTitle.removeAttribute('disabled');
+    el.inputTitle.labels[0].classList.remove('float-label');
+    el.inputContent.labels[0].classList.remove('float-label');
+    el.inputTitle.classList.remove('disabled');
+    el.btnSubmit.textContent = 'Create';
+    el.inputTitle.removeAttribute('required');
+    el.inputContent.removeAttribute('required');
+    el.inputDate.removeAttribute('required');
   }
 
   modalEventsListeners() {
@@ -30,6 +37,7 @@ export default class DOMManager {
     window.addEventListener('click', (e) => {
       if (e.target === modal) {
         modal.style.display = 'none';
+        this.resetModal();
       }
     });
 
@@ -62,7 +70,7 @@ export default class DOMManager {
   }
 
   updateInputState() {
-    const { inputTodo, inputTitle, inputContent } = this.allElements;
+    const { inputTodo, inputTitle, inputContent, inputDate } = this.allElements;
 
     if (inputTodo.checked) {
       inputTitle.removeAttribute('disabled');
@@ -78,6 +86,7 @@ export default class DOMManager {
       inputContent.removeAttribute('required');
       inputContent.setAttribute('required', '');
     }
+    inputDate.setAttribute('required', '');
   }
 
   floatLabels() {
