@@ -14,8 +14,6 @@ export default class DOMManager {
   }
 
   resetModal() {
-    // const { form, fieldsetRadio, inputTitle, inputContent, btnSubmit,inputDate } =
-
     const el = this.allElements;
 
     el.form.reset();
