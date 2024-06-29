@@ -8,3 +8,38 @@ button {
     color: $clr-hover-dark;
   }
 }
+
+.btn-open-modal {
+  background-color: $clr-primary;
+  border: none;
+  border-radius: 50%;
+  box-shadow: $shadow 0 0 10px 4px;
+  cursor: pointer;
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  height: 60px;
+  width: 60px;
+  transition: all 0.2s ease;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    background-color: $clr-text-light;
+    border-radius: 10px;
+    display: block;
+    height: 60%;
+    width: 6px;
+    right: calc(50% - 3px);
+    bottom: 20%;
+  }
+
+  &::after {
+    rotate: 90deg;
+  }
+
+  &:hover {
+    scale: 1.1;
+  }
+}

@@ -70,6 +70,10 @@ export default class Todo extends Create {
 
   updateDOMElement(el) {
     el.querySelector('.todo-text').textContent = this.description;
+    el.querySelector('.todo-text').classList.toggle(
+      'todo-done',
+      this.completed
+    );
     el.querySelector('.todo-date').textContent = this.formattedDate();
   }
 }

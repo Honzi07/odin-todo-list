@@ -123,8 +123,6 @@ export default class DOM {
     const arr = createClass.getTasks;
 
     todo.updateDOMElement(targetEl);
-    targetEl.insertAdjacentHTML('beforebegin', todo.todoHTML());
-    targetEl.remove();
     createClass.updateElementInArray(todo, arr, todoIndex, projectIndex);
   }
 
@@ -198,7 +196,6 @@ export default class DOM {
           elData: getDefinedEntries(projectAndTodo),
           htmlEl: getDefinedEntries(element),
         };
-        console.log(this.clickedElData);
       }
     });
   }
@@ -219,6 +216,8 @@ export default class DOM {
 
       createClass.saveTasksInLocal();
       this.masonry.layout();
+      this.allElements.modal.style.display = 'none';
+      form.reset();
     });
   }
 
@@ -318,8 +317,6 @@ export default class DOM {
         );
         todo.changeCompleted();
         todo.updateDOMElement(todoEl);
-        todoEl.insertAdjacentHTML('beforebegin', todo.todoHTML());
-        todoEl.remove();
 
         createClass.updateElementInArray(
           todo,
